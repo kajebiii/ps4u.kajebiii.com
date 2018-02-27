@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>Code -> Image</h1>
+	<ul>
+		<li>
+			<h2>C++</h2>
+			
+			<form action="{{url_for('codeToImage')}}" method="post">
+				<textarea name="cppCode" rows="30" cols="50">{{text}}</textarea>
+				<br>
+				<input type="submit">
+			</form>
+			<br><br>
+			<img src="{{ url_for('codeToImageMaker', text = escapeText) }}">
+		</li>
+	</ul>
+{% endblock content %}
+

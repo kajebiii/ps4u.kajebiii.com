@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>해결한 문제 목록</h1>
+
+	{% set count = [0] %}
+	{% for file in files %}
+	<a href="{{ url_for('bojProblem', problemNumber=file) }}">{{ file }}</a>
+		{% if count.append(count.pop() + 1) %}{% endif %}
+		{% if count[0] % 10 == 0 %}<br>{% endif %}
+	{% endfor %}
+{% endblock content %}
+

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ problemNumber }}
+  </h1>
+  <div>
+    <ul>
+	    <li>
+		    <h2>kajebiii's code</h2>
+	    	<img src="{{ url_for('bojCode', problemNumber = problemNumber) }}">
+	    </li>
+    </ul>
+  </div>
+{% endblock content %}
+
