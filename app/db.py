@@ -6,18 +6,24 @@ past_submit = INF;
 memo_submit = INF;
 
 account = None;
+secret = None;
 categoryRoot = None;
 lock = threading.Lock();
 
 
 def importData():
 
-	global account, categoryRoot, past_submit, memo_submit;
+	global account, secret, categoryRoot, past_submit, memo_submit;
 	try:
 		with open('app/data/account.txt', 'r') as f:
 			account = json.loads(f.read())
 	except:
 		account = None;
+	try:
+		with open('app/data/secret.txt', 'r') as f:
+			secret = json.loads(f.read())
+	except:
+		secret = None;
 	try:
 		with open('app/data/problems.txt', 'r') as f:
 			past_submit = json.loads(f.read())
