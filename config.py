@@ -5,6 +5,6 @@ THREADS_PER_PAGE = 2
 
 CSRF_ENABLED     = True
 
-CSRF_SESSION_KEY = "csrf_session_key"
+CSRF_SESSION_KEY = "Dw0MVse5Un2qDcrVNYZo"
 
-SECRET_KEY = "secret_key"
+SECRET_KEY = "wIYPJDCAfgoczzrhgc5E"
