@@ -27,7 +27,6 @@ def codeToImage():
 		escapeText = html.escape(text).replace('/', '&slash;')
 		return flask.render_template('codeToImage.html', text = text, escapeText = escapeText);
 	return flask.render_template('codeToImage.html', text = exampleText, escapeText = exampleText);
-
 #KAJEBIII's BOJ AC CODE IMAGES
 @app.route('/boj/code/<int:problemNumber>/')
 def bojCode(problemNumber):
@@ -47,7 +46,6 @@ def bojCode(problemNumber):
 			cppToImage.makeImage(content, FONT_SIZE).save(byte_io, 'PNG');
 	byte_io.seek(0)
 	return flask.send_file(byte_io, mimetype='image/png')
-
 @app.route('/boj/list/')
 def bojList():
 	abs_path = os.path.join(app.root_path, 'code/')
@@ -62,65 +60,43 @@ def bojList():
 @app.route('/boj/<int:problemNumber>/')
 def bojProblem(problemNumber):
 	return flask.render_template('bojProblem.html', title=problemNumber, problemNumber=problemNumber)
-
 #LOGIN
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
-	tagGet = "Get IDs"
-	tagLogin = "Login"
-	if(flask.request.method == 'POST'):
+	tagGet = "get IDs"
+	tagLogin = "login"
+	if flask.request.method == 'POST':
 		action = flask.request.form.get('action', '');
-		if(action == "Get IDs"):
+		if action == tagGet:
 			id_BOJ = flask.request.form.get('id_BOJ', '').strip();
 			BOJinfo = requestBOJ.getBOJinfo(id_BOJ);
-			if(BOJinfo == None):
-				return flask.redirect(flask.url_for('error', errorType = "NONE_BOJ_ID"));
-				#error("NONE_BOJ_ID")
+			if BOJinfo == None: return flask.redirect(flask.url_for('error', errorType="NONE_BOJ_ID"));
 			print('USER(' + flask.session.get('id_BOJ', 'NONE') + ') login as USER(' + id_BOJ + ')');
 			flask.session['id_BOJ'] =  id_BOJ;
 			flask.session['id_AC']  = flask.session['id_BOJ'];
 			flask.session['id_TC']  = BOJinfo["Topcoder"] if "Topcoder" in BOJinfo else flask.session['id_BOJ'];
 			flask.session['id_CF']  = BOJinfo["Codeforces"] if "Codeforces" in BOJinfo else flask.session['id_BOJ'];
 		else:
-			flask.session['id_BOJ'] = flask.request.form.get('id_BOJ', '').strip();
-			flask.session['id_AC']  = flask.request.form.get('id_AC' , '').strip();
-			flask.session['id_CF']  = flask.request.form.get('id_CF' , '').strip();
-			flask.session['id_TC']  = flask.request.form.get('id_TC' , '').strip();
+			for value in ['id_BOJ', 'id_AC', 'id_CF', 'id_TC']:
+				flask.session[value] = falsek.request.form.get(value, '').strip();
 			return flask.redirect(flask.url_for('index'));
-	return flask.render_template('login.html', tagGet = tagGet, tagLogin = tagLogin);
-
-"""
-@app.route('/chest/boj/all/')
-def chestBOJAll():
-	ac_wa_info = requestBOJ.getProblemList(flask.session.get('id_BOJ', ''))
-	db.lock.acquire();
-	data = util.getCategoryTree(db.categoryRoot, ac_wa_info, 0, hasFold = False);
-	db.lock.release();
-	return flask.render_template('chestBOJOneTable.html', tableContent = data);
-
-@app.route('/chest/boj/tree')
-def chestBOJTree():
-	ac_wa_info = requestBOJ.getProblemList(flask.session.get('id_BOJ', ''))
-	db.lock.acquire();
-	data = util.getCategoryTree(db.categoryRoot, ac_wa_info, 0, hasFold = True);
-	db.lock.release();
-	return flask.render_template('chestBOJOneTable.html', tableContent = data);
-"""
-
-"""
-@app.route('/chest/boj/', methods=['GET', 'POST'])
-def chestBOJ():
-	ac_wa_info = requestBOJ.getProblemList(flask.session.get('id_BOJ', ''))
-	db.lock.acquire();
-	search = flask.request.form.get('search', "").strip();
-	if(flask.request.method == 'POST'):
-		data = util.getCategoryTable(db.categoryRoot, ac_wa_info, "출처 ", -1, flask.request.form);
-	else:
-		data = util.getCategoryTable(db.categoryRoot, ac_wa_info, "출처 ", -1);
-	db.lock.release();
-	return flask.render_template('chestBOJ.html', tableContent = data, search = search);
-"""
-
+	return flask.render_template('login/login.html', tagGet = tagGet, tagLogin = tagLogin);
+@app.route('/admin_login/', methods=['GET', 'POST'])
+def admin_login():
+	if flask.request.method == 'POST':
+		action = flask.request.form.get('action', '');
+		if action == "login":
+			identify = flask.request.form.get('id', '').strip();
+			password = flask.request.form.get('password', '').strip();
+			if db.account != None and identify == db.account['BOJ_id'] and password == db.account['BOJ_password']:
+				flask.flash("login successful")
+				return flask.redirect(flask.url_for('index'));
+			else:
+				flask.flash("login failed")
+				return flask.redirect(flask.url_for('admin_login'));
+		else: return error("INVALID IN ADMIN_LOGIN")
+	return flask.render_template('login/admin.html');
+#BOJ_CHEST
 @app.route('/chest/boj/')
 def chestBOJ():
 	ac_wa_info = requestBOJ.getProblemList(flask.session.get('id_BOJ', ''))
@@ -129,21 +105,15 @@ def chestBOJ():
 	data = db.categoryRoot;
 	db.lock.release();
 	return flask.render_template('chestBOJ.html', tableContent = json.dumps(data), ac_wa_info = json.dumps(ac_wa_info), search = search);
-
-
-
-
 #ERROR
 @app.route('/error/<string:errorType>')
 def error(errorType):
 	return flask.render_template('error.html', errorType = errorType);
-
 #INDEX
 @app.route('/')
 @app.route('/index/')
 def index():
 	return flask.render_template('index.html');
-
 #FAVICON
 @app.route('/favicon.ico')
 def favicon():

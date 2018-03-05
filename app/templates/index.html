@@ -2,68 +2,47 @@
 
 {% block content %}
   <h1>For Your Problem Solving</h1>
-	 <h2>Index</h2>
+  <h2>Index</h2>
   <ul>
-	  <li>
-			<a href="{{ url_for('bojList') }}">kajebiii's BOJ source code</a><br>
-			BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
-		</li><br>
-		<li>
-			<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
-			C++ Code를 입력하면 Image로 바꾸어 줍니다.
-		</li><br>
-		<li>
-			<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'NONE')}})</a><br>
-			로그인 할 수 있습니다.<br>
-		</li><br>
-		<li>
-			<a href="{{ url_for('chestBOJ') }}">BOJ 궤짝({{session.get('id_BOJ', '로그인이 필요합니다.')}})</a><br>
-			BOJ Category에 대한 궤짝을 볼 수 있습니다.<br>
-		</li>
-	</ul>
-		{#
-		<li>
-			<a href="http://edualgo.kajebiii.ga">기존 edualgo.kajebiii.ga</a><br>
-			edualgo.kajebiii.ga의 내용을 언젠가 옮길 생각입니다.<br>
-			그 전까지는 이 링크를 참고해주세요.
-		</li><br>
-		#}
-	 <h2>Content Test</h2>
-	 <ul>
-    <li>
-			<h3>Alpha</h3>
-			<p>2018-01-25 : /chest/boj/ 속도개선</p>
-			<p>2018-01-25 : koosa.ga 정보 갱신 중단으로 인하여 레이팅 제거</p>
-			<p>2018-01-02 : BOJ 궤짝 Table 형식 추가 및 검색 추가</p>
-			<p>2018-01-01 : BOJ 궤짝 기능 추가(하이퍼링크 적용, Unrated 문제 표시)</p>
-			<p>2018-01-01 : BOJ 궤짝 그룹 레이팅 적용(koosa.ga 기반)</p>
-			<p>2018-01-01 : BOJ 궤짝 디자인 개선(표 열 통일화, 제목 색 검은색으로 변경)</p>
-			<p>2018-01-01 : BOJ 궤짝 접기 기능 추가</p>
-			<p>2018-01-01 : BOJ 궤짝 추가</p>
-			<p>2017-12-30 : Login 기능 추가</p>
-		</li>
-		<li>
-			<h3>To Do</h3>
-			<p>개인 프로필 화면 추가</p>
-			<p>BOJ 궤짝에 기능들 추가</p>
-			<p>Atcoder 궤짝 추가</p>
-			<p>Codeforces 궤짝 추가</p>
-			<p>Topcoder 궤짝 추가</p>
-		</li>
-		<li>
-	    <h3>내용</h3>
-	    <p>
-		  할지니, 우리의 역사를 품었기 두기 있다. 같은 청춘의 무엇을 고동을 소담스러운 못하다 위하여서. 동산에는 얼마나 놀이 황금시대의 용감하고 산야에 그들의 없는 살았으며, 때문이다. 없으면, 심장의 뜨거운지라, 만천하의 가치를 설산에서 산야에 것이다. 얼마나 새가 맺어, 지혜는 착목한는 투명하되 쓸쓸한 인생의 군영과 이것이다. 피는 장식하는 뼈 무엇을 끓는다. 하였으며, 피어나기 이 심장의 들어 꽃이 것이다. 꽃 힘차게 청춘 넣는 피고, 피가 인도하겠다는 싹이 봄바람이다. 어디 얼마나 눈에 청춘에서만 이상, 튼튼하며, 얼음이 위하여서.
-	바로 그러므로 아니한 석가는 천하를 실로 청춘의 하는 구하지 칼이다. 꽃이 밥을 때에, 얼음 인생의 있다. 원질이 미인을 가장 고행을 그들의 창공에 끝까지 이 보라. 앞이 장식하는 바로 더운지라 일월과 얼음이 것이다. 찾아다녀도, 날카로우나 꽃이 꽃이 웅대한 끝에 보라. 싸인 굳세게 심장은 우리 꽃이 있을 열락의 같지 이것이다. 온갖 전인 인류의 이상 그들의 있을 운다. 보배를 커다란 긴지라 이상의 이것은 크고 이것이다. 과실이 간에 따뜻한 것은 운다.
-	장식하는 것이다.보라, 들어 사랑의 가지에 끓는 목숨을 거친 있는 쓸쓸하랴? 거선의 열락의 이상의 소담스러운 이상이 것이다. 발휘하기 튼튼하며, 꽃이 청춘 심장은 있는 있는가? 가슴이 오직 따뜻한 영락과 그들을 피에 그들에게 가진 하였으며, 끓는다. 듣기만 같이, 실로 대고, 만물은 있음으로써 교향악이다. 사랑의 이성은 발휘하기 가치를 청춘에서만 설레는 피고 어디 있는가? 그들의 낙원을 기쁘며, 밥을 트고, 있다. 실현에 인간은 크고 천지는 내는 오직 인생에 힘차게 품으며, 때문이다. 밝은 시들어 얼마나 기관과 역사를 듣는다. 이상 것은 얼음에 광야에서 쓸쓸하랴? 이상이 인간은 소금이라 붙잡아 살았으며, 얼마나 이것이야말로 끓는다.
-	    </p>
-    </li>
-	  <li>
-	    <h3>Content</h3>
-	    <p>
-		    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	    </p>
-	  </li>
+  <li>
+	  <a href="{{ url_for('bojList') }}">kajebiii's BOJ source code</a><br>
+	  BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
+  </li><br>
+  <li>
+	  <a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
+	  C++ Code를 입력하면 Image로 바꾸어 줍니다.
+  </li><br>
+  <li>
+	  <a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'NONE')}})</a><br>
+	  로그인 할 수 있습니다.<br>
+  </li><br>
+  <li>
+	  <a href="{{ url_for('chestBOJ') }}">BOJ 궤짝({{session.get('id_BOJ', '로그인이 필요합니다.')}})</a><br>
+	  BOJ Category에 대한 궤짝을 볼 수 있습니다.<br>
+  </li>
+  </ul>
+
+  <h2>Content Test</h2>
+  <ul>
+  <li>
+	  <h3>Alpha</h3>
+	  <p>2018-01-25 : /chest/boj/ 속도개선</p>
+	  <p>2018-01-25 : koosa.ga 정보 갱신 중단으로 인하여 레이팅 제거</p>
+	  <p>2018-01-02 : BOJ 궤짝 Table 형식 추가 및 검색 추가</p>
+	  <p>2018-01-01 : BOJ 궤짝 기능 추가(하이퍼링크 적용, Unrated 문제 표시)</p>
+	  <p>2018-01-01 : BOJ 궤짝 그룹 레이팅 적용(koosa.ga 기반)</p>
+	  <p>2018-01-01 : BOJ 궤짝 디자인 개선(표 열 통일화, 제목 색 검은색으로 변경)</p>
+	  <p>2018-01-01 : BOJ 궤짝 접기 기능 추가</p>
+	  <p>2018-01-01 : BOJ 궤짝 추가</p>
+	  <p>2017-12-30 : Login 기능 추가</p>
+  </li>
+  <li>
+	  <h3>To Do</h3>
+	  <p>개인 프로필 화면 추가</p>
+	  <p>BOJ 궤짝에 기능들 추가</p>
+	  <p>Atcoder 궤짝 추가</p>
+	  <p>Codeforces 궤짝 추가</p>
+  </li>
   </ul>
 
 {% endblock content %}

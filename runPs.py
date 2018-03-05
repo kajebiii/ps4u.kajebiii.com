@@ -4,6 +4,7 @@ import threading, time
 
 print('1. Import')
 db.importData()
+app.config.from_object('config')
 
 print('2. Thread')
 

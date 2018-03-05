@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>Login</h1>
+<form action="{{url_for('login')}}" method="post">
+	{{tagGet}} 버튼을 누르시면 다른 계정들의 ID가 자동으로 채워집니다.<br>
+	다른 경우에는 직접 아이디를 적어주세요.<br>
+	{{tagLogin}} 버튼을 누르면 로그인 됩니다.<br>
+	<p>
+		Baekjoon Online Judge ID: 
+		<input type="text" name="id_BOJ" value="{{session.get('id_BOJ', '')}}">
+		<input type="submit" name="action" value="{{tagGet}}">
+	</p>
+	<p>
+		Atcoder ID: 
+		<input type="text" name="id_AC" value="{{session.get('id_AC', '')}}">
+	</p>
+	<p>
+		Codeforces ID: 
+		<input type="text" name="id_CF" value="{{session.get('id_CF', '')}}">
+	</p>
+	<p>
+		Topcoder ID: 
+		<input type="text" name="id_TC" value="{{session.get('id_TC', '')}}">
+	</p>
+	<input type="submit" name="action" value="{{tagLogin}}">
+</form>
+<br>
+
+{% endblock content %}
+
