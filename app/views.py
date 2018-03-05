@@ -90,12 +90,19 @@ def admin_login():
 			password = flask.request.form.get('password', '').strip();
 			if db.account != None and identify == db.account['BOJ_id'] and password == db.account['BOJ_password']:
 				flask.flash("login successful")
+				flask.session['admin'] = True;
 				return flask.redirect(flask.url_for('index'));
 			else:
 				flask.flash("login failed")
 				return flask.redirect(flask.url_for('admin_login'));
 		else: return error("INVALID IN ADMIN_LOGIN")
 	return flask.render_template('login/admin.html');
+@app.route('/admin_logout/')
+def admin_logout():
+	if 'admin' in flask.session: 
+		flask.flash("logout successful")
+		flask.session.pop('admin')
+	return flask.redirect(flask.url_for('index'));
 #BOJ_CHEST
 @app.route('/chest/boj/')
 def chestBOJ():

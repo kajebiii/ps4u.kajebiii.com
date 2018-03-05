@@ -88,7 +88,10 @@
       <div class="info_box_big">
         <div class="intro_name text_small text_white"><a href="https://github.com/kajebiii/ps.kajebiii.ga" style="color: white; text-decoration: none;">GitHub</a></div>
         <div class="myMargin"></div>
-        <div class="intro_info text_very_small text_white"><a href="{{url_for('admin_login')}}" style="color: #2c3e50; text-decoration: none;">Admin</a></div>
+        <div class="intro_info text_very_small text_white">
+					<a href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" style="color: #2c3e50; text-decoration: none;">Admin</a>
+				</div>
+				{#session.get('admin', false) #}
       </div>
     </div>
   </div>
