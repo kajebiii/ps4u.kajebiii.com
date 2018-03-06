@@ -4,6 +4,17 @@ import os, urllib.parse, html, json
 import flask
 from io import BytesIO
 
+@app.before_request
+def check_login(*arg, **kwargs):
+	if 'login' in kwargs and kwargs['login']:
+		if not flask.session.get('id_BOJ', False):
+			return flask.redirect(flask.url_for('login'));
+@app.before_request
+def check_admin_login(*arg, **kwargs):
+	print(arg, kwargs)
+	if 'admin_login' in kwargs and kwargs['admin_login']:
+		if not flask.session.get('admin', False):
+			return flask.redirect(flask.url_for('admin_login'));
 
 #codeToImage (ONLY C++ to Image)
 @app.route('/codeToImage/text/<string:text>')
@@ -78,7 +89,7 @@ def login():
 			flask.session['id_CF']  = BOJinfo["Codeforces"] if "Codeforces" in BOJinfo else flask.session['id_BOJ'];
 		else:
 			for value in ['id_BOJ', 'id_AC', 'id_CF', 'id_TC']:
-				flask.session[value] = falsek.request.form.get(value, '').strip();
+				flask.session[value] = flask.request.form.get(value, '').strip();
 			return flask.redirect(flask.url_for('index'));
 	return flask.render_template('login/login.html', tagGet = tagGet, tagLogin = tagLogin);
 @app.route('/admin_login/', methods=['GET', 'POST'])
@@ -120,6 +131,7 @@ def error(errorType):
 @app.route('/')
 @app.route('/index/')
 def index():
+	print("hi")
 	return flask.render_template('index.html');
 #FAVICON
 @app.route('/favicon.ico')
