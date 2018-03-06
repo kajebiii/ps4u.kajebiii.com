@@ -35,12 +35,12 @@ def downloadCode(submit_id, problem):
 	codeHtml = urlData.content.decode('utf-8');
 	unescape = html.unescape(codeHtml);
 	code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0];
-	if os.path.isdir('app/code/' + problem + '/') == False:
-		os.mkdir('app/code/' + problem + '/')
-	codedir = 'app/code/' + problem + '/' + submit_id + '.cpp'
+	if os.path.isdir('app/data/private/code/' + problem + '/') == False:
+		os.mkdir('app/data/private/code/' + problem + '/')
+	codedir = 'app/data/private/code/' + problem + '/' + submit_id + '.cpp'
 	with open(codedir, 'w', encoding='utf-8') as f:
 		f.write(code)
-	imagedir = 'app/code/' + problem + '/' + submit_id + '.png'
+	imagedir = 'app/data/private/code/' + problem + '/' + submit_id + '.png'
 
 def findAClist(user_id, top_submit):
 	urlData = safeData(isPost=False, url='https://www.acmicpc.net/status/?user_id=%s&result_id=4&top=%s' % (user_id, top_submit));

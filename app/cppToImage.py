@@ -189,7 +189,7 @@ def makeImage(code, size=25):
 
     automata = 0
 #    print(url_for('static/font', filename='D2Coding.ttf'))
-    font = ImageFont.truetype("ps/static/font/D2Coding.ttf", xx)
+    font = ImageFont.truetype("app/static/font/D2Coding.ttf", xx)
     for i in range(0, len(sourceline)):
         draw.text((5 * widthv - len("" + str(i + 1)) * widthv, heightv * i), str(i+1), font=font, fill=COLOR_BLACK)
         ff = re.split('\s|\<|\>|\(|\)|\[|\]|\*|\+|\-|\/|\||\!|\&|\^|\;|\=|\"|\#|\%|\'|\,|\.|\`|\{|\}|\~', sourceline[i])

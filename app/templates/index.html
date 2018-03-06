@@ -2,48 +2,66 @@
 
 {% block content %}
   <h1>For Your Problem Solving</h1>
-	<h2>Login</h2>
 	<ul>
 	<li>
-	  <a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'NONE')}})</a><br>
-	  로그인 할 수 있습니다.
-  </li>
+		<h2>Login</h2>
+		<ul>
+		<li>
+			<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'NONE')}})</a><br>
+			로그인 할 수 있습니다.
+		</li>
+		</ul>
+	</li>
+	<li>
+		<h2>Atcoder</h2>
+		<ul>
+		<li>
+			<a href="{{ url_for('atcoderList') }}">Atcoder Problem List</a><br>
+			일본어 원문 문제의 번역과 kajebiii의 AC받은 코드를 확인할 수 있습니다.
+		</li>
+		</ul>
+	</li>
+	<li>
+		<h2>BOJ</h2>
+		<ul>
+		<li>
+			<a href="{{ url_for('bojList') }}">BOJ Problem List</a><br>
+			BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
+		<li>
+			<a href="{{ url_for('chestBOJ') }}">BOJ 궤짝({{session.get('id_BOJ', '로그인이 필요합니다.')}})</a><br>
+			BOJ Category에 대한 궤짝을 볼 수 있습니다.
+		</li>
+		</ul>
+	</li>
+	<li>
+		<h2>Utility</h2>
+		<ul>
+		<li>
+			<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
+			C++ Code를 입력하면 Image로 바꾸어 줍니다.
+		</li>
+		</ul>
+	</li>
+	<li>
+		<h2>Update</h2>
+		<p>2018-02-27 : 코드 다시 짬, GitHub로 관리 시작</p>
+		<p>2018-02-26 : 서버가 날아감</p>
+		<p>2018-01-25 : /chest/boj/ 속도개선</p>
+		<p>2018-01-25 : koosa.ga 정보 갱신 중단으로 인하여 레이팅 제거</p>
+		<p>2018-01-02 : BOJ 궤짝 Table 형식 추가 및 검색 추가</p>
+		<p>2018-01-01 : BOJ 궤짝 기능 추가(하이퍼링크 적용, Unrated 문제 표시)</p>
+		<p>2018-01-01 : BOJ 궤짝 그룹 레이팅 적용(koosa.ga 기반)</p>
+		<p>2018-01-01 : BOJ 궤짝 디자인 개선(표 열 통일화, 제목 색 검은색으로 변경)</p>
+		<p>2018-01-01 : BOJ 궤짝 접기 기능 추가</p>
+		<p>2018-01-01 : BOJ 궤짝 추가</p>
+		<p>2017-12-30 : Login 기능 추가</p>
+	</li>
+	<li>
+		<h2>To Do</h2>
+		<p>개인 프로필 화면 추가</p>
+		<p>BOJ 궤짝에 기능들 추가</p>
+		<p>Atcoder 궤짝 추가</p>
+		<p>Codeforces 궤짝 추가</p>
+	</li>
 	</ul>
-  <h2>BOJ</h2>
-  <ul>
-  <li>
-	  <a href="{{ url_for('bojList') }}">kajebiii's BOJ source code</a><br>
-	  BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
-  <li>
-	  <a href="{{ url_for('chestBOJ') }}">BOJ 궤짝({{session.get('id_BOJ', '로그인이 필요합니다.')}})</a><br>
-	  BOJ Category에 대한 궤짝을 볼 수 있습니다.
-  </li>
-  </ul>
-	<h2>Utility</h2>
-	<ul>
-  <li>
-	  <a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
-	  C++ Code를 입력하면 Image로 바꾸어 줍니다.
-  </li>
-	</ul>
-
-  <h2>Update</h2>
-	<p>2018-02-27 : 코드 다시 짬, GitHub로 관리 시작</p>
-	<p>2018-02-26 : 서버가 날아감</p>
-	<p>2018-01-25 : /chest/boj/ 속도개선</p>
-	<p>2018-01-25 : koosa.ga 정보 갱신 중단으로 인하여 레이팅 제거</p>
-	<p>2018-01-02 : BOJ 궤짝 Table 형식 추가 및 검색 추가</p>
-	<p>2018-01-01 : BOJ 궤짝 기능 추가(하이퍼링크 적용, Unrated 문제 표시)</p>
-	<p>2018-01-01 : BOJ 궤짝 그룹 레이팅 적용(koosa.ga 기반)</p>
-	<p>2018-01-01 : BOJ 궤짝 디자인 개선(표 열 통일화, 제목 색 검은색으로 변경)</p>
-	<p>2018-01-01 : BOJ 궤짝 접기 기능 추가</p>
-	<p>2018-01-01 : BOJ 궤짝 추가</p>
-	<p>2017-12-30 : Login 기능 추가</p>
-
-	<h2>To Do</h2>
-	<p>개인 프로필 화면 추가</p>
-	<p>BOJ 궤짝에 기능들 추가</p>
-	<p>Atcoder 궤짝 추가</p>
-	<p>Codeforces 궤짝 추가</p>
-
 {% endblock content %}
