@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="ko">
-
-<html>
 <head>
   <meta charset="UTF-8">
+
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
@@ -11,15 +10,15 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/shCore.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushJava.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushCpp.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/SyntaxHighlighter.js') }}"></script>
   <script type="text/javascript">SyntaxHighlighter.all()</script>
   <script type="text/x-mathjax-config" src="{{ url_for('static', filename='js/MathJax.js') }}"></script>
   <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}});</script>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
   <style>.syntaxhighlighter { padding-bottom: 1px; }</style>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/shCore.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/shThemeDefault.css') }}" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
+  <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
 	<title>
 		{% if title %}
@@ -30,48 +29,71 @@
 	</title>
 
 </head>
-<body onload="my_init()">
+<body onload="">
 
-  <nav class="container">
-    <div class="logo">
-      <a href="/index" class="white anchor_box">
-        <h1 class="center_table">PS</h1>
-      </a>
-    </div>
-    <div class="logo">
-      <h1 class="center_table">&nbsp;&nbsp;&nbsp;</h1>
-    </div>
-    <div class="logo">
-      <a href="#top" class="white anchor_box">
-        <h1 class="center_table">TOP</h1>
-      </a>
-    </div>
-    <div class="gnb anchor_box">
-      <h1 id="clock" class="text_white  center_table">
-      </h1>
-    </div>
-  </nav>
-
-  <header class="container" id="top">
-    <div class="myMargin"></div>
-  </header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<a class="navbar-brand" href="/">PS</a>
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+<div class="navbar-nav">
+{#
+<a class="nav-item nav-link" href="navbarNavAltMarkup">TOP</a>
+<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+<a class="nav-item nav-link disabled" href="#">Disabled</a>
+#}
+</div>
+</div>
+</nav>
 
 
-	<div class="container">
-	{% with messages = get_flashed_messages() %}
-		{% if messages %}
-			<ul>
-				{% for message in messages %}
-					<li>{{ message }}</li>
-				{% endfor %}
-			</ul>
-		{% endif %}
-	{% endwith %}
-
-	{% block content %}{% endblock content %}
-	</div>
 
 
+<div class="container">
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+		<ul>
+			{% for message in messages %}
+				<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+{% endwith %}
+
+<div>
+{% block content %}{% endblock content %}
+</div>
+
+<footer class="pt-4 my-md-5 pt-md-5 border-top">
+<div class="row">
+{#
+<div class="col-12 col-md">
+<img class="mb-2" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
+<small class="d-block mb-3 text-muted">© 2017-2018</small>
+</div>
+#}
+<div class="col-6 col-md text-center">
+<h5><a href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" style="color: #FFFFFF; text-decoration: none;">Admin</a></li><h5>
+<ul class="list-unstyled text-small">
+</ul>
+</div>
+<div class="col-6 col-md text-center">
+<h5>E-mail</h5>
+<ul class="list-unstyled text-small">
+<li><a class="text-muted">kajebiii (at) gmail.com</a></li>
+</ul>
+</div>
+<div class="col-6 col-md text-center">
+<h5><a "text-muted" href="https://github.com/kajebiii/ps.kajebiii.ga">GitHub<a></h5>
+<ul class="list-unstyled text-small">
+</ul>
+</div>
+</div>
+<div class="col-6 col-md text-center"><h5>© 2017-2018 kajebiii</h5></div>
+</footer>
+</div>
+{#
 <footer>
   <div class="footer_adove container">
     <div class="myMargin_25px"></div>
@@ -95,7 +117,6 @@
         <div class="intro_info text_very_small text_white">
 					<a href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" style="color: #2c3e50; text-decoration: none;">Admin</a>
 				</div>
-				{#session.get('admin', false) #}
       </div>
     </div>
   </div>
@@ -105,61 +126,7 @@
     <div class="myMargin_25px"></div>
   </div>
 </footer>
+#}
 </body>
 </html>
-<script>
-/**
- * SyntaxHighlighter
- * http://alexgorbatchev.com/SyntaxHighlighter
- * SyntaxHighlighter is donationware. If you are using it, please donate.
- * http://alexgorbatchev.com/SyntaxHighlighter/donate.html
- * @version
- * 3.0.83 (July 02 2010)
- * @copyright
- * Copyright (C) 2004-2010 Alex Gorbatchev.
- * @license
- * Dual licensed under the MIT and GPL licenses.
- */
-;(function()
-		{
-		// CommonJS
-		typeof(require) != 'undefined' ? SyntaxHighlighter = require('shCore').SyntaxHighlighter : null;
-
-		function Brush()
-		{
-		var keywords =	'abstract assert boolean break byte case catch char class const ' +
-		'continue default do double else enum extends ' +
-		'false final finally float for goto if implements import ' +
-		'instanceof int interface long native new null ' +
-		'package private protected public return ' +
-		'short static strictfp super switch synchronized this throw throws true ' +
-		'transient try void volatile while';
-
-		this.regexList = [
-		{ regex: SyntaxHighlighter.regexLib.singleLineCComments,	css: 'comments' },		// one line comments
-		{ regex: /\/\*([^\*][\s\S]*)?\*\//gm,						css: 'comments' },	 	// multiline comments
-		{ regex: /\/\*(?!\*\/)\*[\s\S]*?\*\//gm,					css: 'preprocessor' },	// documentation comments
-		{ regex: SyntaxHighlighter.regexLib.doubleQuotedString,		css: 'string' },		// strings
-		{ regex: SyntaxHighlighter.regexLib.singleQuotedString,		css: 'string' },		// strings
-		{ regex: /\b([\d]+(\.[\d]+)?|0x[a-f0-9]+)\b/gi,				css: 'value' },			// numbers
-		{ regex: /(?!\@interface\b)\@[\$\w]+\b/g,					css: 'color1' },		// annotation @anno
-		{ regex: /\@interface\b/g,									css: 'color2' },		// @interface keyword
-		{ regex: new RegExp(this.getKeywords(keywords), 'gm'),		css: 'keyword' }		// java keyword
-		];
-
-		this.forHtmlScript({
-left	: /(&lt;|<)%[@!=]?/g, 
-right	: /%(&gt;|>)/g 
-});
-};
-
-Brush.prototype	= new SyntaxHighlighter.Highlighter();
-Brush.aliases	= ['java'];
-
-SyntaxHighlighter.brushes.Java = Brush;
-
-// CommonJS
-typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
-})();
-</script>
 {% block script %}{% endblock script %}

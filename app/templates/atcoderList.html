@@ -33,6 +33,7 @@ function buildAXC() {
 	for(ix in keys) {
 		key = keys[ix];
 		var table = document.getElementById(key+"-table"); 
+		table.setAttribute("style", "table-layout: fixed; ")
 		//queue.push([0, table]);
 
 		contests[key].sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
@@ -47,6 +48,7 @@ function buildAXC() {
 				problem = problems[ix];
 				if(problem['id'].startsWith(contest)) {
 					var cell = row.insertCell(cnt); 
+					cell.setAttribute("style", "overflow: hidden; white-space: nowrap;");
 					cell.innerHTML = problem['title']; 
 					//queue.push([2, [cnt, problem['title']]);
 					cnt = cnt + 1;
@@ -54,13 +56,6 @@ function buildAXC() {
 			}
 			row.id = "row_" + contest;
 			//row.setAttribute("style", "display:none;");
-			
-			//ani_queue.push(row.id);
-			
-			//row.className = "hide";
-			//$("#row_"+contest).attr("style", "display:none;");
-			//$("#row_"+contest).attr("style", "");
-			//$("#row_"+contest).switchClass("hide", "show-row", 1)
 			isFirst = false;
 		}
 	}
