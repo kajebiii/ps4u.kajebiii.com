@@ -8,8 +8,9 @@ app.config.from_object('config')
 
 print('2. Thread')
 
-th = list()
+th = [];
 th.append(threading.Thread(target = requestKajebiiiCode.parseBOJ, daemon = True))
+th = th + db.getThreadList();
 
 requestKajebiiiCode.alive = True
 for t in th:
@@ -30,6 +31,8 @@ app.run(port=TEST, debug=DEBUG)
 print('4. Kill Thread')
 
 requestKajebiiiCode.alive = False
+db.alive = False
+
 for t in th:
 	t.join()
 

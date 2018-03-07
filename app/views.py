@@ -4,14 +4,11 @@ import os, urllib.parse, html, json
 import flask
 from io import BytesIO
 
-@app.before_request
 def check_login(*arg, **kwargs):
 	if 'login' in kwargs and kwargs['login']:
 		if not flask.session.get('id_BOJ', False):
 			return flask.redirect(flask.url_for('login'));
-@app.before_request
 def check_admin_login(*arg, **kwargs):
-	print(arg, kwargs)
 	if 'admin_login' in kwargs and kwargs['admin_login']:
 		if not flask.session.get('admin', False):
 			return flask.redirect(flask.url_for('admin_login'));
@@ -123,13 +120,28 @@ def chestBOJ():
 	search = flask.request.form.get('search', "").strip();
 	data = db.categoryRoot;
 	db.lock.release();
-	return flask.render_template('chestBOJ.html', tableContent = json.dumps(data), ac_wa_info = json.dumps(ac_wa_info), search = search);
+	return flask.render_template('chestBOJ.html', tableContent = data, ac_wa_info = ac_wa_info, search = search);
 
 #Atcoder
 @app.route('/atcoder/list/')
 def atcoderList():
-	return flask.redirect(flask.url_for('index'));
-
+	db.lock.acquire();
+	problems = db.atcoder['problem'];
+	contests = {"agc":[], "arc":[], "abc":[], "other":[]};
+	for contest in db.atcoder['contest']:
+		foundGroup = False;
+		for key in ['agc', 'arc', 'abc']:
+			if contest['id'].startswith(key):
+				contests[key].append(contest);
+				foudnGroup = True;
+				break;
+		if not foundGroup:
+			contests['other'].append(contest);
+	db.lock.release();
+	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests)
+@app.route('/atcoder/<string:problemID>/')
+def atcoderProblem(problemID):
+	return flask.render_template('atcoderProblem.html', title=problemID, problemNumber=problemID)
 #ERROR
 @app.route('/error/<string:errorType>')
 def error(errorType):

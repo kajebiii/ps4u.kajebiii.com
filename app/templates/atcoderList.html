@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>kenkoooo plus</h1>
+	<table id="agc-table">
+	</table>
+	<table id="arc-table">
+	</table>
+	<table id="abc-table">
+	</table>
+	<table id="other-table">
+	</table>
+{% endblock content %}
+
+{% block script %}
+<script>
+"user strict!"
+window.addEventListener('load', init);
+var contests = {{contests | tojson}};
+var problems = {{problems | tojson}};
+//var queue = [];
+function sleep(milliseconds) {
+	if(milliseconds > 10) return;
+	var start = new Date().getTime();
+	while((new Date().getTime() - start) <= milliseconds);
+}
+var ani_queue = [];
+function init() {
+	problems.sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
+	buildAXC();
+}
+function buildAXC() {
+	var keys = ["agc", "arc", "abc"]
+	for(ix in keys) {
+		key = keys[ix];
+		var table = document.getElementById(key+"-table"); 
+		//queue.push([0, table]);
+
+		contests[key].sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
+		//document.getElementById(key+"-table").innerHTML = contests[key].toString();
+		var isFirst = true;
+		for(ix in contests[key]) {
+			contest = contests[key][ix]['id']; 
+			//queue.push([1, contest]);
+			var row = table.insertRow(0);
+			var cnt = 0;
+			for(ix in problems) {
+				problem = problems[ix];
+				if(problem['id'].startsWith(contest)) {
+					var cell = row.insertCell(cnt); 
+					cell.innerHTML = problem['title']; 
+					//queue.push([2, [cnt, problem['title']]);
+					cnt = cnt + 1;
+				}
+			}
+			row.id = "row_" + contest;
+			//row.setAttribute("style", "display:none;");
+			
+			//ani_queue.push(row.id);
+			
+			//row.className = "hide";
+			//$("#row_"+contest).attr("style", "display:none;");
+			//$("#row_"+contest).attr("style", "");
+			//$("#row_"+contest).switchClass("hide", "show-row", 1)
+			isFirst = false;
+		}
+	}
+}
+</script>
+{% endblock script %}

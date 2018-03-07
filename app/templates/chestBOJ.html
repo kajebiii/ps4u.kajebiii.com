@@ -68,8 +68,8 @@ function getProblemURL(problem_num) {
 	return 'https://www.acmicpc.net/problem/{0}'.format(str(problem_num));
 }
 
-var tableData = JSON.parse(`{{tableContent | safe}}`);
-var ac_wa_info = JSON.parse(`{{ac_wa_info | safe}}`);
+var tableData = {{tableContent | tojson}};
+var ac_wa_info = {{ac_wa_info | tojson}};
 var searchForm = document.forms["searchForm"];
 function initTable() {
 	console.log(searchForm["search"].value);
