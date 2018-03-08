@@ -138,6 +138,7 @@ def atcoderList():
 		if not foundGroup:
 			contests['other'].append(contest);
 	db.lock.release();
+	print(problems[0])
 	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests)
 @app.route('/atcoder/<string:problemID>/')
 def atcoderProblem(problemID):

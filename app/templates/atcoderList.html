@@ -2,38 +2,56 @@
 {% block style %}
 <style>
 .table {
-		table-layout:fixed;
+	table-layout:fixed;
 }
 .table td {
-	  white-space: nowrap;
-		  overflow: hidden;
-			  text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 </style>
 {% endblock style %}
 {% block content %}
-	<h1>kenkoooo plus</h1>
-	<table id="agc-table">
-	</table>
-	<table id="arc-table">
-	</table>
-	<table id="abc-table">
-	</table>
-	<table id="other-table">
-	</table>
+	<h1>kenkooo.com/atcoder/</h1>
+	{#
+	<form name="searchForm" onsubmit="return false;">
+		<input type="submit" name="action" value="search">
+	</form>
+#}
+		<label>show AGC</label><input type="checkbox" id="agc-check" onclick="checkboxToShow()" checked>
+		<label>show ARC</label><input type="checkbox" id="arc-check" onclick="checkboxToShow()" checked>
+		<label>show ABC</label><input type="checkbox" id="abc-check" onclick="checkboxToShow()" checked>
+		{#<label>show Other</label><input type="checkbox" id="other-check" onclick="checkboxToShow()" checked>#}
+	</div>
+	<div id="agc-show"><table id="agc-table"></table></div>
+	<div id="arc-show"><table id="arc-table"></table></div>
+	<div id="abc-show"><table id="abc-table"></table></div>
+	{#<div id="other-show"><table id="other-table"></table></div>#}
 {% endblock content %}
 
 {% block script %}
 <script>
 "user strict!"
+String.prototype.format = function() {a = this;for (k in arguments) a = a.replace("{" + k + "}", arguments[k]); return a;}
+function getContestURL(contest_id) {return 'https://beta.atcoder.jp/contests/{0}/'.format(contest_id);}
+function getProblemURL(contest_id, problem_id) {return 'https://beta.atcoder.jp/contests/{0}/tasks/{1}/'.format(contest_id, problem_id);}
+function getHypertext(href, content, blank) {
+	target = ""; if(blank == true) target = 'target="_blank"';
+	return '<a href="' + href + '"' + target + '>' + content + '</a>';
+}
+function checkboxToShow() {
+	var keys = ["agc", "arc", "abc", "other"];
+	for(ix in keys) {
+		var key = keys[ix];
+		var checkbox = document.getElementById(key + '-check');
+		var divShow = document.getElementById(key + '-show');
+		if(checkbox.checked == true) divShow.style.display = "block";
+		else divShow.style.display = "none";
+	}
+}
 window.addEventListener('load', init);
 var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
-function sleep(milliseconds) {
-	if(milliseconds > 10) return;
-	var start = new Date().getTime();
-	while((new Date().getTime() - start) <= milliseconds);
-}
 var ani_queue = [];
 function init() {
 	problems.sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
@@ -44,22 +62,25 @@ function buildAXC() {
 	for(ix in keys) {
 		key = keys[ix];
 		var table = document.getElementById(key+"-table"); 
-		table.setAttribute("class", "table table-sm table-bordered table-condensed")
+		table.setAttribute("class", "table table-sm table-bordered table-condensed text-center")
 
 		contests[key].sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
 		var isFirst = true;
 		var rowCnt = 0;
 		var headRow = table.createTHead(0).insertRow(0);
+		headRow.insertCell(0).innerHTML = "Contest"
 		var bodyRow = table.createTBody(0);
 		for(ix in contests[key]) {
 			contest = contests[key][ix]['id']; 
+			title = contests[key][ix]['title'];
 			var row = bodyRow.insertRow(rowCnt); rowCnt = rowCnt + 1;
-			var cnt = 0;
+			row.insertCell(0).innerHTML = getHypertext(getContestURL(contest), key.toUpperCase() + title.substr(title.length-3), true);
+			var cnt = 1;
 			for(ix in problems) {
 				problem = problems[ix];
 				if(problem['id'].startsWith(contest)) {
 					var cell = row.insertCell(cnt); 
-					cell.innerHTML = problem['title']; 
+					cell.innerHTML = getHypertext(getProblemURL(contest, problem['id']), problem['title'], true);
 					if(isFirst) {
 						var headCell = headRow.insertCell(cnt);
 						headCell.innerHTML = problem['title'][0];

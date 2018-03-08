@@ -1,5 +1,3 @@
-
-<script>
 /**
  * SyntaxHighlighter
  * http://alexgorbatchev.com/SyntaxHighlighter
@@ -53,4 +51,3 @@ SyntaxHighlighter.brushes.Java = Brush;
 // CommonJS
 typeof(exports) != 'undefined' ? exports.Brush = Brush : null;
 })();
-</script>
