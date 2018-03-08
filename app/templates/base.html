@@ -19,6 +19,8 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	{% block style %}
+	{% endblock style %}
 
 	<title>
 		{% if title %}

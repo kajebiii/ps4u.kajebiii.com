@@ -5,36 +5,31 @@
   <h1>
   </h1>
   <div>
-		<ul>
-			<h1>BOJ 궤짝</h1>
-			{#
-			<li><h2><a href="{{url_for('chestBOJTree')}}">Folded Tree Version</a></h2></li>
-			<li>
-				<h2><a href="{{url_for('chestBOJAll')}}">Unfolded Tree Version</a></h2>
-				<p>※ 스크롤 압박 주의</p>
-			</li>
-			#}
-			<li>
-				<h2>Table Version</h2>
-				<form name="searchForm" onsubmit="initTable(); return false;">
-				<p>
-					Title
-					<input type="text" name="search" value="{{search}}" placeholder="NEERC">
-				</p>
-				<p>
-					<input type="checkbox" name="showAllAC" checked>다 푼 출처 포함하기<br>
-				</p>
-				<p>
-					<input type="checkbox" name="showUnrated" checked>풀 수 없는 출처 포함하기<br>
-				</p>
-				<p>
-					<input type="submit" name="action" value="검색하기">
-				</p>
-				</form>
-			</li>
-			<div id="tableDiv">
-			</div>
-		</ul>
+		<h3>BOJ 궤짝</h3>
+		{#
+		<li><h2><a href="{{url_for('chestBOJTree')}}">Folded Tree Version</a></h2></li>
+		<li>
+			<h2><a href="{{url_for('chestBOJAll')}}">Unfolded Tree Version</a></h2>
+			<p>※ 스크롤 압박 주의</p>
+		</li>
+		#}
+		<form name="searchForm" onsubmit="initTable(); return false;">
+		<p>
+			Title
+			<input type="text" name="search" value="{{search}}" placeholder="NEERC">
+		</p>
+		<p>
+			<input type="checkbox" name="showAllAC" checked>다 푼 출처 포함하기<br>
+		</p>
+		<p>
+			<input type="checkbox" name="showUnrated" checked>풀 수 없는 출처 포함하기<br>
+		</p>
+		<p>
+			<input type="submit" name="action" value="검색하기">
+		</p>
+		</form>
+		<div id="tableDiv">
+		</div>
   </div>
 {% endblock content %}
 
@@ -101,30 +96,27 @@ function getCategoryTable(now, ac_wa_info, subTitle, lastNum, parentTitle="") {
 			}
 			if(pcnt == ACcnt && searchForm["showUnrated"].value == "off") continue;
 			if(pcnt == URcnt && searchForm["showAllAC"].value == "off") continue;
-			res += '<table class="u"><tbody>'
-			res += '<tr>'
 			t_url = clickAble(getDetailURL(nt['num']), nt['title'])
-			res += '<td width="'+str(33.4)+'%">' + t_url + '</td>'
+			res += '<div class="d-flex justify-content-between">';
+			res += '<div><h6>' + t_url + '</h6></div>'
 			s_url = clickAble(getCategoryURL(lastNum), subTitle)
-			res += '<td width="'+str(66.6)+'%">' + s_url + '</td>'
-			res += '</tr>'
-			res += '</tbody></table>'
+			res += '<div><p class="font-weight-light">' + s_url + '</p></div>'
+			res += '</div>'
 
-			res += '<table class="d"><tbody>'
-			res += '<tr>'
+			res += '<table class="table table-sm table-bordered text-center"><tbody><tr>'
 			for(i in nt['data']['problem']) {
 				pro = nt['data']['problem'][i];
 				rated = true;//nt['data']['rating'][i]['rated'];
 
 				p_url = clickAble(getProblemURL(pro), str(pro))
-				res += '<td '
-				if(!rated) res += 'bgcolor="#FFD700">'+str(pro)+'</td>'
-				else if(ac_wa_info['AC'].indexOf(pro) != -1) res += 'bgcolor="#009F6B">'+p_url+'</td>';
-				else if(ac_wa_info['WA'].indexOf(pro) != -1) res += 'bgcolor="#E74C3C">'+p_url+'</td>';
-				else res += '>'+p_url+'</td>';
+				res += '<td ';
+				if(!rated) res += 'bgcolor="#FFD700">'+str(pro);
+				else if(ac_wa_info['AC'].indexOf(pro) != -1) res += 'bgcolor="#009F6B">'+p_url;
+				else if(ac_wa_info['WA'].indexOf(pro) != -1) res += 'bgcolor="#E74C3C">'+p_url;
+				else res += '>'+p_url;
+				res += '</td>';
 			}
-			res += '</tr>'
-			res += '</tbody></table>'
+			res += '</tr></tbody></table>'
 		}
 	}
 	for(ntix in now) {

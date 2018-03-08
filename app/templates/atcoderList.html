@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{% block style %}
+<style>
+.table {
+		table-layout:fixed;
+}
+.table td {
+	  white-space: nowrap;
+		  overflow: hidden;
+			  text-overflow: ellipsis;
+}
+</style>
+{% endblock style %}
 {% block content %}
 	<h1>kenkoooo plus</h1>
 	<table id="agc-table">
@@ -17,7 +29,6 @@
 window.addEventListener('load', init);
 var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
-//var queue = [];
 function sleep(milliseconds) {
 	if(milliseconds > 10) return;
 	var start = new Date().getTime();
@@ -33,29 +44,30 @@ function buildAXC() {
 	for(ix in keys) {
 		key = keys[ix];
 		var table = document.getElementById(key+"-table"); 
-		table.setAttribute("style", "table-layout: fixed; ")
-		//queue.push([0, table]);
+		table.setAttribute("class", "table table-sm table-bordered table-condensed")
 
 		contests[key].sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
-		//document.getElementById(key+"-table").innerHTML = contests[key].toString();
 		var isFirst = true;
+		var rowCnt = 0;
+		var headRow = table.createTHead(0).insertRow(0);
+		var bodyRow = table.createTBody(0);
 		for(ix in contests[key]) {
 			contest = contests[key][ix]['id']; 
-			//queue.push([1, contest]);
-			var row = table.insertRow(0);
+			var row = bodyRow.insertRow(rowCnt); rowCnt = rowCnt + 1;
 			var cnt = 0;
 			for(ix in problems) {
 				problem = problems[ix];
 				if(problem['id'].startsWith(contest)) {
 					var cell = row.insertCell(cnt); 
-					cell.setAttribute("style", "overflow: hidden; white-space: nowrap;");
 					cell.innerHTML = problem['title']; 
-					//queue.push([2, [cnt, problem['title']]);
+					if(isFirst) {
+						var headCell = headRow.insertCell(cnt);
+						headCell.innerHTML = problem['title'][0];
+					}
 					cnt = cnt + 1;
 				}
 			}
 			row.id = "row_" + contest;
-			//row.setAttribute("style", "display:none;");
 			isFirst = false;
 		}
 	}
