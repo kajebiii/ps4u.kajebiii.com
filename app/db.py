@@ -14,7 +14,7 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
 
 INF = 9999999999999999
 
-atcoder = {'contest':[], 'problem':[], 'translate':[]};
+atcoder = {'contest':[], 'problem':[], 'translate':{}};
 account = None;
 secret = None;
 past_submit = INF;

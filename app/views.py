@@ -160,16 +160,11 @@ def atcoderModifyTranslate():
 		problem = flask.request.form.get('problem', '');
 		translate_ko = flask.request.form.get('translate_ko', '').strip();
 		db.lock.acquire();
-		index = [index for index, value in enumerate(db.atcoder['translate']) if value["contest_id"] == contest and value["id"] == problem];
-		if len(index) == 0: 
-			if translate_ko:
-				db.atcoder['translate'].append({'id':problem, 'translate_ko':translate_ko});
+		if not problem in db.atcoder['translate']: 
+			if translate_ko: db.atcoder['translate'][problem] = {'translate_ko':translate_ko};
 		else:
-			index = index[0];
-			if translate_ko:
-				db.atcoder['translate'][index]['translate_ko'] = translate_ko;
-			else:
-				db.atcoder['translate'].pop(index);
+			if translate_ko: db.atcoder['translate'][problem] = {'translate_ko':translate_ko};
+			else: db.atcoder['translate'].pop(problem, None);
 		db.lock.release();
 
 	db.lock.acquire();
@@ -178,8 +173,13 @@ def atcoderModifyTranslate():
 	translate = db.atcoder['translate'];
 	db.lock.release();
 	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate, problem=problem, contest=contest)
-@app.route('/atcoder/<string:problemID>/')
-def atcoderProblem(problemID):
+@app.route('/atcoder/<string:problem_id>/')
+def atcoderProblem(problem_id):
+	db.lock.acquire();
+	problems = db.atcoder['problem'];
+	contests = db.atcoder['contest'];
+	translate = db.atcoder['translate'];
+	db.lock.release();
 	return flask.render_template('atcoderProblem.html', title=problemID, problemNumber=problemID)
 #ERROR
 @app.route('/error/<string:errorType>')
