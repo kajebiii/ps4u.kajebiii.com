@@ -31,7 +31,10 @@ alive = True;
 def updateAtcoderInformation():
 	while alive:
 		contest = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/contests").content.decode('utf-8'));
-		problem = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/merged-problems").content.decode('utf-8'));
+		problem = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/problems").content.decode('utf-8'));
+		#problem = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/merged-problems").content.decode('utf-8'));
+		sorted(contest, key=lambda x : x['id'])   
+		sorted(problem, key=lambda x : x['id'])   
 		lock.acquire();
 		global atcoder;
 		atcoder['contest'] = contest;

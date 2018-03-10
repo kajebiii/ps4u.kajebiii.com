@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+.table {
+	table-layout:fixed;
+}
+.table td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+</style>
+{% endblock style %}
+{% block content %}
+	<h1>Add/Edit Translate</h1>
+	<a href="{{url_for('atcoderList')}}">atcoder List</a>
+	<select id="sel1" onchange="giveSelection(this.value)">
+	</select>
+	<select id="sel2">
+	</select>
+{% endblock content %}
+
+{% block script %}
+<script>
+"user strict!"
+String.prototype.format = function() {a = this;for (k in arguments) a = a.replace("{" + k + "}", arguments[k]); return a;}
+function getContestURL(contest_id) {return 'https://beta.atcoder.jp/contests/{0}/'.format(contest_id);}
+function getProblemURL(contest_id, problem_id) {return 'https://beta.atcoder.jp/contests/{0}/tasks/{1}/'.format(contest_id, problem_id);}
+function getHypertext(href, content, blank) {
+	target = ""; if(blank == true) target = 'target="_blank"';
+	return '<a href="' + href + '"' + target + '>' + content + '</a>';
+}
+window.addEventListener('load', init);
+var contests = {{contests | tojson}};
+var problems = {{problems | tojson}};
+var translate = {{translate | tojson}};
+var sel1 = document.querySelector('#sel1');
+var sel2 = document.querySelector('#sel2');
+var options2;
+function init() {
+	for(ix in contests) {
+		contest = contests[ix];
+		var opt = document.createElement("option");
+		opt.setAttribute('value', contest['id']);
+		var node = document.createTextNode(contest['title']);
+		opt.appendChild(node);
+		sel1.appendChild(opt);
+	}
+	for(ix in problems) {
+		problem = problems[ix];
+		var opt = document.createElement("option");
+		opt.setAttribute('data-option', problem['contest_id']);
+		var node = document.createTextNode(problem['title']);
+		opt.appendChild(node);
+		sel2.appendChild(opt);
+	}
+	options2 = sel2.querySelectorAll('option');
+	giveSelection(sel1.value);
+}
+
+function giveSelection(selValue) {
+	sel2.innerHTML = '';
+	for(var i = 0; i < options2.length; i++) {
+		if(options2[i].dataset.option === selValue) {
+			sel2.appendChild(options2[i]);
+		}
+	}
+}
+
+</script>
+{% endblock script %}

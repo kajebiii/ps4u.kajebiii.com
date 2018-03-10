@@ -150,6 +150,15 @@ def atcoderList():
 	db.lock.release();
 	print(problems[0])
 	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests)
+@app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
+def atcoderModifyTranslate():
+	#if flask.request.method == 'GET':
+	db.lock.acquire();
+	problems = db.atcoder['problem'];
+	contests = db.atcoder['contest'];
+	translate = db.atcoder['translate'];
+	db.lock.release();
+	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate)
 @app.route('/atcoder/<string:problemID>/')
 def atcoderProblem(problemID):
 	return flask.render_template('atcoderProblem.html', title=problemID, problemNumber=problemID)

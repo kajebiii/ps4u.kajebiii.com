@@ -12,7 +12,10 @@
 </style>
 {% endblock style %}
 {% block content %}
-	<h1>kenkooo.com/atcoder/</h1>
+	<h1>kenkoooo.com/atcoder/</h1>
+	{% if session['admin'] %}
+	<a href="{{url_for('atcoderModifyTranslate')}}">Modify Translate</a>
+	{% endif %}
 	{#
 	<form name="searchForm" onsubmit="return false;">
 		<input type="submit" name="action" value="search">
@@ -54,7 +57,7 @@ var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
 var ani_queue = [];
 function init() {
-	problems.sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
+	return;
 	buildAXC();
 }
 function buildAXC() {
@@ -64,7 +67,6 @@ function buildAXC() {
 		var table = document.getElementById(key+"-table"); 
 		table.setAttribute("class", "table table-sm table-bordered table-condensed text-center")
 
-		contests[key].sort(function(a, b){a = a['id']; b = b['id']; return a < b ? -1 : +(a > b);})
 		var isFirst = true;
 		var rowCnt = 0;
 		var headRow = table.createTHead(0).insertRow(0);
