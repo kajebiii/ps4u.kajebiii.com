@@ -12,12 +12,17 @@
 </style>
 {% endblock style %}
 {% block content %}
-	<h1>Add/Edit Translate</h1>
+	<h1>Atcoder Modify Translate</h1>
 	<a href="{{url_for('atcoderList')}}">atcoder List</a>
-	<select id="sel1" onchange="giveSelection(this.value)">
-	</select>
-	<select id="sel2">
-	</select>
+	<form action="{{url_for('atcoderModifyTranslate')}}" method="post">
+		<div class="form-group">
+		<select class="form-control" id="sel1" name="contest" onchange="setContest(this.value)"></select>
+		<select multiple class="form-control" id="sel2" name="problem" onchange="setProblem(this.value)"></select>
+		<label for="comment">Korean Translate</label>
+		<textarea class="form-control" id="translate_ko" name="translate_ko" rows="25" id="comment"></textarea>
+		<input class="form-control" type="submit" name="action" value="Modify">
+		</div>
+	</form>
 {% endblock content %}
 
 {% block script %}
@@ -33,9 +38,12 @@ function getHypertext(href, content, blank) {
 window.addEventListener('load', init);
 var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
+var contest_id = {{contest | tojson}};
+var problem_id = {{problem | tojson}};
 var translate = {{translate | tojson}};
 var sel1 = document.querySelector('#sel1');
 var sel2 = document.querySelector('#sel2');
+var trans_ko = document.querySelector('#translate_ko');
 var options2;
 function init() {
 	for(ix in contests) {
@@ -49,22 +57,41 @@ function init() {
 	for(ix in problems) {
 		problem = problems[ix];
 		var opt = document.createElement("option");
-		opt.setAttribute('data-option', problem['contest_id']);
+		opt.setAttribute('value', problem['id']);
+		var cons = [problem['contest_id']];
+		if(problem['id'].startsWith('arc') || problem['id'].startsWith('abc')) {
+			if(problem['id'].substring(0, 6) != cons[0]) {
+				cons.push(problem['id'].substring(0, 6));
+			}
+		}
+		opt.setAttribute('data-option', cons);
 		var node = document.createTextNode(problem['title']);
 		opt.appendChild(node);
 		sel2.appendChild(opt);
 	}
 	options2 = sel2.querySelectorAll('option');
-	giveSelection(sel1.value);
+	if(contest_id != null) sel1.value = contest_id;
+	if(problem_id != null) sel2.value = problem_id;
+	setContest(sel1.value);
+	setProblem(sel2.value);
 }
 
-function giveSelection(selValue) {
+function setContest(selValue) {
+	var before = sel2.value, beforeTrue = false;
 	sel2.innerHTML = '';
-	for(var i = 0; i < options2.length; i++) {
-		if(options2[i].dataset.option === selValue) {
-			sel2.appendChild(options2[i]);
-		}
+	for(var i = 0; i < options2.length; i++) if(options2[i].dataset.option.indexOf(selValue) != -1) {
+		sel2.appendChild(options2[i]);
+		if(options2[i].value == before) beforeTrue = true;
 	}
+	if(beforeTrue) sel2.value = before;
+}
+function setProblem(selValue) {
+	var ko_data = "";
+	for(ix in translate) {
+		var tr = translate[ix]
+		if(tr['id'] == sel2.value && tr['contest_id'] == sel1.value) ko_data = tr['translate_ko'];
+	}
+	trans_ko.value = ko_data;
 }
 
 </script>

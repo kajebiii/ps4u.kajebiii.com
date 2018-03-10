@@ -14,7 +14,7 @@
 {% block content %}
 	<h1>kenkoooo.com/atcoder/</h1>
 	{% if session['admin'] %}
-	<a href="{{url_for('atcoderModifyTranslate')}}">Modify Translate</a>
+	<div><a href="{{url_for('atcoderModifyTranslate')}}">Modify Translate</a></div>
 	{% endif %}
 	{#
 	<form name="searchForm" onsubmit="return false;">
@@ -55,17 +55,26 @@ function checkboxToShow() {
 window.addEventListener('load', init);
 var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
+var translate = {{translate | tojson}};
 var ani_queue = [];
 function init() {
-	return;
 	buildAXC();
+	addTranslate();
+}
+function addTranslate() {
+	for(ix in translate) {
+		var tr = translate[ix];
+		var con_id = tr['contest_id'], pro_id = tr['id'];
+		var cell = document.getElementById(pro_id);
+		cell.innerHTML = '<div class="d-flex justify-content-between">' + '<div>'+ cell.innerHTML + '</div>' + '<div><span class="badge badge-info text-left">ko</span></div></div>';
+	}
 }
 function buildAXC() {
 	var keys = ["agc", "arc", "abc"]
 	for(ix in keys) {
 		key = keys[ix];
 		var table = document.getElementById(key+"-table"); 
-		table.setAttribute("class", "table table-sm table-bordered table-condensed text-center")
+		table.setAttribute("class", "table table-sm table-bordered table-condensed")
 
 		var isFirst = true;
 		var rowCnt = 0;
@@ -80,9 +89,10 @@ function buildAXC() {
 			var cnt = 1;
 			for(ix in problems) {
 				problem = problems[ix];
-				if(problem['id'].startsWith(contest)) {
+				if(problem['id'].startsWith(contest) || problem['contest_id'] == contest) {
 					var cell = row.insertCell(cnt); 
 					cell.innerHTML = getHypertext(getProblemURL(contest, problem['id']), problem['title'], true);
+					cell.id = problem['id'];
 					if(isFirst) {
 						var headCell = headRow.insertCell(cnt);
 						headCell.innerHTML = problem['title'][0];
@@ -90,7 +100,7 @@ function buildAXC() {
 					cnt = cnt + 1;
 				}
 			}
-			row.id = "row_" + contest;
+			row.id = contest;
 			isFirst = false;
 		}
 	}

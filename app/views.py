@@ -138,6 +138,7 @@ def atcoderList():
 	db.lock.acquire();
 	problems = db.atcoder['problem'];
 	contests = {"agc":[], "arc":[], "abc":[], "other":[]};
+	translate = db.atcoder['translate'];
 	for contest in db.atcoder['contest']:
 		foundGroup = False;
 		for key in ['agc', 'arc', 'abc']:
@@ -149,16 +150,37 @@ def atcoderList():
 			contests['other'].append(contest);
 	db.lock.release();
 	print(problems[0])
-	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests)
+	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate)
 @app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
 def atcoderModifyTranslate():
-	#if flask.request.method == 'GET':
+
+	problem = None;
+	contest = None;
+	if flask.request.method == 'POST':
+		print(flask.request.form);
+		contest = flask.request.form.get('contest', '');
+		problem = flask.request.form.get('problem', '');
+		translate_ko = flask.request.form.get('translate_ko', '').strip();
+		db.lock.acquire();
+		index = [index for index, value in enumerate(db.atcoder['translate']) if value["contest_id"] == contest and value["id"] == problem];
+		if len(index) == 0: 
+			if translate_ko:
+				db.atcoder['translate'].append({'contest_id':contest, 'id':problem, 'translate_ko':translate_ko});
+		else:
+			index = index[0];
+			if translate_ko:
+				db.atcoder['translate'][index]['translate_ko'] = translate_ko;
+			else:
+				db.atcoder['translate'].pop(index);
+		db.lock.release();
+
 	db.lock.acquire();
 	problems = db.atcoder['problem'];
 	contests = db.atcoder['contest'];
 	translate = db.atcoder['translate'];
 	db.lock.release();
-	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate)
+	print(translate);
+	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate, problem=problem, contest=contest)
 @app.route('/atcoder/<string:problemID>/')
 def atcoderProblem(problemID):
 	return flask.render_template('atcoderProblem.html', title=problemID, problemNumber=problemID)
@@ -170,7 +192,6 @@ def error(errorType):
 @app.route('/')
 @app.route('/index/')
 def index():
-	print("hi")
 	return flask.render_template('index.html');
 #FAVICON
 @app.route('/favicon.ico')

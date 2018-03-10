@@ -33,8 +33,8 @@ def updateAtcoderInformation():
 		contest = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/contests").content.decode('utf-8'));
 		#problem = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/problems").content.decode('utf-8'));
 		problem = json.loads(safeData(url="http://kenkoooo.com/atcoder/atcoder-api/info/merged-problems").content.decode('utf-8'));
-		sorted(contest, key=lambda x : x['id'])   
-		sorted(problem, key=lambda x : x['id'])   
+		contest = sorted(contest, key=lambda x : x['id'])   
+		problem = sorted(problem, key=lambda x : x['id'])   
 		lock.acquire();
 		global atcoder;
 		atcoder['contest'] = contest;
@@ -81,6 +81,7 @@ def importData():
 
 def exportData():
 	global categoryRoot, memo_submit, atcoder;
+	print(atcoder['translate']);
 	with open('app/data/atcoder.txt', 'w') as f:
 		print(json.dumps(atcoder['translate']))
 		f.write(json.dumps(atcoder['translate']))
