@@ -7,7 +7,7 @@
 		<h4>Login</h4>
 		<ul>
 		<li>
-			<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'NONE')}})</a><br>
+			<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'None')}})</a><br>
 			로그인 할 수 있습니다.
 		</li>
 		</ul>
@@ -16,8 +16,8 @@
 		<h4>Atcoder</h4>
 		<ul>
 		<li>
-			<a href="{{ url_for('atcoderList') }}">Atcoder Problem List</a><br>
-			일본어 원문 문제의 번역과 kajebiii의 AC받은 코드를 확인할 수 있습니다.
+			<a href="{{ url_for('atcoderList') }}">Problem Chest</a><br>
+			Atcoder 궤짝을 볼 수 있습니다.
 		</li>
 		</ul>
 	</li>
@@ -25,10 +25,10 @@
 		<h4>BOJ</h4>
 		<ul>
 		<li>
-			<a href="{{ url_for('bojList') }}">BOJ Problem List</a><br>
+			<a href="{{ url_for('bojList') }}">kajebiii's AC Problem List</a><br>
 			BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
 		<li>
-			<a href="{{ url_for('chestBOJ') }}">BOJ 궤짝({{session.get('id_BOJ', '로그인이 필요합니다.')}})</a><br>
+			<a href="{{ url_for('chestBOJ') }}">Category Chest({{session.get('id_BOJ', 'None')}})</a><br>
 			BOJ Category에 대한 궤짝을 볼 수 있습니다.
 		</li>
 		</ul>
