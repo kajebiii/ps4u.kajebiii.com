@@ -9,6 +9,11 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.absolute-right{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
 </style>
 {% endblock style %}
 {% block content %}
@@ -66,7 +71,7 @@ function addTranslate() {
 		var tr = translate[ix];
 		var con_id = tr['contest_id'], pro_id = tr['id'];
 		var cell = document.getElementById(pro_id);
-		cell.innerHTML = '<div class="d-flex justify-content-between">' + '<div>'+ cell.innerHTML + '</div>' + '<div><span class="badge badge-info text-left">ko</span></div></div>';
+		cell.innerHTML = cell.innerHTML + '<div class="absolute-right"><span class="badge badge-info">ko</span></div>';
 	}
 }
 function buildAXC() {
@@ -74,7 +79,7 @@ function buildAXC() {
 	for(ix in keys) {
 		key = keys[ix];
 		var table = document.getElementById(key+"-table"); 
-		table.setAttribute("class", "table table-sm table-bordered table-condensed")
+		table.setAttribute("class", "table table-sm table-bordered table-condensed text-center")
 
 		var isFirst = true;
 		var rowCnt = 0;
@@ -91,8 +96,8 @@ function buildAXC() {
 				problem = problems[ix];
 				if(problem['id'].startsWith(contest) || problem['contest_id'] == contest) {
 					var cell = row.insertCell(cnt); 
-					cell.innerHTML = getHypertext(getProblemURL(contest, problem['id']), problem['title'], true);
-					cell.id = problem['id'];
+					cell.innerHTML = '<div style="position:relative;" id="'+problem['id']+'">' + getHypertext(getProblemURL(contest, problem['id']), problem['title'], true) + '</div>';
+					//cell.id = problem['id'];
 					if(isFirst) {
 						var headCell = headRow.insertCell(cnt);
 						headCell.innerHTML = problem['title'][0];
