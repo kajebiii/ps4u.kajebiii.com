@@ -17,8 +17,8 @@ INF = 9999999999999999
 atcoder = {'contest':[], 'problem':[], 'translate':[]};
 account = None;
 secret = None;
-past_submit = 0;
-memo_submit = 0;
+past_submit = INF;
+memo_submit = INF;
 categoryRoot = None;
 lock = threading.Lock();
 
