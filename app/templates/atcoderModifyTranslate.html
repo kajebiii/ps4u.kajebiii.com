@@ -14,7 +14,7 @@
 {% block content %}
 	<h1>Atcoder Modify Translate</h1>
 	<a href="{{url_for('atcoderList')}}">atcoder List</a>
-	<form action="{{url_for('atcoderModifyTranslate')}}" method="post">
+	<form action="{{url_for('atcoderModifyTranslate')}}" onsubmit="return validateForm()" method="post">
 		<div class="form-group">
 		<select class="form-control" id="sel1" name="contest" onchange="setContest(this.value)"></select>
 		<select multiple class="form-control" id="sel2" name="problem" onchange="setProblem(this.value)"></select>
@@ -84,14 +84,24 @@ function setContest(selValue) {
 		if(options2[i].value == before) beforeTrue = true;
 	}
 	if(beforeTrue) sel2.value = before;
+	if(sel2.value == "") trans_ko.setAttribute("readonly", true);
 }
 function setProblem(selValue) {
+	if(selValue == "") return;
 	var ko_data = "";
 	for(ix in translate) {
 		var tr = translate[ix]
 		if(tr['id'] == sel2.value && tr['contest_id'] == sel1.value) ko_data = tr['translate_ko'];
 	}
 	trans_ko.value = ko_data;
+	trans_ko.removeAttribute("readonly");
+}
+
+function validateForm() {
+	if (sel2.value == "") {
+		alert("You must choose Problem");
+		return false;
+	}
 }
 
 </script>
