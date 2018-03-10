@@ -69,7 +69,8 @@ function init() {
 function addTranslate() {
 	for(pro_id in translate) {
 		var cell = document.getElementById(pro_id);
-		cell.innerHTML = cell.innerHTML + '<div class="absolute-right"><span class="badge badge-info">ko</span></div>';
+		//atcoder problem url_for is impossible..
+		cell.innerHTML = cell.innerHTML + '<div class="absolute-right">'+getHypertext('/atcoder/' + pro_id, '<span class="badge badge-info">ko</span>', true)+'</a></div>';
 	}
 }
 function buildAXC() {

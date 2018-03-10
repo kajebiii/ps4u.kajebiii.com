@@ -2,12 +2,15 @@
 
 {% block content %}
   <h1>
-    {{ problemID }}
+    {{ problem_id }}
   </h1>
   <div>
     <ul>
 	    <li>
-		    <h2>kajebiii's code</h2>
+				{% if translate['translate_ko'] %}
+		    <h2>Korean</h2>
+				<p>{{translate['translate_ko']}}</p>
+				{% endif %}
 	    </li>
     </ul>
   </div>

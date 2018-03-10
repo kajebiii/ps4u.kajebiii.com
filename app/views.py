@@ -135,7 +135,7 @@ def chestBOJ():
 #Atcoder
 @app.route('/atcoder/list/')
 def atcoderList():
-	db.lock.acquire();
+	db.lock.acquire(); 
 	problems = db.atcoder['problem'];
 	contests = {"agc":[], "arc":[], "abc":[], "other":[]};
 	translate = db.atcoder['translate'];
@@ -172,15 +172,13 @@ def atcoderModifyTranslate():
 	contests = db.atcoder['contest'];
 	translate = db.atcoder['translate'];
 	db.lock.release();
-	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate, problem=problem, contest=contest)
+	return flask.render_template('atcoderModifyTranslate.html', title="Atcoder Modify Translate",  problems=problems, contests=contests, translate=translate, problem=problem, contest=contest)
 @app.route('/atcoder/<string:problem_id>/')
 def atcoderProblem(problem_id):
 	db.lock.acquire();
-	problems = db.atcoder['problem'];
-	contests = db.atcoder['contest'];
-	translate = db.atcoder['translate'];
+	translate = db.atcoder['translate'].get(problem_id, "");
 	db.lock.release();
-	return flask.render_template('atcoderProblem.html', title=problemID, problemNumber=problemID)
+	return flask.render_template('atcoderProblem.html', title=problem_id, problem_id=problem_id, translate=translate)
 #ERROR
 @app.route('/error/<string:errorType>')
 def error(errorType):
