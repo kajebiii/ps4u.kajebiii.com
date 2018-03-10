@@ -30,10 +30,20 @@ def login():
 			flask.session['id_TC']  = BOJinfo["Topcoder"] if "Topcoder" in BOJinfo else flask.session['id_BOJ'];
 			flask.session['id_CF']  = BOJinfo["Codeforces"] if "Codeforces" in BOJinfo else flask.session['id_BOJ'];
 		else:
+			flask.flash("login successful")
 			for value in ['id_BOJ', 'id_AC', 'id_CF', 'id_TC']:
 				flask.session[value] = flask.request.form.get(value, '').strip();
 			return flask.redirect(flask.url_for('index'));
 	return flask.render_template('login/login.html', tagGet = tagGet, tagLogin = tagLogin);
+@app.route('/logout/')
+def logout():
+	if flask.session['id_BOJ']: 
+		flask.flash("logout successful")
+		flask.session.pop('id_BOJ')
+		flask.session.pop('id_AC')
+		flask.session.pop('id_TC')
+		flask.session.pop('id_CF')
+	return flask.redirect(flask.url_for('index'));
 @app.route('/admin_login/', methods=['GET', 'POST'])
 def admin_login():
 	if flask.request.method == 'POST':
@@ -42,18 +52,18 @@ def admin_login():
 			identify = flask.request.form.get('id', '').strip();
 			password = flask.request.form.get('password', '').strip();
 			if db.account != None and identify == db.account['BOJ_id'] and password == db.account['BOJ_password']:
-				flask.flash("login successful")
+				flask.flash("admin_login successful")
 				flask.session['admin'] = True;
 				return flask.redirect(flask.url_for('index'));
 			else:
-				flask.flash("login failed")
+				flask.flash("admin_login failed")
 				return flask.redirect(flask.url_for('admin_login'));
 		else: return error("INVALID IN ADMIN_LOGIN")
 	return flask.render_template('login/admin.html');
 @app.route('/admin_logout/')
 def admin_logout():
 	if 'admin' in flask.session: 
-		flask.flash("logout successful")
+		flask.flash("admin_logout successful")
 		flask.session.pop('admin')
 	return flask.redirect(flask.url_for('index'));
 

@@ -43,6 +43,7 @@ def downloadCode(submit_id, problem):
 	imagedir = 'app/data/private/code/' + problem + '/' + submit_id + '.png'
 
 def findAClist(user_id, top_submit):
+	print(user_id, top_submit);
 	urlData = safeData(isPost=False, url='https://www.acmicpc.net/status/?user_id=%s&result_id=4&top=%s' % (user_id, top_submit));
 	htmlData = urlData.content.decode('utf-8');
 
@@ -52,7 +53,7 @@ def findAClist(user_id, top_submit):
 	lastVal = 0
 	for i in range(0, len(result), 1):
 		data = result[i];
-		submit_id = re.findall('id = "solution_(.*?)"', data)[0]
+		submit_id = re.findall('id = "solution-(.*?)"', data)[0]
 		username = re.findall('<a href="/user/(.*?)"', data)[0]
 		problem = re.findall('<a href="/problem/(.*?)"', data)[0]
 		memoryuse = re.findall('<td class = "memory">(.*?)<', data)[0]
