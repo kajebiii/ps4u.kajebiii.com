@@ -69,7 +69,7 @@ function init() {
 function addTranslate() {
 	for(ix in translate) {
 		var tr = translate[ix];
-		var con_id = tr['contest_id'], pro_id = tr['id'];
+		var pro_id = tr['id'];
 		var cell = document.getElementById(pro_id);
 		cell.innerHTML = cell.innerHTML + '<div class="absolute-right"><span class="badge badge-info">ko</span></div>';
 	}

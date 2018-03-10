@@ -153,11 +153,9 @@ def atcoderList():
 	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate)
 @app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
 def atcoderModifyTranslate():
-
 	problem = None;
 	contest = None;
 	if flask.request.method == 'POST':
-		print(flask.request.form);
 		contest = flask.request.form.get('contest', '');
 		problem = flask.request.form.get('problem', '');
 		translate_ko = flask.request.form.get('translate_ko', '').strip();
@@ -165,7 +163,7 @@ def atcoderModifyTranslate():
 		index = [index for index, value in enumerate(db.atcoder['translate']) if value["contest_id"] == contest and value["id"] == problem];
 		if len(index) == 0: 
 			if translate_ko:
-				db.atcoder['translate'].append({'contest_id':contest, 'id':problem, 'translate_ko':translate_ko});
+				db.atcoder['translate'].append({'id':problem, 'translate_ko':translate_ko});
 		else:
 			index = index[0];
 			if translate_ko:
@@ -179,7 +177,6 @@ def atcoderModifyTranslate():
 	contests = db.atcoder['contest'];
 	translate = db.atcoder['translate'];
 	db.lock.release();
-	print(translate);
 	return flask.render_template('atcoderModifyTranslate.html', problems=problems, contests=contests, translate=translate, problem=problem, contest=contest)
 @app.route('/atcoder/<string:problemID>/')
 def atcoderProblem(problemID):

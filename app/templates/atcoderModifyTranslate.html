@@ -91,7 +91,7 @@ function setProblem(selValue) {
 	var ko_data = "";
 	for(ix in translate) {
 		var tr = translate[ix]
-		if(tr['id'] == sel2.value && tr['contest_id'] == sel1.value) ko_data = tr['translate_ko'];
+		if(tr['id'] == sel2.value) ko_data = tr['translate_ko'];
 	}
 	trans_ko.value = ko_data;
 	trans_ko.removeAttribute("readonly");
