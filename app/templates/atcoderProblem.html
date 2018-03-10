@@ -7,9 +7,11 @@
   <div>
     <ul>
 	    <li>
-				{% if translate['translate_ko'] %}
 		    <h2>Korean</h2>
-				<p>{{translate['translate_ko']}}</p>
+				{% if translate['translate_ko'] %}
+					<p>{{translate['translate_ko']}}</p>
+				{% else %}
+					<p>None</p>
 				{% endif %}
 	    </li>
     </ul>
