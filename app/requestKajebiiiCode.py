@@ -82,7 +82,6 @@ def parseBOJ():
 	print("Parsed aleary [1 ~ " + str(db.memo_submit) + ']');
 	login(db.account['BOJ_id'], db.account['BOJ_password'])
 	while alive:
-		time.sleep(sleepTime)
 		while now_submit >= 0:
 			now_submit = findAClist(db.account['BOJ_id'], now_submit)
 		if(now_submit == -1):
@@ -93,4 +92,8 @@ def parseBOJ():
 			now_submit = INF;
 		else:
 			failCnt = 0
+		for i in range(0, sleepTime//10):
+			time.sleep(10);
+			if(not alive): break;
+
 		#print(now_submit)
