@@ -77,7 +77,7 @@ def parseBOJ():
 		return
 
 	global now_submit
-	sleepTime = 5
+	sleepTime = 60
 	failCnt = 0
 	print("Parsed aleary [1 ~ " + str(db.memo_submit) + ']');
 	login(db.account['BOJ_id'], db.account['BOJ_password'])
@@ -87,12 +87,10 @@ def parseBOJ():
 			now_submit = findAClist(db.account['BOJ_id'], now_submit)
 		if(now_submit == -1):
 			failCnt = failCnt + 1
-			#sleepTime = min(failCnt + 5, 120)
 			if(db.past_submit != db.memo_submit):
 				print("Parsed aleary [1 ~ " + str(db.memo_submit) + ']');
 			db.past_submit = db.memo_submit
 			now_submit = INF;
 		else:
 			failCnt = 0
-			sleepTime = 2
 		#print(now_submit)
