@@ -12,11 +12,7 @@
 			</textarea>
 	</div>
 
-	<div class="col-sm">
-	<div id="preview" class="mode">
-		<div id="output" class="content markdown-body">
-		</div>
-	</div>	
+	<div id="output" class="border col-sm">
 	</div>
 	
 	</div>
@@ -45,7 +41,7 @@ $(function() {
 	$('#markdown').on('keydown keyup', function () {
 		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 	});
-	$('#markdown').keyup();
+  $('#markdown').keyup();
   
   //leave
   $(window).bind('beforeunload', function() {

@@ -7,15 +7,37 @@
 		<select class="form-control" id="sel1" name="contest" onchange="setContest(this.value)"></select>
 		<select multiple class="form-control" id="sel2" name="problem" onchange="setProblem(this.value)"></select>
 		<label for="comment">Korean Translate</label>
-		<textarea class="form-control" id="translate_ko" name="translate_ko"></textarea>
-		<input class="form-control" type="submit" name="action" value="Modify">
+		<div class="row">
+		<div class="col-sm">
+		<textarea class="form-control" id="translate_ko" name="translate_ko" style="min-height: 500px;"></textarea>
 		</div>
+		<div id="output" class="border col-sm">
+		</div>
+		</div>
+		<input class="form-control" type="submit" name="action" onclick="isEdited=false;" value="Modify">
 	</form>
 {% endblock content %}
 
 {% block script %}
 <script>
-"user strict!"
+//"user strict!"
+
+var isEdited = false;
+$(function() {
+
+  $('#translate_ko').bind('keyup', function() {
+    isEdited = true;
+    $('#output').html(markdown.toHTML($('#translate_ko').val()));
+  });
+
+	$('#translate_ko').on('keydown keyup', function () {
+		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+	});
+  
+  $(window).bind('beforeunload', function() {
+    if (isEdited) return 'Are you sure you want to leave? Your changes will be lost.';
+  });
+});
 
 
 String.prototype.format = function() {a = this;for (k in arguments) a = a.replace("{" + k + "}", arguments[k]); return a;}
@@ -36,9 +58,6 @@ var sel2 = document.querySelector('#sel2');
 var trans_ko = document.querySelector('#translate_ko');
 var options2;
 function init() {
-	$('#translate_ko').on('keydown keyup', function () {
-		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
-	});
 	for(ix in contests) {
 		contest = contests[ix];
 		var opt = document.createElement("option");
@@ -65,8 +84,9 @@ function init() {
 	options2 = sel2.querySelectorAll('option');
 	if(contest_id != null) sel1.value = contest_id;
 	if(problem_id != null) sel2.value = problem_id;
+	var temp = sel2.value;
 	setContest(sel1.value);
-	setProblem(sel2.value);
+	setProblem(temp);
 }
 
 function setContest(selValue) {
@@ -76,10 +96,12 @@ function setContest(selValue) {
 		sel2.appendChild(options2[i]);
 		if(options2[i].value == before) beforeTrue = true;
 	}
-	if(beforeTrue) sel2.value = before;
-	if(sel2.value == "") trans_ko.setAttribute("readonly", true);
+	sel2.value="";
+	$('#translate_ko').val("").keyup();
+	trans_ko.setAttribute("readonly", true);
 }
 function setProblem(selValue) {
+	sel2.value = selValue;
 	if(selValue == "") return;
 	var ko_data = "";
 	if(selValue in translate) ko_data = translate[selValue]['translate_ko'];

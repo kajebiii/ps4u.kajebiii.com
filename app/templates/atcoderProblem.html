@@ -8,6 +8,7 @@
     <ul>
 	    <li>
 		    <h2>Korean</h2>
+				{#
 				{% if translate_ko %}
 					{% for line in translate_ko %}
 						<p>{{line}}</p>
@@ -15,8 +16,17 @@
 				{% else %}
 					<p>None</p>
 				{% endif %}
+#}
+				<div id="output" class="border col-sm"></div>
 	    </li>
     </ul>
   </div>
 {% endblock content %}
 
+{% block script %}
+<script>
+$(function() {
+	$('#output').html(markdown.toHTML({{translate_ko | tojson}}));
+});
+</script>
+{% endblock script %}

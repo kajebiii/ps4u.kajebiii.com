@@ -182,9 +182,8 @@ def atcoderModifyTranslate():
 @app.route('/atcoder/<string:problem_id>/')
 def atcoderProblem(problem_id):
 	db.lock.acquire();
-	translate_ko = db.atcoder['translate'].get(problem_id, {}).get('translate_ko', "").split('\n');
+	translate_ko = db.atcoder['translate'].get(problem_id, {}).get('translate_ko', "");#.split('\n');
 	db.lock.release();
-	print(translate_ko);
 	return flask.render_template('atcoderProblem.html', title=problem_id, problem_id=problem_id, translate_ko=translate_ko)
 #ERROR
 @app.route('/error/<string:errorType>')
