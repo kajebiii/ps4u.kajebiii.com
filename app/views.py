@@ -67,9 +67,10 @@ def admin_logout():
 		flask.session.pop('admin')
 	return flask.redirect(flask.url_for('index'));
 
+#UTILITY
 #codeToImage (ONLY C++ to Image)
 FONT_SIZE = 22;
-@app.route('/codeToImage/text/<string:text>')
+@app.route('/utility/codeToImage/text/<string:text>/')
 def codeToImageMaker(text):
 	text = text.replace('&slash;', '/')
 	text = html.unescape(text)
@@ -79,7 +80,7 @@ def codeToImageMaker(text):
 	image = cppToImage.makeImage(text, FONT_SIZE).save(byte_io, 'PNG');
 	byte_io.seek(0)
 	return flask.send_file(byte_io, mimetype='image/png');
-@app.route('/codeToImage', methods=['GET', 'POST'])
+@app.route('/utility/codeToImage/', methods=['GET', 'POST'])
 def codeToImage():
 	return flask.render_template('cppHighlight.html');
 	exampleText = '#include <iostream>\n\nusing namespace std\n\nint main(){\n\t...\n}';
@@ -89,6 +90,10 @@ def codeToImage():
 		escapeText = html.escape(text).replace('/', '&slash;')
 		return flask.render_template('codeToImage.html', text = text, escapeText = escapeText);
 	return flask.render_template('codeToImage.html', text = exampleText, escapeText = exampleText);
+@app.route('/utility/realtimeMarkdown/')
+def realtimeMarkdownEditor():
+	return flask.render_template('realtimeMarkdown.html');
+	
 
 #BOJ
 @app.route('/boj/code/<int:problemNumber>/')

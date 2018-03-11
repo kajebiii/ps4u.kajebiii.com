@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block style %}
+<style>
+</style>
+{% endblock style %}
+{% block content %}
+	<h1>Realtime Markdown Editer</h1>
+	<a href="https://gist.github.com/ihoneymon/652be052a0727ad59601">Markdown Syntex[ko]</a>
+	<div class="row">
+	<div class="col-sm">
+			<textarea id="markdown" class="form-control" style="min-height: 700px;">
+			</textarea>
+	</div>
+
+	<div class="col-sm">
+	<div id="preview" class="mode">
+		<div id="output" class="content markdown-body">
+		</div>
+	</div>	
+	</div>
+	
+	</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+var example = [
+  "# hello, This is Markdown Live Preview",  "",  "----",  "## what is Markdown?",  "see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)",  "",  "> Markdown is a lightweight markup language, originally created by John Gruber and Aaron Swartz allowing people \"to write using an easy-to-read, easy-to-write plain text format, then convert it to structurally valid XHTML (or HTML)\".",  "",  "----",  "## usage",  "1. Write markdown text in this textarea.",  "2. Click 'HTML Preview' button.",  "",  "----",  "## markdown quick reference",  "# headers",  "",  "*emphasis*",  "",  "**strong**",  "",  "* list",  "",  ">block quote",  "",  "    code (4 spaces indent)",  "[links](http://wikipedia.org)",  "",  "----",  "## changelog",  "* 17-Feb-2013 re-design", "* 11-Mar-2018 kajebiii-re-design",  "",  "----",  "## thanks",
+  "* [markdown-js](https://github.com/evilstreak/markdown-js)",
+  "* [Markdown Live Preview](http://markdownlivepreview.com/)",  ""
+].join("\n");
+
+$(function() {
+  var isEdited = false;
+
+  $('#markdown').val(example);
+  $('#output').html(markdown.toHTML(example));
+  $('#markdown').bind('keyup', function() {
+    isEdited = true;
+    $('#output').html(markdown.toHTML($('#markdown').val()));
+  });
+
+  //autoresize
+  $('textarea').autosize();
+  
+  //leave
+  $(window).bind('beforeunload', function() {
+    if (isEdited) {
+      return 'Are you sure you want to leave? Your changes will be lost.';
+    }
+  });
+});
+</script>
+{% endblock script %}

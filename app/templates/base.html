@@ -6,14 +6,15 @@
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jqueryAutosizeMin.js') }}"></script>
 
   <script type="text/javascript" src="{{ url_for('static', filename='js/shCore.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushJava.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushCpp.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/SyntaxHighlighter.js') }}"></script>
   <script type="text/javascript">SyntaxHighlighter.all()</script>
-  {#<script type="text/x-mathjax-config" src="{{ url_for('static', filename='js/MathJax.js') }}"></script>#}
-	<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/markdownParser.js') }}"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}});</script>
   <style>.syntaxhighlighter { padding-bottom: 1px; }</style>
 	
