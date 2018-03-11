@@ -8,8 +8,10 @@
     <ul>
 	    <li>
 		    <h2>Korean</h2>
-				{% if translate['translate_ko'] %}
-					<p>{{translate['translate_ko']}}</p>
+				{% if translate_ko %}
+					{% for line in translate_ko %}
+						<p>{{line}}</p>
+					{% endfor %}
 				{% else %}
 					<p>None</p>
 				{% endif %}

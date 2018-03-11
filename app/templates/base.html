@@ -12,10 +12,11 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushCpp.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/SyntaxHighlighter.js') }}"></script>
   <script type="text/javascript">SyntaxHighlighter.all()</script>
-  <script type="text/x-mathjax-config" src="{{ url_for('static', filename='js/MathJax.js') }}"></script>
+  {#<script type="text/x-mathjax-config" src="{{ url_for('static', filename='js/MathJax.js') }}"></script>#}
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}});</script>
   <style>.syntaxhighlighter { padding-bottom: 1px; }</style>
-
+	
   <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
