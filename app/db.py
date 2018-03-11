@@ -81,9 +81,7 @@ def importData():
 
 def exportData():
 	global categoryRoot, memo_submit, atcoder;
-	print(atcoder['translate']);
 	with open('app/data/atcoder.txt', 'w') as f:
-		print(json.dumps(atcoder['translate']))
 		f.write(json.dumps(atcoder['translate']))
 	with open('app/data/problems.txt', 'w') as f:
 		f.write(json.dumps(memo_submit))
