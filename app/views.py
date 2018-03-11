@@ -149,7 +149,6 @@ def atcoderList():
 		if not foundGroup:
 			contests['other'].append(contest);
 	db.lock.release();
-	print(problems[0])
 	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate)
 @app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
 def atcoderModifyTranslate():
