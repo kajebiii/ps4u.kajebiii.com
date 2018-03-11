@@ -5,7 +5,7 @@
 {% endblock style %}
 {% block content %}
 	<h1>Realtime Markdown Editer</h1>
-	<a href="https://gist.github.com/ihoneymon/652be052a0727ad59601">Markdown Syntex[ko]</a>
+	<a href="https://gist.github.com/ihoneymon/652be052a0727ad59601">Markdown Syntax[ko]</a>
 	<div class="row">
 	<div class="col-sm">
 			<textarea id="markdown" class="form-control" style="min-height: 700px;">
@@ -29,7 +29,6 @@ var example = [
   "* [markdown-js](https://github.com/evilstreak/markdown-js)",
   "* [Markdown Live Preview](http://markdownlivepreview.com/)",  ""
 ].join("\n");
-
 $(function() {
   var isEdited = false;
 
@@ -41,7 +40,12 @@ $(function() {
   });
 
   //autoresize
-  $('textarea').autosize();
+  //$('#markdown').autosize();
+
+	$('#markdown').on('keydown keyup', function () {
+		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+	});
+	$('#markdown').keyup();
   
   //leave
   $(window).bind('beforeunload', function() {

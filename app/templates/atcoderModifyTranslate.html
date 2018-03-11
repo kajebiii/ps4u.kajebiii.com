@@ -1,16 +1,4 @@
 {% extends "base.html" %}
-{% block style %}
-<style>
-.table {
-	table-layout:fixed;
-}
-.table td {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-</style>
-{% endblock style %}
 {% block content %}
 	<h1>Atcoder Modify Translate</h1>
 	<a href="{{url_for('atcoderList')}}">atcoder List</a>
@@ -19,7 +7,7 @@
 		<select class="form-control" id="sel1" name="contest" onchange="setContest(this.value)"></select>
 		<select multiple class="form-control" id="sel2" name="problem" onchange="setProblem(this.value)"></select>
 		<label for="comment">Korean Translate</label>
-		<textarea class="form-control" id="translate_ko" name="translate_ko" rows="25" id="comment"></textarea>
+		<textarea class="form-control" id="translate_ko" name="translate_ko"></textarea>
 		<input class="form-control" type="submit" name="action" value="Modify">
 		</div>
 	</form>
@@ -28,6 +16,8 @@
 {% block script %}
 <script>
 "user strict!"
+
+
 String.prototype.format = function() {a = this;for (k in arguments) a = a.replace("{" + k + "}", arguments[k]); return a;}
 function getContestURL(contest_id) {return 'https://beta.atcoder.jp/contests/{0}/'.format(contest_id);}
 function getProblemURL(contest_id, problem_id) {return 'https://beta.atcoder.jp/contests/{0}/tasks/{1}/'.format(contest_id, problem_id);}
@@ -46,6 +36,9 @@ var sel2 = document.querySelector('#sel2');
 var trans_ko = document.querySelector('#translate_ko');
 var options2;
 function init() {
+	$('#translate_ko').on('keydown keyup', function () {
+		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+	});
 	for(ix in contests) {
 		contest = contests[ix];
 		var opt = document.createElement("option");
@@ -90,8 +83,9 @@ function setProblem(selValue) {
 	if(selValue == "") return;
 	var ko_data = "";
 	if(selValue in translate) ko_data = translate[selValue]['translate_ko'];
-	trans_ko.value = ko_data;
+	$('#translate_ko').val(ko_data);
 	trans_ko.removeAttribute("readonly");
+	$('#translate_ko').keyup();
 }
 
 function validateForm() {
