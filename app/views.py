@@ -5,13 +5,13 @@ import flask
 from io import BytesIO
 
 def check_login(*arg, **kwargs):
-	if 'login' in kwargs and kwargs['login']:
-		if not flask.session.get('id_BOJ', False):
-			return flask.redirect(flask.url_for('login'));
+	if not flask.session.get('id_BOJ', False):
+		flask.flash("Please login");
+		return flask.redirect(flask.url_for('login'));
 def check_admin_login(*arg, **kwargs):
-	if 'admin_login' in kwargs and kwargs['admin_login']:
-		if not flask.session.get('admin', False):
-			return flask.redirect(flask.url_for('admin_login'));
+	if not flask.session.get('admin', False):
+		flask.flash("Please admin login");
+		return flask.redirect(flask.url_for('admin_login'));
 
 #LOGIN
 @app.route('/login/', methods=['GET', 'POST'])
@@ -153,6 +153,8 @@ def atcoderList():
 	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate)
 @app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
 def atcoderModifyTranslate():
+	check = check_admin_login();
+	if(check != None): return check;
 	problem = None;
 	contest = None;
 	if flask.request.method == 'POST':
