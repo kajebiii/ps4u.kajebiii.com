@@ -6,19 +6,16 @@
 {% block content %}
 	<h1>Realtime Markdown Editer</h1>
 	<a href="https://gist.github.com/ihoneymon/652be052a0727ad59601">Markdown Syntax[ko]</a>
-	<form id="test">
 	<div class="row">
 	<div class="col-sm">
-			<textarea id="markdown" class="form-control user-editor" style="min-height: 700px;" name="t">
+			<textarea id="markdown" class="form-control" style="min-height: 700px;">
 			</textarea>
 	</div>
 
-	<div id="output" class="border col-sm markdown-body">
+	<div id="output" class="border col-sm">
 	</div>
 	
 	</div>
-	<div id="secret" style="display:none;">hi</div>
-	</form>
 {% endblock content %}
 
 {% block script %}
@@ -29,9 +26,29 @@ var example = [
   "* [Markdown Live Preview](http://markdownlivepreview.com/)",  ""
 ].join("\n");
 $(function() {
-	mwm = new markdownWithMathjax(('markdown'), ('output'), ('secret')); 
-	mwm.settingInit();
-	mwm.contentInit(example);
+  var isEdited = false;
+
+  $('#markdown').val(example);
+  $('#output').html(markdown.toHTML(example));
+  $('#markdown').bind('keyup', function() {
+    isEdited = true;
+    $('#output').html(markdown.toHTML($('#markdown').val()));
+  });
+
+  //autoresize
+  //$('#markdown').autosize();
+
+	$('#markdown').on('keydown keyup', function () {
+		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
+	});
+  $('#markdown').keyup();
+  
+  //leave
+  $(window).bind('beforeunload', function() {
+    if (isEdited) {
+      return 'Are you sure you want to leave? Your changes will be lost.';
+    }
+  });
 });
 </script>
 {% endblock script %}

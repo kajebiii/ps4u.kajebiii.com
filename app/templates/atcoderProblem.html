@@ -17,7 +17,11 @@
 					<p>None</p>
 				{% endif %}
 #}
-				<div id="output" class="border col-sm"></div>
+				<textarea id="markdown" style="display:none;"></textarea>
+				<div id="secret" style="display:none;"></div>
+				<div class="col-sm border">
+				<div id="output" class="markdown-body" style="min-height: 500px;" ></div>
+				</div>
 	    </li>
     </ul>
   </div>
@@ -26,7 +30,11 @@
 {% block script %}
 <script>
 $(function() {
-	$('#output').html(markdown.toHTML({{translate_ko | tojson}}));
+	$(function() {
+		mwm = new markdownWithMathjax(('markdown'), ('output'), ('secret')); 
+		mwm.settingInit();
+		mwm.contentInit({{translate_ko | tojson}});
+	});
 });
 </script>
 {% endblock script %}

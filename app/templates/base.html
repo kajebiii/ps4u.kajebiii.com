@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
 
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
+	<link rel="stylesheet" href="https://assets-cdn.github.com/assets/github-ac2ce2821692.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="{{ url_for('static', filename='js/jquery-ui.min.js') }}"></script>
 
@@ -12,9 +13,15 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/shBrushCpp.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='js/SyntaxHighlighter.js') }}"></script>
   <script type="text/javascript">SyntaxHighlighter.all()</script>
-	<script type="text/javascript" src="{{ url_for('static', filename='js/markdownParser.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/marked.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/markdownWithMathjax.js') }}"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-  <script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}});</script>
+  <script type="text/x-mathjax-config">
+	MathJax.Hub.Config({
+		tex2jax: {inlineMath: [["$","$"]]},
+		preRemoveClass: "user-editor",
+	});
+	</script>
   <style>.syntaxhighlighter { padding-bottom: 1px; }</style>
 	
   <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
