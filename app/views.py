@@ -1,5 +1,5 @@
 from functools import reduce
-from app import app, cppToImage, db, requestBOJ
+from app import app, cppToImage, db, requestBOJ, requestAtcoder
 import os, urllib.parse, html, json
 import flask
 from io import BytesIO
@@ -140,6 +140,7 @@ def chestBOJ():
 #Atcoder
 @app.route('/atcoder/list/')
 def atcoderList():
+	sub_info = requestAtcoder.getProblemList(flask.session.get('id_AC', ''));
 	db.lock.acquire(); 
 	problems = db.atcoder['problem'];
 	contests = {"agc":[], "arc":[], "abc":[], "other":[]};
@@ -154,7 +155,7 @@ def atcoderList():
 		if not foundGroup:
 			contests['other'].append(contest);
 	db.lock.release();
-	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate)
+	return flask.render_template('atcoderList.html', title='Atcoder list', problems=problems, contests=contests, translate=translate, sub_info = sub_info)
 @app.route('/atcoder/modify/translate/', methods=['GET', 'POST'])
 def atcoderModifyTranslate():
 	check = check_admin_login();

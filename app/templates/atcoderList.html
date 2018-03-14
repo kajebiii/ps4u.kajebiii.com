@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block style %}
 <style>
-.table {
+table.table {
 	table-layout:fixed;
 }
-.table td {
+.table td{
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -13,6 +13,12 @@
 	position: absolute;
 	top: 0px;
 	right: 0px;
+}
+td.AC{
+	background-color: #dff0d8;
+}
+td.WA{
+	background-color: #fcf8e3;
 }
 </style>
 {% endblock style %}
@@ -61,16 +67,24 @@ window.addEventListener('load', init);
 var contests = {{contests | tojson}};
 var problems = {{problems | tojson}};
 var translate = {{translate | tojson}};
+var sub_info = {{sub_info | tojson}};
 var ani_queue = [];
 function init() {
 	buildAXC();
 	addTranslate();
+	addSubinfo();
 }
 function addTranslate() {
 	for(pro_id in translate) {
 		var cell = document.getElementById(pro_id);
 		//atcoder problem url_for is impossible..
 		cell.innerHTML = cell.innerHTML + '<div class="absolute-right">'+getHypertext('/atcoder/' + pro_id, '<span class="badge badge-info">ko</span>', true)+'</a></div>';
+	}
+}
+function addSubinfo() {
+	for(sub_id in sub_info) {
+		var cell = document.getElementById(sub_id);
+		cell.setAttribute("class", sub_info[sub_id]=="AC" ? "AC" : "WA");
 	}
 }
 function buildAXC() {
@@ -95,7 +109,11 @@ function buildAXC() {
 				problem = problems[ix];
 				if(problem['id'].startsWith(contest) || problem['contest_id'] == contest) {
 					var cell = row.insertCell(cnt); 
-					cell.innerHTML = '<div style="position:relative;" id="'+problem['id']+'">' + getHypertext(getProblemURL(contest, problem['id']), problem['title'], true) + '</div>';
+					cell.setAttribute("style", "position:relative;");
+					cell.setAttribute("id", problem['id']);
+					//'<div style="position:relative;" id="'+problem['id']+'">' + 
+					cell.innerHTML = getHypertext(getProblemURL(contest, problem['id']), problem['title'], true);
+					//+ '</div>';
 					//cell.id = problem['id'];
 					if(isFirst) {
 						var headCell = headRow.insertCell(cnt);

@@ -51,7 +51,7 @@
 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 <div class="navbar-nav">
 {% if session['id_BOJ'] %}
-<a class="nav-item nav-link">{{session['id_BOJ']}} </a>
+<a class="nav-item nav-link" href="{{ url_for('login') }}">{{session['id_BOJ']}} </a>
 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
 {% else %}
 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
