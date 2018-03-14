@@ -77,6 +77,7 @@ function init() {
 function addTranslate() {
 	for(pro_id in translate) {
 		var cell = document.getElementById(pro_id);
+		if(cell == null) continue;
 		//atcoder problem url_for is impossible..
 		cell.innerHTML = cell.innerHTML + '<div class="absolute-right">'+getHypertext('/atcoder/' + pro_id, '<span class="badge badge-info">ko</span>', true)+'</a></div>';
 	}
@@ -84,6 +85,7 @@ function addTranslate() {
 function addSubinfo() {
 	for(sub_id in sub_info) {
 		var cell = document.getElementById(sub_id);
+		if(cell == null) continue;
 		cell.setAttribute("class", sub_info[sub_id]=="AC" ? "AC" : "WA");
 	}
 }
