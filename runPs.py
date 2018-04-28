@@ -22,7 +22,7 @@ parser.add_argument('-d', action='store_true')
 parser.add_argument('-t', action='store_true')
 options = parser.parse_args()
 DEBUG = True if options.d else False;
-TEST = 8000 if options.t else 8888;
+TEST = 8000 if options.t else 9999;
 
 
 print('3. Run')

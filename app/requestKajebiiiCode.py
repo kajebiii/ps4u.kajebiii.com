@@ -54,7 +54,11 @@ def findAClist(user_id, top_submit):
 		data = result[i];
 		submit_id = re.findall('id = "solution-(.*?)"', data)[0]
 		username = re.findall('<a href="/user/(.*?)"', data)[0]
-		problem = re.findall('<a href="/problem/(.*?)"', data)[0]
+		problem = re.findall('<a href="/problem/(.*?)"', data)
+		if(len(problem) == 0):
+			time.sleep(3600);
+			break;
+		problem = problem[0];
 		memoryuse = re.findall('<td class = "memory">(.*?)<', data)[0]
 		timeuse = re.findall('<td class = "time">(.*?)<', data)[0]
 #		 print(submit_id, username, problem, memoryuse, timeuse)

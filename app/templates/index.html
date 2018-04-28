@@ -1,65 +1,64 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h3>For Your Problem Solving</h3>
-	<ul>
-	<li>
-		<h4>Login</h4>
-		<ul>
-		<li>
-			<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'None')}})</a><br>
-			로그인 할 수 있습니다.
-		</li>
-		</ul>
-	</li>
-	<li>
-		<h4>Atcoder</h4>
-		<ul>
-		<li>
-			<a href="{{ url_for('atcoderList') }}">Problem Chest</a><br>
-			Atcoder 궤짝을 볼 수 있습니다.
-		</li>
-		</ul>
-	</li>
-	<li>
-		<h4>BOJ</h4>
-		<ul>
-		<li>
-			<a href="{{ url_for('bojList') }}">kajebiii's AC Problem List</a><br>
-			BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
-		<li>
-			<a href="{{ url_for('chestBOJ') }}">Category Chest({{session.get('id_BOJ', 'None')}})</a><br>
-			BOJ Category에 대한 궤짝을 볼 수 있습니다.
-		</li>
-		</ul>
-	</li>
-	<li>
-		<h4>Utility</h4>
-		<ul>
-		<li>
-			<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
-			C++ Code를 입력하면 Image로 바꾸어 줍니다.
-		</li>
-		<li>
-			<a href="{{ url_for('realtimeMarkdownEditor') }}">Realtime Markdown Editor</a><br>
-			텍스트 기반의 마크업언어 Markdown을 실시간으로 작업할 수 있습니다.
-		</li>
-		</ul>
-	</li>
-	<li>
-		<h4>Update</h4>
-		<p>2018-03-08 : Atcoder 궤짝 추가</p>
-		<p>2018-02-27 : 코드 다시 짬, GitHub로 관리 시작</p>
-		<p>2018-02-26 : 서버가 날아감</p>
-	</li>
-	<li>
-		<h4>To Do</h4>
-		<p>개인 프로필 화면 추가</p>
-		<p>BOJ 궤짝에 기능들 추가</p>
-		<p>Codeforces 궤짝 추가</p>
-		<p>Atcoder 발번역 몇 개 추가</p>
-	</li>
-	</ul>
+<h3>For Your Problem Solving</h3>
+<h4>Announcement</h4>
+<ul>
+<li>
+마땅히 더 개발할게 없어서 잠시 개발을 멈추겠습니다. <br>
+추가하고 싶은 기능이 있으시면 <a href="https://github.com/kajebiii/ps.kajebiii.ga">GitHub</a>에 Issue를 등록해주세요.
+</li>
+</ul>
+<h4>Login</h4>
+<ul>
+<li>
+	<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'None')}})</a><br>
+	로그인 할 수 있습니다.
+</li>
+</ul>
+<h4>Atcoder</h4>
+<ul>
+<li>
+	<a href="{{ url_for('atcoderList') }}">Problem Chest</a><br>
+	Atcoder 궤짝을 볼 수 있습니다. 몇몇 문제의 번역도 확인할 수 있습니다.
+</li>
+</ul>
+<h4>BOJ</h4>
+<ul>
+<li>
+	<a href="{{ url_for('bojList') }}">kajebiii's AC Problem List</a><br>
+	BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
+<li>
+	<a href="{{ url_for('chestBOJ') }}">Category Chest({{session.get('id_BOJ', 'None')}})</a><br>
+	BOJ Category에 대한 궤짝을 볼 수 있습니다.
+</li>
+</ul>
+<h4>Utility</h4>
+<ul>
+<li>
+	<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>
+	C++ Code를 입력하면 Image로 바꾸어 줍니다.
+</li>
+<li>
+	<a href="{{ url_for('realtimeMarkdownEditor') }}">Realtime Markdown Editor With Mathjax</a><br>
+	텍스트 기반의 마크업언어 Markdown를 실시간으로 작업할 수 있습니다.<br>
+</li>
+</ul>
+<h4>Update</h4>
+<ul>
+<li>2018-04-28 : BOJ Chest 링크에  ?search=검색어 를 붙여서 접근 가능하게함</li>
+<li>2018-03-14 : Atcoder AC or WA 색 칠함</li>
+<li>2018-03-12 : Markdown with Mathjax 완성</li>
+<li>2018-03-08 : Atcoder 궤짝 추가</li>
+<li>2018-02-27 : 코드 다시 짬, GitHub로 관리 시작</li>
+<li>2018-02-26 : 서버가 날아감</li>
+</ul>
+<h4>To Do</h4>
+<ul>
+<li>개인 프로필 화면 추가</li>
+<li>BOJ 궤짝에 기능들 추가</li>
+<li>Codeforces 궤짝 추가</li>
+</ul>
 {% endblock content %}
 
 {% block script %}

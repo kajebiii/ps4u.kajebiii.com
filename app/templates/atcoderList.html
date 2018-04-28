@@ -35,6 +35,7 @@ td.WA{
 		<label>show AGC</label><input type="checkbox" id="agc-check" onclick="checkboxToShow()" checked>
 		<label>show ARC</label><input type="checkbox" id="arc-check" onclick="checkboxToShow()" checked>
 		<label>show ABC</label><input type="checkbox" id="abc-check" onclick="checkboxToShow()" checked>
+		<label>Inverse</label><input type="checkbox" id="Inverse-check" onclick="inverseShow()" checked>
 		{#<label>show Other</label><input type="checkbox" id="other-check" onclick="checkboxToShow()" checked>#}
 	</div>
 	<div id="agc-show"><table id="agc-table"></table></div>
@@ -53,8 +54,19 @@ function getHypertext(href, content, blank) {
 	target = ""; if(blank == true) target = 'target="_blank"';
 	return '<a href="' + href + '"' + target + '>' + content + '</a>';
 }
+function inverseShow() {
+	$(function(){
+		$("tbody").each(function(elem,index){
+			if(this.id.startsWith("atcoder")) {
+				var arr = $.makeArray($("tr",this).detach());
+				arr.reverse();
+				$(this).append(arr);
+			}
+		});
+	});
+}
 function checkboxToShow() {
-	var keys = ["agc", "arc", "abc", "other"];
+	var keys = ["agc", "arc", "abc"];
 	for(ix in keys) {
 		var key = keys[ix];
 		var checkbox = document.getElementById(key + '-check');
@@ -73,13 +85,14 @@ function init() {
 	buildAXC();
 	addTranslate();
 	addSubinfo();
+	inverseShow();
 }
 function addTranslate() {
 	for(pro_id in translate) {
 		var cell = document.getElementById(pro_id);
 		if(cell == null) continue;
 		//atcoder problem url_for is impossible..
-		cell.innerHTML = cell.innerHTML + '<div class="absolute-right">'+getHypertext('/atcoder/' + pro_id, '<span class="badge badge-info">ko</span>', true)+'</a></div>';
+		cell.innerHTML = cell.innerHTML + '<div class="absolute-right">'+getHypertext('/atcoder/' + pro_id + '/', '<span class="badge badge-info">ko</span>', true)+'</a></div>';
 	}
 }
 function addSubinfo() {
@@ -100,7 +113,7 @@ function buildAXC() {
 		var rowCnt = 0;
 		var headRow = table.createTHead(0).insertRow(0);
 		headRow.insertCell(0).innerHTML = "Contest"
-		var bodyRow = table.createTBody(0);
+		var bodyRow = table.createTBody(0); bodyRow.id = "atcoder-"+key;
 		for(ix in contests[key]) {
 			contest = contests[key][ix]['id']; 
 			title = contests[key][ix]['title'];

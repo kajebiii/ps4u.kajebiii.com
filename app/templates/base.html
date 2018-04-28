@@ -2,6 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0">
 
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/jquery-ui.min.css') }}">
 	<link rel="stylesheet" href="https://assets-cdn.github.com/assets/github-ac2ce2821692.css">
@@ -27,6 +28,15 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/myScript.js') }}"></script>
 	
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+	<script>
+		(adsbygoogle = window.adsbygoogle || []).push({
+			google_ad_client: "ca-pub-9140723414679133",
+			enable_page_level_ads: true
+		});
+	</script>
+
 	{% block style %}
 	{% endblock style %}
 
@@ -34,22 +44,17 @@
 		{% if title %}
 			{{ title }}
 		{% else %}
-			For Your Problem Solving
+			kajebiii
 		{% endif %}
 	</title>
 
 </head>
-<body onload="">
+<body style="min-width: auto;">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" id="navbarNavAltMarkupo">
 <a class="navbar-brand" href="/">PS</a>
-{#
-<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-<span class="navbar-toggler-icon"></span>
-</button>
-#}
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 <div class="navbar-nav">
+
 {% if session['id_BOJ'] %}
 <a class="nav-item nav-link" href="{{ url_for('login') }}">{{session['id_BOJ']}} </a>
 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
@@ -59,10 +64,9 @@
 {% if session['admin'] %}
 <a class="nav-item nav-link">(Admin Mode)</a>
 {% endif %}
-</div>
+
 </div>
 </nav>
-
 
 
 
@@ -83,67 +87,27 @@
 
 <footer class="pt-4 my-md-5 pt-md-5 border-top">
 <div class="row">
-{#
-<div class="col-12 col-md">
-<img class="mb-2" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="24" height="24">
-<small class="d-block mb-3 text-muted">© 2017-2018</small>
-</div>
-#}
-<div class="col-6 col-md text-center">
+<div class="col-12 col-sm-4 text-center">
 <ul class="list-unstyled text-small">
 <h5><a class="nav-item nav-link" href="#navbarNavAltMarkup">TOP</a></h5>
 </ul>
 </div>
-<div class="col-6 col-md text-center">
+<div class="col-12 col-sm-4 text-center">
 <h5>E-mail</h5>
-<ul class="list-unstyled text-small">
-<li><a class="text-muted">kajebiii (at) gmail.com</a></li>
-</ul>
+<img src="{{ url_for('static', filename='email.png') }}" alt="E-mail" style="max-width:100%;"></img>
 <h5><a href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" style="color: #FFFFFF; text-decoration: none;">Admin</a></li><h5>
 </div>
-<div class="col-6 col-md text-center">
-<h5><a "text-muted" href="https://github.com/kajebiii/ps.kajebiii.ga">GitHub<a></h5>
+<div class="col-12 col-sm-4 text-center">
 <ul class="list-unstyled text-small">
+<h5><a "text-muted" href="https://github.com/kajebiii/ps.kajebiii.ga">GitHub<a></h5>
 </ul>
 </div>
 </div>
-<div class="col-6 col-md text-center"><h5>© 2017-2018 kajebiii</h5></div>
+<hr>
+<div class="col-12 col-md text-center"><h5>© 2017-2018 kajebiii</h5></div>
 </footer>
+
 </div>
-{#
-<footer>
-  <div class="footer_adove container">
-    <div class="myMargin_25px"></div>
-    <div class="responsive_box">
-      <div class="info_box_big">
-        <div class="myMargin"></div>
-        <div class="intro_info text_very_small text_white"></div>
-      </div>
-    </div>
-    <div class="responsive_box">
-      <div class="info_box_big">
-        <div class="intro_name text_small text_white">E-mail</div>
-        <div class="myMargin"></div>
-        <div class="intro_info text_very_small text_white">kajebiii@gmail.com</div>
-      </div>
-    </div>
-    <div class="responsive_box">
-      <div class="info_box_big">
-        <div class="intro_name text_small text_white"><a href="https://github.com/kajebiii/ps.kajebiii.ga" style="color: white; text-decoration: none;">GitHub</a></div>
-        <div class="myMargin"></div>
-        <div class="intro_info text_very_small text_white">
-					<a href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" style="color: #2c3e50; text-decoration: none;">Admin</a>
-				</div>
-      </div>
-    </div>
-  </div>
-  <div class="footer_below container">
-    <div class="myMargin_25px"></div>
-    <div class="intro_info text_very_small text_white" style="text-align: center">COPYRIGHT 2017- kajebiii</div>
-    <div class="myMargin_25px"></div>
-  </div>
-</footer>
-#}
 </body>
 </html>
 {% block script %}{% endblock script %}
