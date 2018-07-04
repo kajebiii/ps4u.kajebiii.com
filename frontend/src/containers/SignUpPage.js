@@ -10,8 +10,8 @@ const mapDispatchToProps = (dispatch) => {
         action_send_alert: (message) => {
             dispatch(send_alert(message))
         },
-        action_sign_up: (username, password, email, verify_code) => {
-            dispatch(sign_up(username, password, email, verify_code)) 
+        action_sign_up: (username, password) => {
+            dispatch(sign_up(username, password)) 
         }
     }
 }
