@@ -11,13 +11,21 @@ import configureStore from 'store/configure'
 import routes from 'routes'
 
 const baseHistory = useRouterHistory(createHistory)({ basename: process.env.PUBLIC_PATH })
-const store = configureStore({}, baseHistory)
+var initialState = {app_name:{user_state:{
+  id: 0,
+  nickname: "",
+  token: "",
+}}}
+if(localStorage.getItem("user_info")){
+  initialState = {app_name:{user_state:JSON.parse(localStorage.getItem("user_info"))}}
+}
+const store = configureStore(initialState, baseHistory)
 const history = syncHistoryWithStore(baseHistory, store)
 const root = document.getElementById('app')
 
 const renderApp = () => (
   <Provider store={store}>
-    <Router key={Math.random()} history={history} routes={routes} />
+    <Router key={Math.random()} history={history} routes={routes(store)} />
   </Provider>
 )
 
