@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 `
 
 const AccountInfo = ( {user_state, action_login, action_logout, children, ...props}) => {
-  var username = user_state.profile.username
+  var username = user_state.username
   if(username != "") {
     return (
       <Wrapper {...props}>

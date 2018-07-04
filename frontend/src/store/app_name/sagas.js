@@ -17,7 +17,7 @@ export function* watchTokenToUser(action){
     })
     if(response.ok){
         const result = yield call(() => response.json())
-        yield put(actions.set_userinfo(result.id, result.profile, result.chat_list, token))
+        yield put(actions.set_userinfo(result.id, result.username, token))
     }
     else{
         yield put(actions.login_fail())
@@ -26,7 +26,7 @@ export function* watchTokenToUser(action){
 
 export function* watchLoginFail() {
     yield put(actions.send_alert('로그인을 먼저 해주십시오.'))
-    localStorage.setItem("user_info", JSON.stringify({"id":0, "profile":{"username": "","nickname": ""}, "chat_list":[], "token":""}))
+    localStorage.setItem("user_info", JSON.stringify({"id":0, "username": "", "token":""}))
 }
 
 export function* watchValidateToken(action){
@@ -41,7 +41,7 @@ export function* watchValidateToken(action){
     })
     if(response.ok){
         const result = yield call(() => response.json())
-        yield put(actions.set_userinfo(result.id, result.profile, result.chat_list, token))
+        yield put(actions.set_userinfo(result.id, result.username, token))
         yield put(actions.send_alert('정상적으로 로그인 되었습니다.'))
     }
     else{
@@ -50,7 +50,7 @@ export function* watchValidateToken(action){
 }
 
 export function* watchLogout(action) {
-    yield put(actions.set_userinfo(0, {username: "",nickname: ""}, [], ""))
+    yield put(actions.set_userinfo(0, "", ""))
     yield put(actions.send_alert('정상적으로 로그아웃 되었습니다.'))
 }
 
@@ -80,7 +80,7 @@ export function* watchSendAlert(action) {
 }
 
 export function* watchUSERINFO(action) {
-    localStorage.setItem("user_info", JSON.stringify({"id":action.id, "profile":action.profile, "chat_list":action.chat_list, "token":action.token}))
+    localStorage.setItem("user_info", JSON.stringify({"id":action.id, "username":action.username, "token":action.token}))
 }
 
 export function* watchSignUp(action){
@@ -93,7 +93,6 @@ export function* watchSignUp(action){
         body: JSON.stringify({
             'username': action.username,
             'password': action.password,
-            'nickname': action.nickname,
         })
     });
     if(response.ok){

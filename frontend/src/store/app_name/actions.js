@@ -11,10 +11,10 @@ export const user_login = (username, password) => ({type: USER_LOGIN, username, 
 export const login_success = () => ({type: LOGIN_SUCCESS})
 export const login_fail = () => ({type: LOGIN_FAIL})
 export const validate_token = (token) => ({type: VALIDATE_TOKEN, token})
-export const set_userinfo = (id, profile, token, chat_list) => ({type: SET_USERINFO, id, profile, chat_list, token})
+export const set_userinfo = (id, username, token) => ({type: SET_USERINFO, id, username, token})
 export const user_logout = () => ({type: USER_LOGOUT})
 export const token_to_user = (token) => ({type: TOKEN_TO_USER, token})
-export const sign_up = (username, password, nickname) => ({type: SIGN_UP, username, password, nickname})
+export const sign_up = (username, password) => ({type: SIGN_UP, username, password})
 
 
 export const DEL_ALERT = 'DEL_ALERT'

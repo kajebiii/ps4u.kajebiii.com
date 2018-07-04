@@ -3,12 +3,8 @@ import { combineReducers } from 'redux';
 
 const initialUserState = {
     id: 0,
-    profile: {
-        username: "",
-        nickname: ""
-    },
+    username: "",
     token: "",
-    chat_list: [],
 }
   
 const user_state = (user_state = initialUserState, action) => {
@@ -17,7 +13,7 @@ const user_state = (user_state = initialUserState, action) => {
         case actions.USER_LOGOUT:
             return initialUserState
         case actions.SET_USERINFO:
-            return {...user_state, id: action.id, profile: action.profile, token: action.token, chat_list: action.chat_list,}
+            return {...user_state, id: action.id, username: action.username, token: action.token}
         default:
             return user_state
     }
