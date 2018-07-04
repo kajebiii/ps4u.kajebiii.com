@@ -64,6 +64,15 @@ const config = createConfig([
       publicPath,
       host,
       port,
+      proxy: {
+        "/api": {
+          target: "http://localhost:8000",
+          pathRewrite: {"^/api" : ""}
+        },
+        "/static": {
+          target: "http://localhost:8000"
+        }
+      },
     }),
     sourceMaps(),
     addPlugins([
