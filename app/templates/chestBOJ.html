@@ -14,7 +14,7 @@
 		</li>
 		#}
     <h6>Link</h6>
-    <div id="link"><a href="https://ps.kajebiii.ga/chest/boj/">https://ps.kajebiii.ga/chest/boj/</a></div>
+    <div id="link"><a href="https://ps.kajebiii.com/chest/boj/">https://ps.kajebiii.com/chest/boj/</a></div>
     <hr>
 		<form name="searchForm" onsubmit="initTable(); return false;">
 		<p>
@@ -72,7 +72,7 @@ var searchForm = document.forms["searchForm"];
 function initTable() {
 	console.log(searchForm["search"].value);
 	console.log(ac_wa_info);
-  document.getElementById('link').innerHTML = "<a href='https://ps.kajebiii.ga/chest/boj/"+"?search="+searchForm["search"].value+"'>https://ps.kajebiii.ga/chest/boj/"+"?search="+searchForm["search"].value+"</a>";
+  document.getElementById('link').innerHTML = "<a href='https://ps.kajebiii.com/chest/boj/"+"?search="+searchForm["search"].value+"'>https://ps.kajebiii.com/chest/boj/"+"?search="+searchForm["search"].value+"</a>";
 	document.getElementById("tableDiv").innerHTML = getCategoryTable(tableData, ac_wa_info, "출처 ", -1);
 }
 function getCategoryTable(now, ac_wa_info, subTitle, lastNum, parentTitle="") {
