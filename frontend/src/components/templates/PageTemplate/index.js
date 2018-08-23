@@ -18,7 +18,7 @@ const PageTemplate = ( {children, ...props} ) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbarNavAltMarkupo">
-      <Link to="/" className="navbar-brand" href="/">Problem Solving For You</Link>
+      <Link to="/" className="navbar-brand" href="/">PS4U</Link>
       <AccountInfo {...props}/>
       </nav>
       
