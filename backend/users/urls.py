@@ -1,5 +1,5 @@
 from rest_framework.urlpatterns import format_suffix_patterns
-from app_name import views
+from users import views
 from django.conf.urls import url
 from django.conf.urls import include
 
