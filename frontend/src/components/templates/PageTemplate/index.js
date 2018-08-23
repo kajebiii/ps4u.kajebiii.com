@@ -8,8 +8,8 @@ import { Link } from 'react-router'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
 `
