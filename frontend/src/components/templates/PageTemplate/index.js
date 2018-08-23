@@ -14,27 +14,14 @@ const Wrapper = styled.div`
   height: 100%;
 `
 
-const Header = styled.div`
-  position: relative;
-  width: 100%;
-  background-color: #222;
-`
-
-const Title = styled.h1`
-  padding: 20px;
-  margin: 0;
-  font-size: 2em;
-  font-weight: bold;
-  color: #ddd;
-`
-
 const PageTemplate = ( {children, ...props} ) => {
   return (
     <div>
-      <Header>
-        <AccountInfo {...props}/>
-        <Link to="/" style={{'text-decoration': 'none'}}><Title>Problem Solving For You</Title></Link>
-      </Header>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbarNavAltMarkupo">
+      <Link to="/" className="navbar-brand" href="/">Problem Solving For You</Link>
+      <AccountInfo {...props}/>
+      </nav>
+      
       <Wrapper>
         {children}
         <AlertList/>
