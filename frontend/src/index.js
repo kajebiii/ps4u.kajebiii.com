@@ -11,13 +11,13 @@ import configureStore from 'store/configure'
 import routes from 'routes'
 
 const baseHistory = useRouterHistory(createHistory)({ basename: process.env.PUBLIC_PATH })
-var initialState = {app_name:{user_state:{
+var initialState = {ps4u:{user_state:{
   id: 0,
   nickname: "",
   token: "",
 }}}
 if(localStorage.getItem("user_info")){
-  initialState = {app_name:{user_state:JSON.parse(localStorage.getItem("user_info"))}}
+  initialState = {ps4u:{user_state:JSON.parse(localStorage.getItem("user_info"))}}
 }
 const store = configureStore(initialState, baseHistory)
 const history = syncHistoryWithStore(baseHistory, store)

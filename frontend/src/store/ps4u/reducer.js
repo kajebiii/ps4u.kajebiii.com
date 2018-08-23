@@ -34,9 +34,9 @@ const alert_state = (alert_state = initialAlertState, action) => {
 }
 
 
-const cosnu_reducer = combineReducers({
+const ps4u_reducer = combineReducers({
     user_state,
     alert_state
 });
     
-export default cosnu_reducer;
+export default ps4u_reducer;

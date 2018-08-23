@@ -33,7 +33,7 @@ const PageTemplate = ( {children, ...props} ) => {
     <div>
       <Header>
         <AccountInfo {...props}/>
-        <Link to="/" style={{'text-decoration': 'none'}}><Title>App_Name</Title></Link>
+        <Link to="/" style={{'text-decoration': 'none'}}><Title>Problem Solving For You</Title></Link>
       </Header>
       <Wrapper>
         {children}

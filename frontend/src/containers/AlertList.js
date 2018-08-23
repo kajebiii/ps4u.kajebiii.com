@@ -4,7 +4,7 @@ import { AlertList } from 'components'
 
 
 const mapStateToProps = (state) => ({
-    alert_state: state.app_name.alert_state
+    alert_state: state.ps4u.alert_state
 })
 const mapDispatchToProps = (dispatch) => {
     return {
