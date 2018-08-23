@@ -8,7 +8,7 @@ import { SignUpPage } from 'containers'
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
     const state = store.getState();
-    let username = state.ps4u.user_state.username;
+    let username = state.users.user_state.username;
     if (username === "") {
       replace('/needlogin')
       //replaceState({ nextPathname: nextState.location.pathname }, '/login');
@@ -16,7 +16,7 @@ export const routes = (store) => {
   }
   const authNotRequired = (nextState, replace) => {
     const state = store.getState();
-    let username = state.ps4u.user_state.username;
+    let username = state.users.user_state.username;
     if (username != "") {
       replace('/needlogin')
       //replaceState({ nextPathname: nextState.location.pathname }, '/login');

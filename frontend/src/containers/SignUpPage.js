@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { SignUpPage } from 'components'
-import { sign_up, send_alert } from '../store/ps4u/actions'
+import { sign_up, send_alert } from '../store/users/actions'
 
 
 const mapStateToProps = (state) => ({})

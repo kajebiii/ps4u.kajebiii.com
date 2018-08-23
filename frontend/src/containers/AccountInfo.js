@@ -1,10 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { AccountInfo } from 'components'
-import { user_login, user_logout } from '../store/ps4u/actions'
+import { user_login, user_logout } from '../store/users/actions'
 
 
-const mapStateToProps = (state) => ({user_state : state.ps4u.user_state})
+const mapStateToProps = (state) => ({user_state : state.users.user_state})
 const mapDispatchToProps = (dispatch) => {
     return {
         action_login: (username, password) => {
