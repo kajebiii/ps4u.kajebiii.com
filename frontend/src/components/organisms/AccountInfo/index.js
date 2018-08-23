@@ -17,14 +17,14 @@ const AccountInfo = ( {user_state, action_login, action_logout, children, ...pro
   if(username != "") {
     return (
       <Wrapper {...props}>
-        <SignOut username={username} action_logout={action_logout}/>
+        {/*<SignOut username={username} action_logout={action_logout}/>*/}
         {children}
       </Wrapper>
     )
   }else{
     return (
       <Wrapper {...props}>
-        <SignIn action_login={action_login}/>
+        {/*<SignIn action_login={action_login}/>*/}
         {children}
       </Wrapper>
     )
