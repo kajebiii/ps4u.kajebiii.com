@@ -1,5 +1,6 @@
 .idea/
 __pycache__/
+Pipfile.lock
 db.sqlite3
 *.pyc
 backend/settings/secret.json
