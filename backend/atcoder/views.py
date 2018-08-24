@@ -8,7 +8,7 @@ import json
 
 @api_view(['GET'])
 def get_problem_list(request):
-    atcoder_id = request.data.get('atcoder_id')
+    atcoder_id = request.GET.get('atcoder_id', None)
     if atcoder_id is None:
         return Response("'atcoder_id' field required.", status=status.HTTP_400_BAD_REQUEST)
     submission = ""
