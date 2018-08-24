@@ -18,6 +18,7 @@ export function* synchronize_atcoder_base_information() {
         })
         if(response.ok){
             const result = yield call(() => response.json())
+            yield put(actions.set_base_atcoder_information(result))
         }else{
             // TODO
         }
