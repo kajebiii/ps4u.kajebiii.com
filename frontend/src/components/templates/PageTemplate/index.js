@@ -23,7 +23,9 @@ const PageTemplate = ( {children, ...props} ) => {
       </nav>
       
       <Wrapper>
-        {children}
+        <div className="container">
+          {children}
+        </div>
         <AlertList/>
       </Wrapper>
     </div>
