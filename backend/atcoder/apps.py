@@ -6,7 +6,7 @@ import requests
 
 s = requests.session()
 lock = threading.Lock()
-atcoder = {'contest': [], 'problem': [], 'translate': {}}
+atcoder = {'contests': [], 'problems': [], 'translate': {}}
 
 
 def safeData(is_post=False, url="https://www.acmicpc.net", data={}):
@@ -43,8 +43,8 @@ def updateAtcoderInformation():
         problem = sorted(problem, key=lambda x : x['id'])
         lock.acquire()
         global atcoder
-        atcoder['contest'] = contest
-        atcoder['problem'] = problem
+        atcoder['contests'] = contest
+        atcoder['problems'] = problem
         lock.release()
 
         #print(atcoder)
