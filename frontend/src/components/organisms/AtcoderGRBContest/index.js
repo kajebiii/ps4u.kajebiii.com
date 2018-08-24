@@ -33,17 +33,26 @@ table.grbtable {
 
 
 const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
-	let contests_row = {}
+	const contests_row = {}
 	contests_state.contests.forEach( contest => {
 		contests_row[contest.id] = []
 	})
   contests_state.problems.forEach( problem => {
-    let contest_id = problem.id.substring(0, 6)
+    const contest_id = problem.id.substring(0, 6)
     contests_row[contest_id].push(problem)
 	})
 	let maxProblemCount = 0
-	for(let key in contests_row) {
+	for(const key in contests_row) {
 		maxProblemCount = Math.max(maxProblemCount, contests_row[key].length)
+	}
+
+	const getContestURL = (contest_id) => {return 'https://beta.atcoder.jp/contests/'+contest_id+'/'}
+	const getProblemURL = (contest_id, problem_id) => {return 'https://beta.atcoder.jp/contests/'+contest_id+'/tasks/'+problem_id+'/'}
+	const getHypertext = (href, content, blank) => {
+		if(blank) 
+			return <a href={href}>{content}</a>
+		else
+			return <a href={href} target="_blank">{content}</a>
 	}
   return (
     <Wrapper {...props}>
@@ -63,11 +72,11 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 				{
 					contests_state.contests.map( contest => {
 						return (
-							<tr>
-								<td>{contest.id}</td>
+							<tr key={contest.id}>
+								<td>{getHypertext(getContestURL(contest.id), contest.id, true)}</td>
 								{
 									contests_row[contest.id].map( problem => {
-										return <td>{problem.title}</td>
+										return <td key={problem.id}>{getHypertext(getProblemURL(contest.id, problem.id), problem.title, true)}</td>
 									})
 								}
 							</tr>
