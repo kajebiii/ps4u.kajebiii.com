@@ -111,6 +111,7 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
       </tbody>
       </table>
 
+      <h3>{contests_state.title} (Score)</h3>
       <table className="table grbtable table-sm table-bordered table-condensed text-center">
       <thead>
         <tr>
