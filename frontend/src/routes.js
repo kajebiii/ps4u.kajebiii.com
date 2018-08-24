@@ -4,7 +4,7 @@ import { Route, IndexRoute } from 'react-router'
 import App from 'components/App'
 import { HomePage } from 'containers'
 import { SignUpPage } from 'containers'
-import { AtcoderPage } from 'components'
+import { AtcoderPage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
