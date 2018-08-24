@@ -23,28 +23,38 @@ def safeData(is_post=False, url="https://www.acmicpc.net", data={}):
 def updateAtcoderInformation():
     while True:
         try:
-            contest = requests.get(
+            contests = requests.get(
                 'http://kenkoooo.com/atcoder/atcoder-api/info/contests',
                 timeout=60
             ).content.decode('utf-8')
-            contest = json.loads(contest)
+            contests = json.loads(contests)
         except Exception as e:
             print(e)
         try:
-            problem = requests.get(
+            problems = requests.get(
                 'http://kenkoooo.com/atcoder/atcoder-api/info/merged-problems',
                 timeout=60
             ).content.decode('utf-8')
-            problem = json.loads(problem)
+            problems = json.loads(problems)
         except Exception as e:
             print(e)
 
-        contest = sorted(contest, key=lambda x : x['id'])
-        problem = sorted(problem, key=lambda x : x['id'])
+        contests = [
+            {key: value for key, value in contest.items() if key in ['id', 'title']}
+            for contest in contests
+        ]
+        contests = [contest for contest in contests if contest['id'].startswith(('agc', 'arc', 'abc'))]
+        contests = sorted(contests, key=lambda x: x['id'])
+        problems = [
+            {key: value for key, value in problem.items() if key in ['id', 'contest_id', 'title', 'point']}
+            for problem in problems
+        ]
+        problems = [problem for problem in problems if problem['id'].startswith(('agc', 'arc', 'abc'))]
+        problems = sorted(problems, key=lambda x: x['id'])
         lock.acquire()
         global atcoder
-        atcoder['contests'] = contest
-        atcoder['problems'] = problem
+        atcoder['contests'] = contests
+        atcoder['problems'] = problems
         lock.release()
 
         #print(atcoder)
