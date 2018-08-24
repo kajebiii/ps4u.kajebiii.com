@@ -1,12 +1,30 @@
 import { takeEvery, put, call, fork, select, throttle } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
-import {delay} from 'redux-saga';
+import { delay } from 'redux-saga';
 import api from 'services/api'
 import * as actions from './actions'
+import * as users_actions from '../users/actions'
 
+const baseURL = `/api/atcoder`
 
-export function* watchInitialAll(action){
+export function* synchronize_atcoder_base_information() {
+    while(true) {
+        const response = yield call (fetch, baseURL + `/base-information/`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+        if(response.ok){
+            const result = yield call(() => response.json())
+        }else{
+            // TODO
+        }
+        yield call(delay, 1000 * 60 * 60)
+    }
 }
 
 export default function* () {
+    yield fork(synchronize_atcoder_base_information)
 }
