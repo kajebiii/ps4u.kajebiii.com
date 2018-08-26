@@ -18,15 +18,14 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>Login</h2>
       <ul>
       <li>
-        {/*<a href="{{ url_for('login') }}">login({{session.get('id_BOJ', 'None')}})</a>*/}
-        로그인 할 수 있습니다.
+        <Link to="/handle-login">Login</Link><br/>
+        handle 정보로 로그인 할 수 있습니다.
       </li>
       </ul>
       <h2>Atcoder</h2>
       <ul>
       <li>
         <Link to="/atcoder">Atcoder Problem Chest</Link><br/>
-        {/*<a href="{{ url_for('atcoderList') }}">Problem Chest</a><br>*/}
         Atcoder 궤짝을 볼 수 있습니다.
       </li>
       </ul>
