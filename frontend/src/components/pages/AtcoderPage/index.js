@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { PageTemplate } from 'containers'
 import { AtcoderGRBContest } from 'components'
 
 const AtcoderPage = ( {atcoder_state, children, ...props}) => {

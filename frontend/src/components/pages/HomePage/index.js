@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { PageTemplate } from 'containers'
 import { Link } from 'react-router'
 
 const HomePage = ( {user_state, children, ...props}) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { PageTemplate } from 'containers'
 import { HandleLoginForm } from 'components'
 
 let undefinedToEmpty = (dict, key) => (key in dict ? dict[key] : "")
@@ -11,12 +11,10 @@ class HandleLoginPage extends React.Component {
   }
   send_handle = values => {
     var { action_handle_login } = this.props
-    console.log(undefinedToEmpty(values, "boj"),undefinedToEmpty(values, "atcoder"))
     action_handle_login(undefinedToEmpty(values, "boj"),undefinedToEmpty(values, "atcoder"))
   }
   render(){
     var { handle_state, children, ...props } = this.props
-    console.log(handle_state)
     return (
       <PageTemplate {...props}>
         <h1>Handle Login Page</h1>
