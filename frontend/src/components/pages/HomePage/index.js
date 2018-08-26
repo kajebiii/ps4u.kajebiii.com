@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { PageTemplate } from 'components'
+import { Link } from 'react-router'
 
 const HomePage = ( {user_state, children, ...props}) => {
   return (
@@ -24,8 +25,9 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>Atcoder</h2>
       <ul>
       <li>
+        <Link to="/atcoder">Atcoder Problem Chest</Link><br/>
         {/*<a href="{{ url_for('atcoderList') }}">Problem Chest</a><br>*/}
-        Atcoder 궤짝을 볼 수 있습니다. 몇몇 문제의 번역도 확인할 수 있습니다.
+        Atcoder 궤짝을 볼 수 있습니다.
       </li>
       </ul>
       <h2>BOJ</h2>
