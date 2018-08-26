@@ -33,10 +33,26 @@ const alert_state = (alert_state = initialAlertState, action) => {
     }
 }
 
+const initialHanldeState = {
+    boj: "",
+    atcoder: "",
+}
+  
+const handle_state = (handle_state = initialHanldeState, action) => {
+    switch(action.type) {
+        case actions.HANDLE_LOGIN:
+            return {...handle_state, boj: action.boj, atcoder: action.atcoder}
+        case actions.HANDLE_LOGOUT:
+            return initialHanldeState
+        default:
+            return handle_state
+    }
+}
 
 const users_reducer = combineReducers({
     user_state,
-    alert_state
+    alert_state,
+    handle_state
 });
     
 export default users_reducer;
