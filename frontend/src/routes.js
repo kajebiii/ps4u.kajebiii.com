@@ -5,6 +5,7 @@ import App from 'components/App'
 import { HomePage } from 'containers'
 import { SignUpPage } from 'containers'
 import { AtcoderPage } from 'containers'
+import { HandleLoginPage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -26,6 +27,7 @@ export const routes = (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
+      <Route path="handle-login" component = {HandleLoginPage} />
       <Route path="atcoder" component = {AtcoderPage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
