@@ -129,7 +129,7 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 						<tr key={row_cnt}>
 						{
 						problem_scores.map( score => {
-							if(!(problems_by_score[score].length > row_cnt)) return <td></td>
+							if(!(problems_by_score[score].length > row_cnt)) return <td key={"None"+score+"-"+row_cnt}></td>
 							let problem = problems_by_score[score][row_cnt]
 							return <td key={problem.id}>{getHypertext(getProblemURL(problem.id.substring(0, 6), problem.id), problem.id.substring(3), true)}</td>
 						})
