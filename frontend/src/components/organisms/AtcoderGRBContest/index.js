@@ -45,9 +45,9 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 	contests_state.contests.forEach( contest => {
 		contests_row[contest.id] = []
 	})
-  contests_state.problems.forEach( problem => {
-    const contest_id = problem.id.substring(0, 6)
-    contests_row[contest_id].push(problem)
+	contests_state.problems.forEach( problem => {
+		const contest_id = problem.id.substring(0, 6)
+		contests_row[contest_id].push(problem)
 	})
 	let max_problem_count = 0
 	for(const key in contests_row) {
@@ -55,7 +55,7 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 	}
 
 	const problems_by_score = {}
-  contests_state.problems.forEach( problem => {
+	contests_state.problems.forEach( problem => {
 		const problem_score = ('point' in problem) ? problem.point : -1
 		if(problem_score < 0) return
 		if(!(problem_score in problems_by_score)) {
@@ -79,12 +79,12 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 		.map( ([problem, index]) => problem)
 	*/
 	
-  return (
-    <Wrapper {...props}>
-      <h2>{contests_state.title}</h2>
-      <table className="table grbtable table-sm table-bordered table-condensed text-center">
-      <thead>
-        <tr>
+	return (
+		<Wrapper {...props}>
+			<h2>{contests_state.title}</h2>
+			<table className="table grbtable table-sm table-bordered table-condensed text-center">
+			<thead>
+				<tr>
 					<td>Contest Id</td>
 					{
 						Array.from({length: max_problem_count}, (v, k) => k).map( count => {
@@ -92,8 +92,8 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 						})
 					}
 				</tr>
-      </thead>
-      <tbody>
+			</thead>
+			<tbody>
 				{
 					contests_state.contests.map( contest => {
 						return (
@@ -108,21 +108,21 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 						)
 					})
 				}
-      </tbody>
-      </table>
+			</tbody>
+			</table>
 
-      <h3>{contests_state.title} (Score)</h3>
-      <table className="table grbtable table-sm table-bordered table-condensed text-center">
-      <thead>
-        <tr>
+			<h3>{contests_state.title} (Score)</h3>
+			<table className="table grbtable table-sm table-bordered table-condensed text-center">
+			<thead>
+				<tr>
 					{
 						problem_scores.map( score => {
 							return <td key={score}>{score}</td>
 						})
 					}
 				</tr>
-      </thead>
-      <tbody>
+			</thead>
+			<tbody>
 				{
 					Array.from({length: max_row}, (v, k) => k).map( row_cnt => {
 						return (
@@ -138,12 +138,12 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 						)
 					})
 				}
-      </tbody>
-      </table>
+			</tbody>
+			</table>
 
-      {children}
-    </Wrapper>
-  )
+			{children}
+		</Wrapper>
+	)
 }
 
 AtcoderGRBContest.propTypes = {
