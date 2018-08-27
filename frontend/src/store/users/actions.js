@@ -28,9 +28,11 @@ export const send_alert = (message) => ({type:SEND_ALERT, message})
 
 
 
+export const SET_HANDLE = 'SET_HANDLE'
 export const HANDLE_LOGIN = 'HANDLE_LOGIN'
 export const HANDLE_LOGOUT = 'HANDLE_LOGOUT'
 
+export const set_handle = (boj, atcoder) => ({type:SET_HANDLE, boj, atcoder})
 export const handle_login = (boj, atcoder) => ({type:HANDLE_LOGIN, boj, atcoder})
 export const handle_logout = () => ({type:HANDLE_LOGOUT})
 

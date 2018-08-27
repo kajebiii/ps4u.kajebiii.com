@@ -41,6 +41,7 @@ const getHypertext = (href, content, blank) => {
 }
 
 const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
+	console.log(contests_state)
 	const contests_row = {}
 	contests_state.contests.forEach( contest => {
 		contests_row[contest.id] = []

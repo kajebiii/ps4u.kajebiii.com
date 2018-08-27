@@ -40,10 +40,8 @@ const initialHanldeState = {
   
 const handle_state = (handle_state = initialHanldeState, action) => {
     switch(action.type) {
-        case actions.HANDLE_LOGIN:
+        case actions.SET_HANDLE:
             return {...handle_state, boj: action.boj, atcoder: action.atcoder}
-        case actions.HANDLE_LOGOUT:
-            return initialHanldeState
         default:
             return handle_state
     }
