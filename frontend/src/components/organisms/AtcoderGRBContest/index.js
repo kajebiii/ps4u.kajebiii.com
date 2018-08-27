@@ -40,7 +40,7 @@ const getHypertext = (href, content, blank) => {
 		return <a href={href} target="_blank">{content}</a>
 }
 
-const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
+const AtcoderGRBContest = ( {contests_state, inverse, children, ...props}) => {
 	const getProblemTd = (problem_id, children) => {
 		if(problem_id in contests_state.users) {
 			if(contests_state.users[problem_id] == "AC") {
@@ -51,6 +51,9 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 		}else{
 			return <td key={problem_id}>{children}</td>
 		}
+	}
+	if(inverse) {
+		contests_state.contests.reverse()
 	}
 
 	const contests_row = {}
