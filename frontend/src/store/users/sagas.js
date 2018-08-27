@@ -109,6 +109,7 @@ export function* watchSignUp(action){
 export function* handle_login(action){
     const {boj, atcoder} = action
     yield put(actions.set_handle(boj, atcoder))
+    yield put(push('/'))
     yield put(actions.send_alert('로그인하였습니다.'))
     const response = yield call (fetch, `/api/atcoder/problem-list/?atcoder_id=${atcoder}`, {
         method: "GET",
@@ -128,6 +129,7 @@ export function* handle_login(action){
 }
 export function* handle_logout(action){
     yield put(actions.set_handle("", ""))
+    yield put(push('/'))
     yield put(actions.send_alert('로그아웃하였습니다.'))
     yield put(atcoder_actions.set_user_atcoder_information({}))        
     //TODO
