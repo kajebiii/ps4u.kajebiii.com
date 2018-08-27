@@ -7,11 +7,12 @@ const AtcoderPage = ( {atcoder_state, children, ...props}) => {
   const GRB_state = {}
   const GRB_tags = [['agc', 'AtCoder Grand Contest'], ['arc', 'AtCoder Regular Contest'], ['abc', 'AtCoder Beginner Contest']]
   GRB_tags.forEach( ([tag, title]) => {
+    const users_tag = Object.entries(atcoder_state.users).filter(([key,value]) => key.startsWith(tag)).map(([k,v]) => ({[k]:v}))
     GRB_state[tag] = {
       title,
       problems: atcoder_state.problems.filter(problem => problem.id.startsWith(tag)),
       contests: atcoder_state.contests.filter(contest => contest.id.startsWith(tag)),
-      users: Object.entries(atcoder_state.users).filter(([key,value]) => key.startsWith(tag)).map(([k,v]) => ({[k]:v})),
+      users: users_tag.length > 0 ? Object.assign(...users_tag) : {}
     }
   })
   return (

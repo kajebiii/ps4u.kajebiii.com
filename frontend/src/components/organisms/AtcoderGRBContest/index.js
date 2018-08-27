@@ -41,7 +41,18 @@ const getHypertext = (href, content, blank) => {
 }
 
 const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
-	console.log(contests_state)
+	const getProblemTd = (problem_id, children) => {
+		if(problem_id in contests_state.users) {
+			if(contests_state.users[problem_id] == "AC") {
+				return <td key={problem_id} className="AC">{children}</td>
+			}else{
+				return <td key={problem_id} className="WA">{children}</td>
+			}
+		}else{
+			return <td key={problem_id}>{children}</td>
+		}
+	}
+
 	const contests_row = {}
 	contests_state.contests.forEach( contest => {
 		contests_row[contest.id] = []
@@ -102,7 +113,7 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 								<td>{getHypertext(getContestURL(contest.id), contest.id, true)}</td>
 								{
 									contests_row[contest.id].map( problem => {
-										return <td key={problem.id}>{getHypertext(getProblemURL(contest.id, problem.id), problem.title, true)}</td>
+										return getProblemTd(problem.id, getHypertext(getProblemURL(contest.id, problem.id), problem.title, true))
 									})
 								}
 							</tr>
@@ -132,7 +143,7 @@ const AtcoderGRBContest = ( {contests_state, children, ...props}) => {
 						problem_scores.map( score => {
 							if(!(problems_by_score[score].length > row_cnt)) return <td key={"None"+score+"-"+row_cnt}></td>
 							let problem = problems_by_score[score][row_cnt]
-							return <td key={problem.id}>{getHypertext(getProblemURL(problem.id.substring(0, 6), problem.id), problem.id.substring(3), true)}</td>
+							return getProblemTd(problem.id, getHypertext(getProblemURL(problem.id.substring(0, 6), problem.id), problem.id.substring(3), true))
 						})
 						}
 						</tr>
