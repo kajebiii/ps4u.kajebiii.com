@@ -111,7 +111,7 @@ export function* handle_login(action){
     yield put(actions.set_handle(boj, atcoder))
     yield put(push('/'))
     yield put(actions.send_alert('로그인하였습니다.'))
-    const response = yield call (fetch, `/api/atcoder/problem-list/?atcoder_id=${atcoder}`, {
+    const response = yield call (fetch, `/api/atcoder/problem-list/${atcoder}/`, {
         method: "GET",
         headers: {
             "Accept": "application/json",
