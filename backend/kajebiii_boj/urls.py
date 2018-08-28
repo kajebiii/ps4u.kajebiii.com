@@ -1,10 +1,9 @@
 from rest_framework.urlpatterns import format_suffix_patterns
-from atcoder import views
+from kajebiii_boj import views
 from django.conf.urls import url
 
 urlpatterns = [
-    url(r'^problem-list/$', views.get_problem_list),
-    url(r'^base-information/$', views.get_base_information),
+    url(r'^last-ac-source/(?P<problem>[0-9]+)/$', views.get_last_ac_source),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

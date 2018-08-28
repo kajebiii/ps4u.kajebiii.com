@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users',
     'atcoder',
+    'kajebiii_boj',
 ]
 
 MIDDLEWARE = [
@@ -156,4 +157,6 @@ def get_secret(setting, secrets=secrets):
 
 
 SECRET_KEY = get_secret("SECRET_KEY")
+BOJ_ID = get_secret("BOJ_ID")
+BOJ_PASSWORD = get_secret("BOJ_PASSWORD")
 
