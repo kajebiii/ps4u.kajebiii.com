@@ -16,10 +16,11 @@ export const SET_USER_BOJ_INFORMATION = 'SET_USER_BOJ_INFORMATION'
 const boj_state = (boj_state = initialBojState, action) => {
     switch(action.type) {
         case actions.SET_KAJEBIII_BOJ_INFORMATION:
+            return {...boj_state, kajebiii_ac_problems: action.kajebiii_boj_information}
         case actions.SET_BASE_BOJ_INFORMATION:
-            return {...boj_state, ...action.base_atcoder_information}
+            return {...boj_state, ...action.base_boj_information}
         case actions.SET_USER_BOJ_INFORMATION:
-            return {...boj_state, users: action.user_atcoder_information}
+            return {...boj_state, users: action.user_boj_information}
         default:
             return boj_state
     }
