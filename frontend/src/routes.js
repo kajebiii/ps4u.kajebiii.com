@@ -4,11 +4,13 @@ import { Route, IndexRoute } from 'react-router'
 import App from 'components/App'
 import { HomePage } from 'containers'
 import { SignUpPage } from 'containers'
+import { AtcoderPage } from 'containers'
+import { HandleLoginPage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
     const state = store.getState();
-    let username = state.app_name.user_state.username;
+    let username = state.users.user_state.username;
     if (username === "") {
       replace('/needlogin')
       //replaceState({ nextPathname: nextState.location.pathname }, '/login');
@@ -16,7 +18,7 @@ export const routes = (store) => {
   }
   const authNotRequired = (nextState, replace) => {
     const state = store.getState();
-    let username = state.app_name.user_state.username;
+    let username = state.users.user_state.username;
     if (username != "") {
       replace('/needlogin')
       //replaceState({ nextPathname: nextState.location.pathname }, '/login');
@@ -25,6 +27,8 @@ export const routes = (store) => {
   return (
     <Route path="/" component={App}>
       <IndexRoute component={HomePage} />
+      <Route path="handle-login" component = {HandleLoginPage} />
+      <Route path="atcoder" component = {AtcoderPage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>

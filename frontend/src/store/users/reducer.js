@@ -33,10 +33,24 @@ const alert_state = (alert_state = initialAlertState, action) => {
     }
 }
 
+const initialHanldeState = {
+    boj: "",
+    atcoder: "",
+}
+  
+const handle_state = (handle_state = initialHanldeState, action) => {
+    switch(action.type) {
+        case actions.SET_HANDLE:
+            return {...handle_state, boj: action.boj, atcoder: action.atcoder}
+        default:
+            return handle_state
+    }
+}
 
-const cosnu_reducer = combineReducers({
+const users_reducer = combineReducers({
     user_state,
-    alert_state
+    alert_state,
+    handle_state
 });
     
-export default cosnu_reducer;
+export default users_reducer;

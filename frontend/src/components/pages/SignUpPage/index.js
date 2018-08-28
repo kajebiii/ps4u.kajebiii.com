@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { PageTemplate } from 'components'
+import { PageTemplate } from 'containers'
 import { Input, Button } from 'components'
 
 const SignUpPage = ({ action_send_alert, action_verify_email, action_sign_up, children, ...props }) => {

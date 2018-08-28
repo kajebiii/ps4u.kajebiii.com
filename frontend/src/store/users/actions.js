@@ -17,9 +17,22 @@ export const token_to_user = (token) => ({type: TOKEN_TO_USER, token})
 export const sign_up = (username, password) => ({type: SIGN_UP, username, password})
 
 
+
 export const DEL_ALERT = 'DEL_ALERT'
 export const ADD_ALERT = 'ADD_ALERT'
 export const SEND_ALERT = 'SEND_ALERT'
+
 export const del_alert = () => ({type:DEL_ALERT})
 export const add_alert = (message) => ({type:ADD_ALERT, message})
 export const send_alert = (message) => ({type:SEND_ALERT, message})
+
+
+
+export const SET_HANDLE = 'SET_HANDLE'
+export const HANDLE_LOGIN = 'HANDLE_LOGIN'
+export const HANDLE_LOGOUT = 'HANDLE_LOGOUT'
+
+export const set_handle = (boj, atcoder) => ({type:SET_HANDLE, boj, atcoder})
+export const handle_login = (boj, atcoder) => ({type:HANDLE_LOGIN, boj, atcoder})
+export const handle_logout = () => ({type:HANDLE_LOGOUT})
+

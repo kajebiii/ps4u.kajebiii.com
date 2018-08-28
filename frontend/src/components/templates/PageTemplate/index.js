@@ -8,35 +8,31 @@ import { Link } from 'react-router'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: flex-start;
   width: 100%;
   height: 100%;
 `
 
-const Header = styled.div`
-  position: relative;
-  width: 100%;
-  background-color: #222;
-`
-
-const Title = styled.h1`
-  padding: 20px;
-  margin: 0;
-  font-size: 2em;
-  font-weight: bold;
-  color: #ddd;
-`
-
-const PageTemplate = ( {children, ...props} ) => {
+const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} ) => {
   return (
     <div>
-      <Header>
-        <AccountInfo {...props}/>
-        <Link to="/" style={{'text-decoration': 'none'}}><Title>App_Name</Title></Link>
-      </Header>
+      <nav className="navbar navbar-expand-lg navbar-light bg-light" id="navbarNavAltMarkupo">
+      <Link to="/" className="navbar-brand" href="/">PS4U</Link>
+      <ul className="navbar-nav">
+      {
+        handle_state.boj == "" && handle_state.atcoder == ""
+        ? <li><Link className="nav-item nav-link" to="/handle-login">Login</Link></li>
+        : <li><Link className="nav-item nav-link" onClick={action_handle_logout} style={{"cursor": "pointer"}}>Logout</Link></li>        
+      }
+      </ul>
+      <AccountInfo {...props}/>
+      </nav>
+      
       <Wrapper>
-        {children}
+        <div className="container">
+          {children}
+        </div>
         <AlertList/>
       </Wrapper>
     </div>
