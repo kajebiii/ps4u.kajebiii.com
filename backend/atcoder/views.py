@@ -7,14 +7,11 @@ import json
 
 
 @api_view(['GET'])
-def get_problem_list(request):
-    atcoder_id = request.GET.get('atcoder_id', None)
-    if atcoder_id is None:
-        return Response("'atcoder_id' field required.", status=status.HTTP_400_BAD_REQUEST)
+def get_problem_list(request, user_id):
     submission = ""
     try:
         submission = requests.get(
-            'http://kenkoooo.com/atcoder/atcoder-api/results?user=%s' % atcoder_id,
+            'http://kenkoooo.com/atcoder/atcoder-api/results?user=%s' % user_id,
             timeout=60
         ).content.decode('utf-8')
         submission = json.loads(submission)

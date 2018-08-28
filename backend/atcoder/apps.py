@@ -9,17 +9,6 @@ lock = threading.Lock()
 atcoder = {'contests': [], 'problems': [], 'translate': {}}
 
 
-def safeData(is_post=False, url="https://www.acmicpc.net", data={}):
-    while True:
-        try:
-            returnVal = (s.post(url, data=data, timeout=5) if is_post else s.get(url, timeout=5))
-            break
-        except Exception as e:
-            print(str(e) + " in safeData")
-            time.sleep(10)
-    return returnVal
-
-
 def updateAtcoderInformation():
     while True:
         try:
