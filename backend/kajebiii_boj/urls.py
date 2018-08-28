@@ -1,9 +1,9 @@
 from rest_framework.urlpatterns import format_suffix_patterns
 from kajebiii_boj import views
-from django.conf.urls import url
+from django.urls import path
 
 urlpatterns = [
-    url(r'^last-ac-source/(?P<problem>[0-9]+)/$', views.get_last_ac_source),
+    path('last-ac-source/<int:problem>/', views.get_last_ac_source),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
