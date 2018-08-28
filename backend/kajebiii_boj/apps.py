@@ -1,28 +1,10 @@
 from django.apps import AppConfig
 from django.conf import settings
-import requests
+from utility import safeData
 import re
 import html
-import os
 import time
 import threading
-
-s = requests.session()
-
-INF = 999999999999999
-now_submission = INF
-alive = True
-
-
-def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
-    while(True):
-        try:
-            returnVal = (s.post(url, data=data, timeout=5) if isPost else s.get(url, timeout=5))
-            break
-        except:
-            print("Internet connection is Bad (in safeData)")
-            time.sleep(1)
-    return returnVal
 
 
 def login(user_id, user_password):
@@ -83,7 +65,7 @@ def parseBOJ(username, password):
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
         new_submission_list = []
-        now_submission = INF
+        now_submission = 999999999999999
         while True:
             new_submission_list = new_submission_list + findAClist(username, now_submission, past_submission)
             if len(new_submission_list) == 0 or new_submission_list[-1][0] - 1 == now_submission:
