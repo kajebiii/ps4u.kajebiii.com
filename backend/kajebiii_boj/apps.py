@@ -80,7 +80,6 @@ def parseBOJ(username, password):
     from .models import Submission
     last_submission = Submission.objects.all().last()
     past_submission = last_submission.submission if last_submission is not None else 0
-    print(past_submission)
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
         new_submission_list = []
