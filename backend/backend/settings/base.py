@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'users',
     'atcoder',
+    'kajebiii_boj',
 ]
 
 MIDDLEWARE = [
