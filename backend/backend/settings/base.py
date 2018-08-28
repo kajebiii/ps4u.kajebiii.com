@@ -13,17 +13,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'v7v+dp_(sd+8#om11g!591&7c3ngnemz^l71cqno&35k(=sd6e'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -39,7 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'users'
+    'users',
+    'atcoder',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +126,34 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# load secret.json
+
+import json
+from collections import namedtuple
+
+# Normally you should not import ANYTHING from Django directly
+# into your settings, but ImproperlyConfigured is an exception.
+from django.core.exceptions import ImproperlyConfigured
+
+# JSON-based secrets module
+with open("backend/settings/secret.json") as f:
+    data = json.loads(f.read())
+
+# Use namedtuple so secrets becomes a static object.
+# secrets is a static object so we don't risk corruption of secret data.
+SecretsNamedTuple = namedtuple('SecretsNamedTuple', data.keys(), verbose=False)
+secrets = SecretsNamedTuple(*[data[x] for x in data.keys()])
+
+
+def get_secret(setting, secrets=secrets):
+    """ Get the secret variable or return explicit exception """
+    try:
+        return getattr(secrets, setting)
+    except KeyError:
+        error_msg = "Set the {0} environment variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+SECRET_KEY = get_secret("SECRET_KEY")
+
