@@ -32,7 +32,7 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>BOJ</h2>
       <ul>
       <li>
-        {/*<a href="{{ url_for('bojList') }}">kajebiii's AC Problem List</a><br>*/}
+        <Link to="/kajebiii/boj">kajebiii AC Problem List in BOJ</Link><br/>
         BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
       </li>
       <li>
@@ -47,7 +47,7 @@ const HomePage = ( {user_state, children, ...props}) => {
         C++ Code를 입력하면 Image로 바꾸어 줍니다.
       </li>
       <li>
-        {/*<a href="{{ url_for('realtimeMarkdownEditor') }}">Realtime Markdown Editor With Mathjax</a><br>*/}
+        <Link to="/realtimemarkdown">Realtime Markdown Editor With Mathjax</Link><br/>
         텍스트 기반의 마크업언어 Markdown를 실시간으로 작업할 수 있습니다.
       </li>
       </ul>
