@@ -19,7 +19,7 @@ class KajebiiiBOJCodePage extends React.Component {
         <Link to={'/kajebiii/boj'}>문제 목록</Link>
         <h1>kajebiii BOJ {this.props.params.boj_problem} Source Code</h1>
         <a href={'https://acmicpc.net/problem/'+this.props.params.boj_problem}>본 문제 링크</a>
-        <ReactMarkdown source={'```'+boj_source+'```'}/>
+        <ReactMarkdown source={'```\n'+boj_source+'\n```'}/>
         {children}
       </PageTemplate>
     )
