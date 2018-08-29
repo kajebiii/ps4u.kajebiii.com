@@ -33,7 +33,6 @@ export const set_handle = (boj, atcoder) => ({type:SET_HANDLE, boj, atcoder})
 export const handle_login = (boj, atcoder) => ({type:HANDLE_LOGIN, boj, atcoder})
 export const handle_logout = () => ({type:HANDLE_LOGOUT})
 
-
 export const SET_CURRENT_KAJEBIII_BOJ_SOURCE = 'SET_CURRENT_KAJEBIII_BOJ_SOURCE'
 export const GET_KAJEBIII_BOJ_SOURCE_BY_PROBLEM = 'GET_KAJEBIII_BOJ_SOURCE_BY_PROBLEM'
 export const set_current_kajebiii_boj_source = (kajebiii_boj_source) => ({type:SET_CURRENT_KAJEBIII_BOJ_SOURCE, kajebiii_boj_source})
