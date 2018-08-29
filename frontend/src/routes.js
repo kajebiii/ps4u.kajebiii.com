@@ -30,7 +30,7 @@ export const routes = (store) => {
       <IndexRoute component={HomePage} />
       <Route path="handle-login" component = {HandleLoginPage} />
       <Route path="atcoder" component = {AtcoderPage} />
-      <Route path="kajebiii/boj" component = {KajebiiiBOJSubmissionPage} />
+      <Route path="kajebiii/boj/list" component = {KajebiiiBOJSubmissionPage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>

@@ -32,7 +32,7 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>BOJ</h2>
       <ul>
       <li>
-        {/*<a href="{{ url_for('bojList') }}">kajebiii's AC Problem List</a><br>*/}
+        <Link to="/kajebiii/boj/list">kajebiii AC Problem List in BOJ</Link><br/>
         BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
       </li>
       <li>
