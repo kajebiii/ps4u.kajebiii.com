@@ -9,7 +9,7 @@ const KajebiiiBOJSubmissionPage = ( {kajebiii_ac_problems, children, ...props}) 
     <h1>kajebiii AC Problem List in BOJ</h1>
     {
       kajebiii_ac_problems.map(problem => {
-        return <a key={problem} href={'./' + problem}>{problem} </a> /* this blank is very important!! */
+        return <Link key={problem} to={props.location.pathname + '/' + problem}>{problem} </Link> /* this blank is very important!! */
       })
     }
     {children}
