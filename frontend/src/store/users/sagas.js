@@ -134,6 +134,24 @@ export function* handle_logout(action){
     yield put(atcoder_actions.set_user_atcoder_information({}))        
     //TODO
 }
+export function* get_kajebiii_boj_source_by_problem(action) {
+    const {boj_problem} = action
+    const response = yield call (fetch, `/api/kajebiii/boj/last-ac-source/${boj_problem}/`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    if(response.ok){
+        const result = yield call(() => response.json())
+        yield put(actions.set_current_kajebiii_boj_source(result))        
+        yield put(actions.send_alert(`BOJ ${boj_problem}번 코드를 가져왔습니다.`))
+    }else{
+        //TODO
+        yield put(actions.send_alert(`BOJ ${boj_problem}번 코드를 가져오는데 실패했습니다.`))
+    }
+}
 export default function* () {
     yield takeEvery(actions.USER_LOGIN, watchLogin)
     yield takeEvery(actions.VALIDATE_TOKEN, watchValidateToken)
@@ -146,4 +164,6 @@ export default function* () {
 
     yield takeLatest(actions.HANDLE_LOGIN, handle_login)
     yield takeLatest(actions.HANDLE_LOGOUT, handle_logout)
+
+    yield takeLatest(actions.GET_KAJEBIII_BOJ_SOURCE_BY_PROBLEM, get_kajebiii_boj_source_by_problem)
 }

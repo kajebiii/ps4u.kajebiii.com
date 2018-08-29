@@ -7,6 +7,7 @@ import { SignUpPage } from 'containers'
 import { AtcoderPage } from 'containers'
 import { HandleLoginPage } from 'containers'
 import { KajebiiiBOJSubmissionPage } from 'containers'
+import { KajebiiiBOJCodePage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -31,6 +32,7 @@ export const routes = (store) => {
       <Route path="handle-login" component = {HandleLoginPage} />
       <Route path="atcoder" component = {AtcoderPage} />
       <Route path="kajebiii/boj/list" component = {KajebiiiBOJSubmissionPage} />
+      <Route path="kajebiii/boj/:boj_problem" component = {KajebiiiBOJCodePage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>

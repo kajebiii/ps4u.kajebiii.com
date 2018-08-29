@@ -5,8 +5,7 @@ const initialUserState = {
     id: 0,
     username: "",
     token: "",
-}
-  
+} 
 const user_state = (user_state = initialUserState, action) => {
     switch(action.type) {
         case actions.LOGIN_FAIL:
@@ -37,7 +36,6 @@ const initialHanldeState = {
     boj: "",
     atcoder: "",
 }
-  
 const handle_state = (handle_state = initialHanldeState, action) => {
     switch(action.type) {
         case actions.SET_HANDLE:
@@ -47,10 +45,23 @@ const handle_state = (handle_state = initialHanldeState, action) => {
     }
 }
 
+const initialCurrentState = {
+    kajebiii_boj_source: "",
+}
+const current_state = (current_state = initialCurrentState, action) => {
+    switch(action.type) {
+        case actions.SET_CURRENT_KAJEBIII_BOJ_SOURCE:
+            return {...current_state, kajebiii_boj_source: action.kajebiii_boj_source}
+        default:
+            return current_state
+    }
+}
+
 const users_reducer = combineReducers({
     user_state,
     alert_state,
-    handle_state
+    handle_state,
+    current_state
 });
     
 export default users_reducer;
