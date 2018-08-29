@@ -4,6 +4,20 @@ import Textarea from 'react-textarea-autosize';
 import { PageTemplate } from 'containers'
 import { Link } from 'react-router'
 
+const default_code = `#include <bits/stdc++.h>
+using namespace std;
+vector<int> test(42, 1910);
+int main(int argc, char **argv)
+{
+  //* Test
+  printf("%c%c'\\"\\\\",'"','\\\\'); // /* Wow!
+
+  return 0;
+  /*/
+    And this Is comment
+  //*/
+}`
+
 var keyword = "alignas alignof and and_eq asm atomic_cancel atomic_commit atomic_noexcept auto bitand bitor bool break case catch char char16_t char32_t class compl concept const constexpr const_cast continue decltype default delete do double dynamic_cast else enum explicit export extern false float for friend goto if import inline int long module mutable namespace new noexcept not not_eq nullptr operator or or_eq private protected public register reinterpret_cast requires return short signed sizeof static static_assert static_cast struct switch synchronized template this thread_local throw true try typedef typeid typename union unsigned using virtual void volatile wchar_t while xor xor_eq".split(" ")
 //var source , sourceline, canvas = document.getElementById("canvas1"), ctx;
 var source , sourceline, canvas, ctx;
@@ -259,21 +273,7 @@ class CppToImagePage extends React.Component {
             id="source" 
             name="source" 
             style={{'width': '100%'}} 
-            defaultValue={
-`#include <bits/stdc++.h>
-using namespace std;
-vector<int>; test(42, 1910);
-int main(int argc, char **argv)
-{
-  //* Test
-  printf("%c%c'\"\\"),'"','\\'); // /* Wow!
-
-  return 0;
-  /*/
-    And this Is comment
-  //*/
-}`
-          }/>
+            defaultValue={default_code}/>
           <br/>
           Theme:
           {/*004444*/}
