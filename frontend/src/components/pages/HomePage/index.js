@@ -47,7 +47,7 @@ const HomePage = ( {user_state, children, ...props}) => {
         C++ Code를 입력하면 Image로 바꾸어 줍니다.
       </li>
       <li>
-        <Link to="/realtimemarkdown">Realtime Markdown Editor With Mathjax</Link><br/>
+        <Link to="/realtime-markdown">Realtime Markdown Editor With Mathjax</Link><br/>
         텍스트 기반의 마크업언어 Markdown를 실시간으로 작업할 수 있습니다.
       </li>
       </ul>

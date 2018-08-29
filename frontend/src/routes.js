@@ -35,7 +35,7 @@ export const routes = (store) => {
       <Route path="atcoder" component = {AtcoderPage} />
       <Route path="kajebiii/boj" component = {KajebiiiBOJSubmissionPage} />
       <Route path="kajebiii/boj/:boj_problem" component = {KajebiiiBOJCodePage} />
-      <Route path="realtimemarkdown" component = {RealtimeMarkdownPage} />
+      <Route path="realtime-markdown" component = {RealtimeMarkdownPage} />
       <Route path="code-to-image" component = {CppToImagePage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
