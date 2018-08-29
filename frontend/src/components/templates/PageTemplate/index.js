@@ -35,6 +35,35 @@ const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} 
         </div>
         <AlertList/>
       </Wrapper>
+
+      <footer className="pt-4 my-md-5 pt-md-5 border-top container">
+      <div className="row">
+        <div className="col-12 col-sm-4 text-center">
+        <ul className="list-unstyled text-small">
+        <h5><a className="nav-item nav-link" href="#navbarNavAltMarkup">TOP</a></h5>
+        </ul>
+        </div>
+        <div className="col-12 col-sm-4 text-center">
+        <h5>E-mail</h5>
+        <img src={require('./email.png')} alt="E-mail" style={{'max-width':'100%'}}></img>
+        <h5>
+          {/*
+          <a 
+            href="{% if 'admin' in session %}{{url_for('admin_logout')}}{% else %}{{url_for('admin_login')}}{% endif %}" 
+            style={{'color': '#FFFFFF', 'text-decoration': 'none'}}>
+            Admin
+          </a>*/}
+        </h5>
+        </div>
+        <div className="col-12 col-sm-4 text-center">
+        <ul className="list-unstyled text-small">
+        <h5><a className="text-muted" href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a></h5>
+        </ul>
+        </div>
+      </div>
+      <hr/>
+      <div className="col-12 col-md text-center"><h5>© 2017-2018 kajebiii</h5></div>
+      </footer>
     </div>
   )
 }
