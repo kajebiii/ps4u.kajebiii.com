@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown';
 
 import { PageTemplate } from 'containers'
 import { Link } from 'react-router'
@@ -15,8 +16,10 @@ class KajebiiiBOJCodePage extends React.Component {
     var { boj_source, children, ...props } = this.props
     return (
       <PageTemplate {...props}>
-        <h1>KajebiiiBOJCodePage</h1>
-        <p>{boj_source}</p>
+        <Link to={'/kajebiii/boj'}>문제 목록</Link>
+        <h1>kajebiii BOJ {this.props.params.boj_problem} Source Code</h1>
+        <a href={'https://acmicpc.net/problem/'+this.props.params.boj_problem}>본 문제 링크</a>
+        <ReactMarkdown source={'```'+boj_source+'```'}/>
         {children}
       </PageTemplate>
     )
