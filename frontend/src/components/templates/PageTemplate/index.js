@@ -40,7 +40,7 @@ const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} 
       <div className="row">
         <div className="col-12 col-sm-4 text-center">
         <ul className="list-unstyled text-small">
-        <h5><a className="nav-item nav-link" href="#navbarNavAltMarkup">TOP</a></h5>
+        <h5><a className="nav-item nav-link" onClick={() => {window.scrollTo(0, 0)}} style={{"cursor": "pointer"}}>TOP</a></h5>
         </ul>
         </div>
         <div className="col-12 col-sm-4 text-center">
