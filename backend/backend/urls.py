@@ -22,5 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^', include('users.urls')),
     url(r'^atcoder/', include('atcoder.urls')),
+    url(r'^boj/', include('boj.urls')),
+    url(r'^kajebiii/boj/', include('kajebiii_boj.urls')),
     url(r'^obtain-auth-token/$', obtain_auth_token),
 ]
