@@ -43,7 +43,7 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>Utility</h2>
       <ul>
       <li>
-        {/*<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>*/}
+        <Link to="/code-to-image">C++ Code To Image</Link><br/>
         C++ Code를 입력하면 Image로 바꾸어 줍니다.
       </li>
       <li>
