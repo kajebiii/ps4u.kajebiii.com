@@ -23,7 +23,12 @@ const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} 
       {
         handle_state.boj == "" && handle_state.atcoder == ""
         ? <li><Link className="nav-item nav-link" to="/handle-login">Login</Link></li>
-        : <li><Link className="nav-item nav-link" onClick={action_handle_logout} style={{"cursor": "pointer"}}>Logout</Link></li>        
+        : <div></div>
+      }
+      {
+        handle_state.boj != "" || handle_state.atcoder != ""
+        ? <li><Link className="nav-item nav-link" onClick={action_handle_logout} style={{"cursor": "pointer"}}>Logout</Link></li>        
+        : <div></div>
       }
       </ul>
       <AccountInfo {...props}/>
