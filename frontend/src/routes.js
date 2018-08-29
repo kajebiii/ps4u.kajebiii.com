@@ -8,6 +8,7 @@ import { AtcoderPage } from 'containers'
 import { HandleLoginPage } from 'containers'
 import { KajebiiiBOJSubmissionPage } from 'containers'
 import { KajebiiiBOJCodePage } from 'containers'
+import { RealtimeMarkdownPage } from 'components'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -33,6 +34,7 @@ export const routes = (store) => {
       <Route path="atcoder" component = {AtcoderPage} />
       <Route path="kajebiii/boj" component = {KajebiiiBOJSubmissionPage} />
       <Route path="kajebiii/boj/:boj_problem" component = {KajebiiiBOJCodePage} />
+      <Route path="realtimemarkdown" component = {RealtimeMarkdownPage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>
