@@ -1,10 +1,23 @@
 from django.apps import AppConfig
 from django.conf import settings
-from utility import safeData
 import re
 import html
 import time
 import threading
+import requests
+
+session = requests.session()
+
+
+def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
+    while True:
+        try:
+            returnVal = (session.post(url, data=data, timeout=20) if isPost else session.get(url, timeout=20))
+            break
+        except:
+            print("Internet connection is Bad (in safeData)")
+            time.sleep(2)
+    return returnVal
 
 
 def login(user_id, user_password):
