@@ -86,8 +86,10 @@ def parse_problem(num):
         ret['parent'] = re.findall('"/category/detail/([\s\S]*?)"', source)
     return ret
 
+
 def parse_all_category():
-    from .models import Category, Contest, Problem
+    from .models import Category, Contest
+    is_first = True
     while True:
         category_queue = queue.Queue()
         category_queue.put({'isContest': False, 'title': '', 'parent': None, 'id': '0'})
@@ -113,6 +115,9 @@ def parse_all_category():
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
                     category_queue.put(subcategory)
+        if is_first:
+            th = threading.Thread(target=parse_all_problem, daemon=True)
+            th.start()
         time.sleep(3600)
 
 
@@ -141,7 +146,5 @@ class BojConfig(AppConfig):
 
     def ready(self):
         th = threading.Thread(target=parse_all_category, daemon=True)
-        th.start()
-        th = threading.Thread(target=parse_all_problem, daemon=True)
         th.start()
         pass
