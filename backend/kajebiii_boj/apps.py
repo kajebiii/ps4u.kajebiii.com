@@ -44,7 +44,6 @@ def findAClist(user_id, top_submit, past_submit):
 
         #memoryuse = re.findall('<td class = "memory">(.*?)<', data)[0]
         #timeuse = re.findall('<td class = "time">(.*?)<', data)[0]
-        language = re.findall('<a href="/source/'+submit_id+'">(.*?)</a>', data)[0]
         result = re.findall('<span class="result-(.*?)"', data)[1]
         if result == "wait" or result == "judging":
             break
@@ -52,6 +51,7 @@ def findAClist(user_id, top_submit, past_submit):
         if len(modifybutton) == 0:
             print("there is no modify button in status, please login again")
             break
+        language = re.findall('<a href="/source/'+submit_id+'">(.*?)</a>', data)[0]
         if past_submit == int(submit_id):
             break
         parse_result.append((int(submit_id), int(problem), result, language))
@@ -64,6 +64,7 @@ def parseBOJ(username, password):
     past_submission = last_submission.submission if last_submission is not None else 0
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
+        login(username, password)
         new_submission_list = []
         now_submission = 999999999999999
         while True:
@@ -79,7 +80,7 @@ def parseBOJ(username, password):
         if len(new_submission_list) != 0:
             print("Update Finish [" + str(new_submission_list[0][0]) + ", " + str(new_submission_list[-1][0]) + "]")
             past_submission = new_submission_list[-1][0]
-        time.sleep(60)
+        time.sleep(1)
 
 
 class KajebiiiBojConfig(AppConfig):
