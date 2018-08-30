@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from utility import safeData
+from utility import safeData, db_lock
 import re
 import time
 import threading
@@ -96,6 +96,7 @@ def parse_all_category():
         while not category_queue.empty():
             current_category = category_queue.get()
 
+            db_lock.acquire()
             if not current_category['isContest']:
                 Category(
                     id=current_category['id'],
@@ -110,6 +111,7 @@ def parse_all_category():
                     title=current_category['title'],
                     parent_category=Category.objects.get(pk=current_category['parent'])
                 ).save()
+            db_lock.release()
                 #problems = get_problems(current_category['id'])
 
             if not current_category['isContest']:
@@ -126,6 +128,7 @@ def parse_all_problem():
     while True:
         for problem_id in range(1000, 19999, 1):
             current_problem = parse_problem(problem_id)
+            db_lock.acquire()
             problem, created = Problem.objects.get_or_create(
                 id=current_problem['id'],
                 defaults={
@@ -138,6 +141,7 @@ def parse_all_problem():
             for contest in current_problem['parent']:
                 problem.parent_contest.add(Contest.objects.get(pk=contest))
             problem.save()
+            db_lock.release()
         time.sleep(600)
 
 

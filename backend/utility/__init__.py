@@ -1,5 +1,6 @@
 import requests
 import time
+import threading
 
 s = requests.session()
 
@@ -13,3 +14,5 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
             print("Internet connection is Bad (in safeData)")
             time.sleep(2)
     return returnVal
+
+db_lock = threading.Lock()

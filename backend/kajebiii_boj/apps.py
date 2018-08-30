@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 from django.conf import settings
+from utility import db_lock
 import re
 import html
 import time
@@ -35,7 +36,9 @@ def downloadCode(submit_id, problem, result, language):
     codeHtml = urlData.content.decode('utf-8')
     unescape = html.unescape(codeHtml)
     code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0]
+    db_lock.acquire()
     Submission(submission=submit_id, problem=problem, result=result, source=code, language=language).save()
+    db_lock.release()
 
 
 def findAClist(user_id, top_submit, past_submit):
@@ -73,8 +76,10 @@ def findAClist(user_id, top_submit, past_submit):
 
 def parseBOJ(username, password):
     from .models import Submission
+    db_lock.acquire()
     last_submission = Submission.objects.all().last()
     past_submission = last_submission.submission if last_submission is not None else 0
+    db_lock.release()
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
         login(username, password)
