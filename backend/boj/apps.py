@@ -133,7 +133,7 @@ def parse_all_problem():
             for contest in current_problem['parent']:
                 problem.parent_contest.add(Contest.objects.get(pk=contest))
             problem.save()
-            time.sleep(1)
+        time.sleep(600)
 
 
 class BojConfig(AppConfig):
