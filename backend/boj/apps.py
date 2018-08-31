@@ -84,8 +84,6 @@ def parse_problem(num):
     try:
         ret['title'] = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)[0]
     except Exception as e:
-        print(htmlData)
-        print(re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL))
         print(num)
         ret['title'] = ''
         traceback.print_tb(e.__traceback__)
