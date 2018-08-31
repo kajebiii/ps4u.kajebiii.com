@@ -84,6 +84,8 @@ def parse_problem(num):
     try:
         ret['title'] = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)[0]
     except Exception as e:
+        print(htmlData)
+        print(re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL))
         print(num)
         ret['title'] = ''
         traceback.print_tb(e.__traceback__)
@@ -102,6 +104,7 @@ def parse_all_category():
         category_queue.put({'isContest': False, 'title': '', 'parent': None, 'id': '0'})
         while not category_queue.empty():
             current_category = category_queue.get()
+            time.sleep(2)
 
             db_lock.acquire()
             if not current_category['isContest']:
@@ -127,6 +130,7 @@ def parse_all_category():
         if is_first:
             th = threading.Thread(target=parse_all_problem, daemon=True)
             th.start()
+            is_first = False
         time.sleep(3600)
 
 
@@ -152,7 +156,7 @@ def parse_all_problem():
                 contests.append(Contest.objects.get(pk=contest))
             problem.parent_contest.add(*contests)
             db_lock.release()
-        time.sleep(600)
+            time.sleep(5)
 
 
 class BojConfig(AppConfig):

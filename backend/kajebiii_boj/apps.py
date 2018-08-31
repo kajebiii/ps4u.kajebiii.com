@@ -98,7 +98,7 @@ def parseBOJ(username, password):
         if len(new_submission_list) != 0:
             print("Update Finish [" + str(new_submission_list[0][0]) + ", " + str(new_submission_list[-1][0]) + "]")
             past_submission = new_submission_list[-1][0]
-        time.sleep(1)
+        time.sleep(5)
 
 
 class KajebiiiBojConfig(AppConfig):
