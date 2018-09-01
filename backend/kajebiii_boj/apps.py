@@ -6,8 +6,11 @@ import html
 import time
 import threading
 import requests
+import cfrequest
 
-session = requests.session()
+
+session = cfrequest.create_scraper(delay=10)
+#session = requests.session()
 
 
 def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
@@ -35,7 +38,13 @@ def downloadCode(submit_id, problem, result, language):
     urlData = safeData(isPost=False, url= 'https://www.acmicpc.net/source/%s' % submit_id)
     codeHtml = urlData.content.decode('utf-8')
     unescape = html.unescape(codeHtml)
-    code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0]
+    try:
+        code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0]
+    except Exception as e:
+        print("can not find code")
+        print(codeHtml)
+        print(urlData.status_code)
+        return
     db_lock.acquire()
     Submission(submission=submit_id, problem=problem, result=result, source=code, language=language).save()
     db_lock.release()
@@ -86,7 +95,7 @@ def parseBOJ(username, password):
         new_submission_list = []
         now_submission = 999999999999999
         while True:
-            time.sleep(5)
+            time.sleep(2)
             new_submission_list = new_submission_list + findAClist(username, now_submission, past_submission)
             if len(new_submission_list) == 0 or new_submission_list[-1][0] - 1 == now_submission:
                 break

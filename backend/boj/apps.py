@@ -154,7 +154,7 @@ def parse_all_problem():
                 contests.append(Contest.objects.get(pk=contest))
             problem.parent_contest.add(*contests)
             db_lock.release()
-            time.sleep(5)
+            time.sleep(2)
 
 
 class BojConfig(AppConfig):
