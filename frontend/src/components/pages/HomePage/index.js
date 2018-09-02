@@ -35,8 +35,8 @@ const HomePage = ( {user_state, children, ...props}) => {
         BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
       </li>
       <li>
-        {/*<a href="{{ url_for('chestBOJ') }}">Category Chest({{session.get('id_BOJ', 'None')}})</a><br>*/}
-        BOJ Category에 대한 궤짝을 볼 수 있습니다.
+        <Link to="/boj/contest">BOJ Contest Chest</Link><br/>
+        BOJ Contest에 대한 궤짝을 볼 수 있습니다.
       </li>
       </ul>
       <h2>Utility</h2>
