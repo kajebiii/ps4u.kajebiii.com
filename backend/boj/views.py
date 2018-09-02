@@ -1,6 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from utility import safeData
+from .models import Contest, Problem
+from django.db.models import Q
 import re
 
 
@@ -36,3 +38,16 @@ def get_ac_problem_list(request, user_id):
         ac_problems = re.findall('class="">([\s\S]*?)</a>', ac_table, re.DOTALL)
         problem_list = [int(ac_problems[i]) for i in range(0, len(ac_problems), 2)]
     return Response(problem_list)
+
+
+@api_view(['GET'])
+def get_all_contest_with_problem(request):
+    all_contest = Contest.objects.all()
+
+    all_contest_with_problem = {}
+    for contest in all_contest:
+        all_contest_with_problem[contest.title] = {
+            'id': contest.id,
+            'problems': Problem.objects.filter(parent_contest=contest.id).values_list('id', flat=True)
+        }
+    return Response(all_contest_with_problem)
