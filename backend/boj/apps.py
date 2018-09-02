@@ -81,13 +81,13 @@ def parse_problem(num):
         ret['can_submit'] = False
         return ret
     htmlData = urlData.content.decode('utf-8')
-    try:
-        ret['title'] = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)[0]
-    except Exception as e:
-        print(num)
-        ret['title'] = ''
-        traceback.print_tb(e.__traceback__)
-        print("keep going..")
+
+    title = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)[0]
+    if len(title) == 0:
+        print(num + " problem is in use for contest")
+        ret['can_submit'] = False
+        return ret
+    ret['title'] = title[0]
     sources = re.findall('<section id = "source">([\s\S]*?)</section>', htmlData, re.DOTALL)
     for source in sources:
         ret['parent'] = re.findall('"/category/detail/([\s\S]*?)"', source)
@@ -134,8 +134,8 @@ def parse_all_category():
 
 def parse_all_problem():
     from .models import Contest, Problem
-    print("start parse_all_problem")
     while True:
+        print("start parse_all_problem..")
         for problem_id in range(1000, 19999, 1):
             current_problem = parse_problem(problem_id)
             db_lock.acquire()
@@ -149,10 +149,15 @@ def parse_all_problem():
             problem.title = current_problem['title']
             problem.can_submit = current_problem['can_submit']
             problem.save()
-            contests = []
-            for contest in current_problem['parent']:
-                contests.append(Contest.objects.get(pk=contest))
-            problem.parent_contest.add(*contests)
+            try:
+                contests = []
+                for contest in current_problem['parent']:
+                    contests.append(Contest.objects.get(pk=contest))
+                problem.parent_contest.add(*contests)
+            except Exception as e:
+                print('>>> %s - ' % "problem.add Error", e)
+                traceback.print_tb(e.__traceback__)
+                print('<<<')
             db_lock.release()
             time.sleep(2)
 
