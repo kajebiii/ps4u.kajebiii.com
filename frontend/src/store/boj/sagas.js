@@ -72,5 +72,5 @@ export default function* () {
     yield fork(synchronize_boj_kajebiii_information)
     yield fork(synchronize_base_boj_information)
 
-    yield takeEvery(actions.BOJ_LOGIN, get_boj_user_information)
+    yield takeLatest(actions.BOJ_LOGIN, get_boj_user_information)
 }
