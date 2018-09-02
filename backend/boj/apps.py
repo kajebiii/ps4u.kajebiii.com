@@ -82,7 +82,7 @@ def parse_problem(num):
         return ret
     htmlData = urlData.content.decode('utf-8')
 
-    title = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)[0]
+    title = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)
     if len(title) == 0:
         print(num + " problem is in use for contest")
         ret['can_submit'] = False
