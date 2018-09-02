@@ -119,8 +119,8 @@ export function* handle_logout(action){
     yield put(actions.set_handle("", ""))
     yield put(push('/'))
     yield put(actions.send_alert('로그아웃하였습니다.'))
-    yield put(atcoder_actions.set_user_atcoder_information({}))        
-    //TODO
+    yield put(boj_actions.boj_logout())
+    yield put(atcoder_actions.atcoder_logout())
 }
 
 export function* get_kajebiii_boj_source_by_problem(action) {

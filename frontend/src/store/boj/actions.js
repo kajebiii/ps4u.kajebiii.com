@@ -6,5 +6,7 @@ export const set_base_boj_information = (contest_with_problem) => ({type: SET_BA
 export const set_user_boj_information = (user_boj_information) => ({type: SET_USER_BOJ_INFORMATION, user_boj_information})
 
 export const BOJ_LOGIN = 'BOJ_LOGIN'
+export const BOJ_LOGOUT = 'BOJ_LOGOUT'
 export const boj_login = (username) => ({type: BOJ_LOGIN, username})
+export const boj_logout = () => ({type: BOJ_LOGOUT})
 

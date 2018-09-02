@@ -4,4 +4,6 @@ export const set_base_atcoder_information = (base_atcoder_information) => ({type
 export const set_user_atcoder_information = (user_atcoder_information) => ({type: SET_USER_ATCODER_INFORMATION, user_atcoder_information})
 
 export const ATCODER_LOGIN = 'ATCODER_LOGIN'
+export const ATCODER_LOGOUT = 'ATCODER_LOGOUT'
 export const atcoder_login = (username) => ({type: ATCODER_LOGIN, username})
+export const atcoder_logout = () => ({type: ATCODER_LOGOUT})

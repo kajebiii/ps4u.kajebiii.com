@@ -49,7 +49,7 @@ export function* synchronize_base_boj_information() {
     }
 }
 
-export function* get_boj_user_information(action){
+export function* get_boj_user_information(action) {
     const {username} = action
     const response = yield call (fetch, baseURL + `/problem-list/${username}/`, {
         method: "GET",
@@ -67,10 +67,14 @@ export function* get_boj_user_information(action){
         yield put(users_actions.send_alert('BOJ 사용자 정보를 가져오는데 실패했습니다.'))
     }
 }
+export function* clear_boj_user_information(action) {
+    yield put(actions.set_user_boj_information({}))
+}
 
 export default function* () {
     yield fork(synchronize_boj_kajebiii_information)
     yield fork(synchronize_base_boj_information)
 
     yield takeLatest(actions.BOJ_LOGIN, get_boj_user_information)
+    yield takeLatest(actions.BOJ_LOGOUT, clear_boj_user_information)
 }
