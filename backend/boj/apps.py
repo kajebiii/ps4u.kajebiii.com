@@ -84,7 +84,7 @@ def parse_problem(num):
 
     title = re.findall('<span id="problem_title" class="">([\s\S]*?)</span>', htmlData, re.DOTALL)
     if len(title) == 0:
-        print(num + " problem is in use for contest")
+        print(str(num) + " problem is in use for contest")
         ret['can_submit'] = False
         return ret
     if htmlData.find('label-warning') >= 0:
@@ -143,34 +143,38 @@ def parse_all_category():
         time.sleep(3600)
 
 
-def parse_all_problem():
+def create_or_modify_problem(problem_id):
     from .models import Contest, Problem
+    current_problem = parse_problem(problem_id)
+    db_lock.acquire()
+    problem, created = Problem.objects.get_or_create(
+        id=current_problem['id'],
+        defaults={
+            'title': current_problem['title'],
+            'can_submit': current_problem['can_submit']
+        }
+    )
+    problem.title = current_problem['title']
+    problem.can_submit = current_problem['can_submit']
+    problem.save()
+    try:
+        contests = []
+        for contest in current_problem['parent']:
+            contests.append(Contest.objects.get(pk=contest))
+        problem.parent_contest.add(*contests)
+    except Exception as e:
+        print('>>> %s - ' % "problem.add Error", e)
+        traceback.print_tb(e.__traceback__)
+        print('<<<')
+    db_lock.release()
+
+
+def parse_all_problem():
     while True:
         print("start parse_all_problem..")
         for problem_id in range(1000, 19999, 1):
-            current_problem = parse_problem(problem_id)
-            db_lock.acquire()
-            problem, created = Problem.objects.get_or_create(
-                id=current_problem['id'],
-                defaults={
-                    'title': current_problem['title'],
-                    'can_submit': current_problem['can_submit']
-                }
-            )
-            problem.title = current_problem['title']
-            problem.can_submit = current_problem['can_submit']
-            problem.save()
-            try:
-                contests = []
-                for contest in current_problem['parent']:
-                    contests.append(Contest.objects.get(pk=contest))
-                problem.parent_contest.add(*contests)
-            except Exception as e:
-                print('>>> %s - ' % "problem.add Error", e)
-                traceback.print_tb(e.__traceback__)
-                print('<<<')
-            db_lock.release()
-            time.sleep(2)
+            create_or_modify_problem(problem_id)
+            time.sleep(60)
 
 
 class BojConfig(AppConfig):
