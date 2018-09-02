@@ -4,6 +4,7 @@ import {delay} from 'redux-saga';
 import api from 'services/api'
 import * as actions from './actions'
 import * as atcoder_actions from '../atcoder/actions'
+import * as boj_actions from '../boj/actions'
 
 
 export function* watchTokenToUser(action){
@@ -111,6 +112,7 @@ export function* handle_login(action){
     yield put(actions.set_handle(boj, atcoder))
     yield put(push('/'))
     yield put(actions.send_alert('로그인하였습니다.'))
+    yield put(boj_actions.boj_login(boj))
     const response = yield call (fetch, `/api/atcoder/problem-list/${atcoder}/`, {
         method: "GET",
         headers: {
@@ -120,7 +122,7 @@ export function* handle_login(action){
     });
     if(response.ok){
         const result = yield call(() => response.json())
-        yield put(atcoder_actions.set_user_atcoder_information(result))        
+        yield put(atcoder_actions.set_user_atcoder_information(result))
         yield put(actions.send_alert('Atcoder 정보를 가져왔습니다.'))
     }else{
         //TODO

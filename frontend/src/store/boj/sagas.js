@@ -1,4 +1,4 @@
-import { takeEvery, put, call, fork, select, throttle } from 'redux-saga/effects'
+import { takeEvery, takeLatest, put, call, fork, select, throttle } from 'redux-saga/effects'
 import { push } from 'react-router-redux'
 import { delay } from 'redux-saga';
 import api from 'services/api'
@@ -49,7 +49,28 @@ export function* synchronize_base_boj_information() {
     }
 }
 
+export function* get_boj_user_information(action){
+    const {username} = action
+    const response = yield call (fetch, baseURL + `/problem-list/${username}/`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    if(response.ok){
+        const result = yield call(() => response.json())
+        yield put(actions.set_user_boj_information(result))        
+        yield put(users_actions.send_alert('BOJ 사용자 정보를 가져왔습니다.'))
+    }else{
+        //TODO
+        yield put(users_actions.send_alert('BOJ 사용자 정보를 가져오는데 실패했습니다.'))
+    }
+}
+
 export default function* () {
     yield fork(synchronize_boj_kajebiii_information)
     yield fork(synchronize_base_boj_information)
+
+    yield takeEvery(actions.BOJ_LOGIN, get_boj_user_information)
 }
