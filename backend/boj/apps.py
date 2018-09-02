@@ -99,16 +99,24 @@ def parse_all_category():
     is_first = True
     while True:
         category_queue = queue.Queue()
-        category_queue.put({'isContest': False, 'title': '', 'parent': None, 'id': '0'})
+        category_queue.put({'isContest': False, 'title': '출처', 'parent': None, 'id': '0'})
         while not category_queue.empty():
             current_category = category_queue.get()
             time.sleep(2)
+
+            merge_parent_title = ""
+            if current_category['parent']:
+                merge_parent_title = Category.objects.get(pk=current_category['parent']).merge_parent_title
+                if current_category['parent'] != "0":
+                    merge_parent_title += " \\ "
+                merge_parent_title += Category.objects.get(pk=current_category['parent']).title
 
             db_lock.acquire()
             if not current_category['isContest']:
                 Category(
                     id=current_category['id'],
                     title=current_category['title'],
+                    merge_parent_title=merge_parent_title,
                     parent_category=
                     Category.objects.get(pk=current_category['parent'])
                     if current_category['parent'] else None
@@ -117,10 +125,11 @@ def parse_all_category():
                 Contest(
                     id=current_category['id'],
                     title=current_category['title'],
+                    merge_parent_title=merge_parent_title,
                     parent_category=Category.objects.get(pk=current_category['parent'])
                 ).save()
-            db_lock.release()
                 #problems = get_problems(current_category['id'])
+            db_lock.release()
 
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
