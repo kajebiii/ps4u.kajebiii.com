@@ -87,6 +87,8 @@ def parse_problem(num):
         print(num + " problem is in use for contest")
         ret['can_submit'] = False
         return ret
+    if htmlData.find('label-warning') >= 0:
+        ret['can_submit'] = False
     ret['title'] = title[0]
     sources = re.findall('<section id = "source">([\s\S]*?)</section>', htmlData, re.DOTALL)
     for source in sources:
