@@ -4,6 +4,7 @@ from django.db import models
 class Category(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
+    merge_parent_title = models.TextField()
     parent_category = models.ForeignKey("self", on_delete=models.CASCADE, null=True)
 
     class Meta:
@@ -16,6 +17,7 @@ class Category(models.Model):
 class Contest(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
+    merge_parent_title = models.TextField()
     parent_category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
     class Meta:
