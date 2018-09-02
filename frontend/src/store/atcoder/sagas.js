@@ -28,6 +28,27 @@ export function* synchronize_atcoder_base_information() {
     }
 }
 
+export function* get_atcoder_user_information(action){
+    const {username} = action
+    const response = yield call (fetch, baseURL + `/problem-list/${username}/`, {
+        method: "GET",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+        },
+    });
+    if(response.ok){
+        const result = yield call(() => response.json())
+        yield put(actions.set_user_atcoder_information(result))
+        yield put(users_actions.send_alert('Atcoder 정보를 가져왔습니다.'))
+    }else{
+        //TODO
+        yield put(users_actions.send_alert('Atcoder 정보를 가져오는데 실패했습니다.'))
+    }
+}
+
 export default function* () {
     yield fork(synchronize_atcoder_base_information)
+
+    yield takeEvery(actions.ATCODER_LOGIN, get_atcoder_user_information)
 }
