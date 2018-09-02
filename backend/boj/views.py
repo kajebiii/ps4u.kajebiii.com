@@ -48,6 +48,8 @@ def get_all_contest_with_problem(request):
     for contest in all_contest:
         all_contest_with_problem[contest.title] = {
             'id': contest.id,
+            'parent_title': contest.merge_parent_title,
+            'parent_id': contest.parent_category_id,
             'problems': Problem.objects.filter(parent_contest=contest.id).values_list('id', flat=True)
         }
     return Response(all_contest_with_problem)
