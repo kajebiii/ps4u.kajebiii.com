@@ -50,7 +50,7 @@ const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} 
         </div>
         <div className="col-12 col-sm-4 text-center">
         <h5>E-mail</h5>
-        <img src={require('./email.png')} alt="E-mail" style={{'max-width':'100%'}}></img>
+        <img src={require('./email.png')} alt="E-mail" style={{'maxWidth':'100%'}}></img>
         <h5>
           {/*
           <a 
