@@ -1,6 +1,5 @@
 from django.apps import AppConfig
 from django.conf import settings
-from utility import db_lock
 import re
 import html
 import time
@@ -20,7 +19,7 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
             break
         except:
             print("Internet connection is Bad (in safeData)")
-            time.sleep(2)
+            time.sleep(20)
     return returnVal
 
 
@@ -45,9 +44,7 @@ def downloadCode(submit_id, problem, result, language):
         print(codeHtml)
         print(urlData.status_code)
         return
-    db_lock.acquire()
     Submission(submission=submit_id, problem=problem, result=result, source=code, language=language).save()
-    db_lock.release()
 
 
 def findAClist(user_id, top_submit, past_submit):
@@ -85,17 +82,15 @@ def findAClist(user_id, top_submit, past_submit):
 
 def parseBOJ(username, password):
     from .models import Submission
-    db_lock.acquire()
     last_submission = Submission.objects.all().last()
     past_submission = last_submission.submission if last_submission is not None else 0
-    db_lock.release()
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
         login(username, password)
         new_submission_list = []
         now_submission = 999999999999999
         while True:
-            time.sleep(2)
+            time.sleep(60)
             new_submission_list = new_submission_list + findAClist(username, now_submission, past_submission)
             if len(new_submission_list) == 0 or new_submission_list[-1][0] - 1 == now_submission:
                 break

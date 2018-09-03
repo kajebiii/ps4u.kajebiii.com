@@ -13,7 +13,6 @@ def get_problem_list(request, user_id):
 
     tables = re.findall('<div class="panel panel-default">([\s\S]*?)</div>[\s]*?</div>', htmlData, re.DOTALL)
     problem_list = {}
-    print(len(tables))
     if len(tables) == 2:
         ac_table = tables[0]
         wa_table = tables[1]
