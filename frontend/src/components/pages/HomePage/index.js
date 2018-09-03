@@ -31,8 +31,11 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>BOJ</h2>
       <ul>
       <li>
-        <Link to="/kajebiii/boj">kajebiii AC Problem List in BOJ</Link><br/>
-        BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
+        <Link to="/kajebiii/boj">kajebiii AC Problem List in BOJ</Link>
+        <br/>
+        <del>BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.</del> (삭제)
+        <br/>
+        BOJ 정책을 따라, 문제를 맞춘 유저에게만 공개할 생각입니다. (TODO)
       </li>
       <li>
         <Link to="/boj/contest">BOJ Contest Chest</Link><br/>
