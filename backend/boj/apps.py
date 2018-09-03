@@ -97,7 +97,7 @@ def parse_problem(num):
 
 
 def parse_all_category():
-    from .models import Category, Contest
+    from .models import Category, Contest, Problem
     is_first = True
     while True:
         category_queue = queue.Queue()
@@ -129,7 +129,12 @@ def parse_all_category():
                     merge_parent_title=merge_parent_title,
                     parent_category=Category.objects.get(pk=current_category['parent'])
                 ).save()
-                #problems = get_problems(current_category['id'])
+                problems = get_problems(current_category['id'])
+                for problem_id in problems:
+                    problem_id = int(problem_id)
+                    if Problem.objects.filter(pk=problem_id).count() > 0:
+                        Problem.objects.get(pk=problem_id).parent_contest\
+                            .add(Contest.objects.get(pk=current_category['id']))
 
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
