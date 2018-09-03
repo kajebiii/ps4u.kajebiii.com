@@ -19,7 +19,7 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
             break
         except:
             print("Internet connection is Bad (in safeData)")
-            time.sleep(2)
+            time.sleep(20)
     return returnVal
 
 
@@ -90,7 +90,7 @@ def parseBOJ(username, password):
         new_submission_list = []
         now_submission = 999999999999999
         while True:
-            time.sleep(2)
+            time.sleep(60)
             new_submission_list = new_submission_list + findAClist(username, now_submission, past_submission)
             if len(new_submission_list) == 0 or new_submission_list[-1][0] - 1 == now_submission:
                 break

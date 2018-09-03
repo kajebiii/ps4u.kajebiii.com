@@ -104,7 +104,7 @@ def parse_all_category():
         category_queue.put({'isContest': False, 'title': '출처', 'parent': None, 'id': '0'})
         while not category_queue.empty():
             current_category = category_queue.get()
-            time.sleep(2)
+            time.sleep(3 if is_first else 30)
 
             merge_parent_title = ""
             if current_category['parent']:
@@ -138,10 +138,9 @@ def parse_all_category():
             th = threading.Thread(target=parse_all_problem, daemon=True)
             th.start()
             is_first = False
-        time.sleep(3600)
 
 
-def create_or_modify_problem(problem_id):
+def modify_problem(problem_id):
     from .models import Contest, Problem
     current_problem = parse_problem(problem_id)
     problem, created = Problem.objects.get_or_create(
@@ -157,7 +156,8 @@ def create_or_modify_problem(problem_id):
     try:
         contests = []
         for contest in current_problem['parent']:
-            contests.append(Contest.objects.get(pk=contest))
+            if Contest.objects.filter(pk=contest).count() > 0:
+                contests.append(Contest.objects.get(pk=contest))
         problem.parent_contest.add(*contests)
     except Exception as e:
         print('>>> %s - ' % "problem.add Error", e)
@@ -166,11 +166,18 @@ def create_or_modify_problem(problem_id):
 
 
 def parse_all_problem():
+    from .models import Problem
+    last_problem_id = 19999
+    is_first = True
     while True:
         print("start parse_all_problem..")
-        for problem_id in range(1000, 19999, 1):
-            create_or_modify_problem(problem_id)
-            time.sleep(60)
+        for problem_id in range(1000, last_problem_id+1, 1):
+            if Problem.objects.filter(pk=problem_id).count() == 0:
+                Problem(id=problem_id, title="will be update", can_submit=False).save()
+            if not Problem.objects.get(pk=problem_id).can_submit:
+                modify_problem(problem_id)
+                time.sleep(3 if is_first else 60)
+        is_first = False
 
 
 class BojConfig(AppConfig):
