@@ -104,7 +104,7 @@ def parse_all_category():
         category_queue.put({'isContest': False, 'title': '출처', 'parent': None, 'id': '0'})
         while not category_queue.empty():
             current_category = category_queue.get()
-            time.sleep(3 if is_first else 30)
+            time.sleep(20 if is_first else 50)
 
             merge_parent_title = ""
             if current_category['parent']:
@@ -139,10 +139,7 @@ def parse_all_category():
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
                     category_queue.put(subcategory)
-        if is_first:
-            th = threading.Thread(target=parse_all_problem, daemon=True)
-            th.start()
-            is_first = False
+        is_first = False
 
 
 def modify_problem(problem_id):
@@ -190,5 +187,7 @@ class BojConfig(AppConfig):
 
     def ready(self):
         th = threading.Thread(target=parse_all_category, daemon=True)
+        th.start()
+        th = threading.Thread(target=parse_all_problem, daemon=True)
         th.start()
         pass
