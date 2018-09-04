@@ -1,4 +1,5 @@
 from django.apps import AppConfig
+from django.conf import settings
 from utility import safeData
 import re
 import time
@@ -186,7 +187,7 @@ def parse_not_perfect_problem():
             if not problem.can_submit or problem.description_length == -1\
                     or problem_id == next_problem + 1000:
                 modify_problem(problem_id)
-                time.sleep(3 if is_first else 60)
+                time.sleep(3 if is_first and not getattr(settings, "DEBUG", True) else 60)
                 next_problem = (next_problem + prime) % (last_problem_id - 1000 + 1)
         is_first = False
 
