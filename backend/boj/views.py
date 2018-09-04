@@ -41,14 +41,21 @@ def get_ac_problem_list(request, user_id):
 
 @api_view(['GET'])
 def get_all_contest_with_problem(request):
-    all_contest = Contest.objects.all()
+    all_contest = list(Contest.objects.values().order_by('merge_parent_title', 'title'))
+    change_key_names = {
+        'id': 'id',
+        'title': 'title',
+        'merge_parent_title': 'parent_title',
+        'parent_category_id': 'parent_id',
+    }
 
-    all_contest_with_problem = {}
+    all_contest_with_problem = []
     for contest in all_contest:
-        all_contest_with_problem[contest.title] = {
-            'id': contest.id,
-            'parent_title': contest.merge_parent_title,
-            'parent_id': contest.parent_category_id,
-            'problems': Problem.objects.filter(parent_contest=contest.id).values_list('id', flat=True)
+        contest_with_problem = {
+            'problems': Problem.objects.filter(parent_contest=contest['id']).values_list('id', flat=True)
         }
+        for key, value in change_key_names.items():
+            contest_with_problem[value] = contest[key]
+
+        all_contest_with_problem.append(contest_with_problem)
     return Response(all_contest_with_problem)
