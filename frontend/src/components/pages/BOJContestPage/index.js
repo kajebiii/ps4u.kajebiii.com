@@ -33,8 +33,6 @@ class BOJContestPage extends React.Component {
   }
   render(){
     var {contest_with_problem_state, user_state, children, ...props} = this.props
-    console.log(contest_with_problem_state)
-    console.log(user_state)
     return (
       <PageTemplate {...props}>
       <h1>BOJ Contest Chest</h1>
@@ -50,8 +48,8 @@ class BOJContestPage extends React.Component {
         checked={this.state.show_can_not_all_solve} onChange={this.handleInputChange}>
       </input>
       {
-        Object.keys(contest_with_problem_state).map( (title) => {
-          var { id, parent_title, parent_id, problems } = contest_with_problem_state[title]
+        contest_with_problem_state.map( (contest) => {
+          const { id, title, parent_title, parent_id, problems } = contest
           return <Wrapper key={id}>
             <div className="d-flex justify-content-between">
               <h5><a href={"https://acmicpc.net/category/detail/"+id}>{title}</a></h5>
@@ -73,12 +71,6 @@ class BOJContestPage extends React.Component {
           </Wrapper>
         })
       }
-      {/*
-        GRB_tags.map( ([tag, title]) => {
-          if(this.state['show_'+tag] == false) return
-          return <AtcoderGRBContest key={tag} inverse={this.state.inverse} contests_state={GRB_state[tag]}/>
-        })
-      */}
       {children}
       </PageTemplate>
     )
