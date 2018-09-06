@@ -1,10 +1,26 @@
 from django.apps import AppConfig
 from django.conf import settings
-from utility import safeData
 import re
 import html
 import time
 import threading
+import requests
+import cfrequest
+
+
+session = cfrequest.create_scraper(delay=10)
+#session = requests.session()
+
+
+def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
+    while True:
+        try:
+            returnVal = (session.post(url, data=data, timeout=20) if isPost else session.get(url, timeout=20))
+            break
+        except:
+            print("Internet connection is Bad (in safeData)")
+            time.sleep(20)
+    return returnVal
 
 
 def login(user_id, user_password):
@@ -21,7 +37,13 @@ def downloadCode(submit_id, problem, result, language):
     urlData = safeData(isPost=False, url= 'https://www.acmicpc.net/source/%s' % submit_id)
     codeHtml = urlData.content.decode('utf-8')
     unescape = html.unescape(codeHtml)
-    code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0]
+    try:
+        code = re.findall('<textarea.*?>([\s\S]*?)</textarea>', unescape)[0]
+    except Exception as e:
+        print("can not find code")
+        print(codeHtml)
+        print(urlData.status_code)
+        return
     Submission(submission=submit_id, problem=problem, result=result, source=code, language=language).save()
 
 
@@ -44,7 +66,6 @@ def findAClist(user_id, top_submit, past_submit):
 
         #memoryuse = re.findall('<td class = "memory">(.*?)<', data)[0]
         #timeuse = re.findall('<td class = "time">(.*?)<', data)[0]
-        language = re.findall('<a href="/source/'+submit_id+'">(.*?)</a>', data)[0]
         result = re.findall('<span class="result-(.*?)"', data)[1]
         if result == "wait" or result == "judging":
             break
@@ -52,6 +73,7 @@ def findAClist(user_id, top_submit, past_submit):
         if len(modifybutton) == 0:
             print("there is no modify button in status, please login again")
             break
+        language = re.findall('<a href="/source/'+submit_id+'">(.*?)</a>', data)[0]
         if past_submit == int(submit_id):
             break
         parse_result.append((int(submit_id), int(problem), result, language))
@@ -64,9 +86,11 @@ def parseBOJ(username, password):
     past_submission = last_submission.submission if last_submission is not None else 0
     print("Update aleary [1 ~ " + str(past_submission) + ']')
     while True:
+        login(username, password)
         new_submission_list = []
         now_submission = 999999999999999
         while True:
+            time.sleep(60)
             new_submission_list = new_submission_list + findAClist(username, now_submission, past_submission)
             if len(new_submission_list) == 0 or new_submission_list[-1][0] - 1 == now_submission:
                 break
@@ -79,7 +103,6 @@ def parseBOJ(username, password):
         if len(new_submission_list) != 0:
             print("Update Finish [" + str(new_submission_list[0][0]) + ", " + str(new_submission_list[-1][0]) + "]")
             past_submission = new_submission_list[-1][0]
-        time.sleep(60)
 
 
 class KajebiiiBojConfig(AppConfig):

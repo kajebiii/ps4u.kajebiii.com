@@ -1,7 +1,9 @@
 import requests
 import time
+import threading
+import cfrequest
 
-s = requests.session()
+s = cfrequest.create_scraper(delay=10)
 
 
 def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
@@ -11,5 +13,5 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
             break
         except:
             print("Internet connection is Bad (in safeData)")
-            time.sleep(2)
+            time.sleep(20)
     return returnVal
