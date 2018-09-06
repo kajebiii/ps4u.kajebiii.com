@@ -11,68 +11,52 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>Announcement</h2>
       <ul>
       <li>
-      마땅히 더 개발할게 없어서 잠시 개발을 멈추겠습니다.
-      추가하고 싶은 기능이 있으시면 <a href="https://github.com/kajebiii/ps.kajebiii.ga">GitHub</a>에 Issue를 등록해주세요.
+        <p>추가하고 싶은 기능이 있으시면 <a href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a>에 Issue를 등록해주세요.</p>
       </li>
       </ul>
       <h2>Login</h2>
       <ul>
       <li>
         <Link to="/handle-login">Login</Link><br/>
-        handle 정보로 로그인 할 수 있습니다.
+        <p>handle 정보로 로그인 할 수 있습니다.</p>
       </li>
       </ul>
       <h2>Atcoder</h2>
       <ul>
       <li>
         <Link to="/atcoder">Atcoder Problem Chest</Link><br/>
-        Atcoder 궤짝을 볼 수 있습니다.
+        <p>Atcoder 궤짝을 볼 수 있습니다.</p>
       </li>
       </ul>
       <h2>BOJ</h2>
       <ul>
       <li>
-        <Link to="/kajebiii/boj">kajebiii AC Problem List in BOJ</Link><br/>
-        BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.
+        <Link to="/kajebiii/boj">kajebiii AC Problem List in BOJ</Link>
+        <br/>
+        <del>BOJ에서 kajebiii가 AC받은 코드를 확인할 수 있습니다.</del> (삭제)
+        <br/>
+        <p>BOJ 정책을 따라, 문제를 맞춘 유저에게만 공개할 생각입니다. (TODO)</p>
       </li>
       <li>
-        {/*<a href="{{ url_for('chestBOJ') }}">Category Chest({{session.get('id_BOJ', 'None')}})</a><br>*/}
-        BOJ Category에 대한 궤짝을 볼 수 있습니다.
+        <Link to="/boj/contest">BOJ Contest Chest</Link><br/>
+        <p>BOJ Contest에 대한 궤짝을 볼 수 있습니다.</p>
+      </li>
+      <li>
+        <Link to="/boj/length">BOJ Length List</Link><br/>
+        <p>BOJ 문제들을 설명이 짧은 순서로 볼 수 있습니다.</p>
       </li>
       </ul>
       <h2>Utility</h2>
       <ul>
       <li>
-        {/*<a href="{{ url_for('codeToImage') }}">Code To Image (C++)</a><br>*/}
-        C++ Code를 입력하면 Image로 바꾸어 줍니다.
+        <Link to="/code-to-image">C++ Code To Image</Link><br/>
+        <p>C++ Code를 입력하면 Image로 바꾸어 줍니다.</p>
       </li>
       <li>
-        <Link to="/realtimemarkdown">Realtime Markdown Editor With Mathjax</Link><br/>
-        텍스트 기반의 마크업언어 Markdown를 실시간으로 작업할 수 있습니다.
+        <Link to="/realtime-markdown">Realtime Markdown Editor With Mathjax</Link><br/>
+        <p>텍스트 기반의 마크업언어 Markdown를 실시간으로 작업할 수 있습니다.</p>
       </li>
       </ul>
-      <h2>Update</h2>
-      <ul>
-      <li>2018-04-28 : BOJ Chest 링크에  ?search=검색어 를 붙여서 접근 가능하게함</li>
-      <li>2018-03-14 : Atcoder AC or WA 색 칠함</li>
-      <li>2018-03-12 : Markdown with Mathjax 완성</li>
-      <li>2018-03-08 : Atcoder 궤짝 추가</li>
-      <li>2018-02-27 : 코드 다시 짬, GitHub로 관리 시작</li>
-      <li>2018-02-26 : 서버가 날아감</li>
-      </ul>
-      <h2>To Do</h2>
-      <ul>
-      <li>개인 프로필 화면 추가</li>
-      <li>BOJ 궤짝에 기능들 추가</li>
-      <li>Codeforces 궤짝 추가</li>
-      </ul>
-      {
-        /*
-        user_state.username == "" 
-        ? (<h1>로그인 이후 이용하실 수 있습니다.</h1>) 
-        : (<h1>로그인 하였습니다. </h1>)
-        */
-      }
       {children}
     </div>
     </PageTemplate>

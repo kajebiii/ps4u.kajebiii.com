@@ -52,7 +52,6 @@ class RealtimeMarkdownPage extends React.Component {
   }
   handleInputChange(event) {
     const target = event.target;
-    console.log(target)
     const value = target.value;
     const id = target.id;
     this.setState({markdown_content: value});

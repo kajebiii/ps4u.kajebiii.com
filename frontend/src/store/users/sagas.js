@@ -4,6 +4,7 @@ import {delay} from 'redux-saga';
 import api from 'services/api'
 import * as actions from './actions'
 import * as atcoder_actions from '../atcoder/actions'
+import * as boj_actions from '../boj/actions'
 
 
 export function* watchTokenToUser(action){
@@ -105,35 +106,23 @@ export function* watchSignUp(action){
     }
 }
 
-
 export function* handle_login(action){
     const {boj, atcoder} = action
     yield put(actions.set_handle(boj, atcoder))
     yield put(push('/'))
     yield put(actions.send_alert('로그인하였습니다.'))
-    const response = yield call (fetch, `/api/atcoder/problem-list/${atcoder}/`, {
-        method: "GET",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json",
-        },
-    });
-    if(response.ok){
-        const result = yield call(() => response.json())
-        yield put(atcoder_actions.set_user_atcoder_information(result))        
-        yield put(actions.send_alert('Atcoder 정보를 가져왔습니다.'))
-    }else{
-        //TODO
-        yield put(actions.send_alert('Atcoder 정보를 가져오는데 실패했습니다.'))
-    }
+    yield put(boj_actions.boj_login(boj))
+    yield put(atcoder_actions.atcoder_login(atcoder))
 }
+
 export function* handle_logout(action){
     yield put(actions.set_handle("", ""))
     yield put(push('/'))
     yield put(actions.send_alert('로그아웃하였습니다.'))
-    yield put(atcoder_actions.set_user_atcoder_information({}))        
-    //TODO
+    yield put(boj_actions.boj_logout())
+    yield put(atcoder_actions.atcoder_logout())
 }
+
 export function* get_kajebiii_boj_source_by_problem(action) {
     const {boj_problem} = action
     const response = yield call (fetch, `/api/kajebiii/boj/last-ac-source/${boj_problem}/`, {
