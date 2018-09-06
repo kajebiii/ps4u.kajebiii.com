@@ -11,6 +11,7 @@ import { KajebiiiBOJCodePage } from 'containers'
 import { RealtimeMarkdownPage } from 'components'
 import { CppToImagePage } from 'components'
 import { BOJContestPage } from 'containers'
+import { BOJLengthPage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -39,6 +40,7 @@ export const routes = (store) => {
       <Route path="realtime-markdown" component = {RealtimeMarkdownPage} />
       <Route path="code-to-image" component = {CppToImagePage} />
       <Route path="boj/contest" component = {BOJContestPage} />
+      <Route path="boj/length" component = {BOJLengthPage} />
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>

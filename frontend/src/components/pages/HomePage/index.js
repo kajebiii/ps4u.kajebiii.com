@@ -41,6 +41,10 @@ const HomePage = ( {user_state, children, ...props}) => {
         <Link to="/boj/contest">BOJ Contest Chest</Link><br/>
         <p>BOJ Contest에 대한 궤짝을 볼 수 있습니다.</p>
       </li>
+      <li>
+        <Link to="/boj/length">BOJ Length List</Link><br/>
+        <p>BOJ 문제들을 설명이 짧은 순서로 볼 수 있습니다.</p>
+      </li>
       </ul>
       <h2>Utility</h2>
       <ul>
