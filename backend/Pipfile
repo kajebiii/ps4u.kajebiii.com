@@ -6,3 +6,4 @@ verify_ssl = true
 Django = "*"
 djangorestframework = "*"
 requests = "*"
+beautifulsoup4 = "*"
