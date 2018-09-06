@@ -55,6 +55,14 @@ class BOJContestPage extends React.Component {
       {
         contests_with_problem_state.map( (contest) => {
           const { id, title, parent_title, parent_id, problems } = contest
+          if(!this.state.show_all_solve && problems.length > 0) {
+            let ac_count = 0
+            problems.forEach( problem => {
+              if(problem in user_state && user_state[problem] === "AC") ac_count = ac_count + 1
+            })
+            if(ac_count == problems.length) return
+          }
+          if(!this.state.show_can_not_all_solve && problems.length == 0) return
           return <div key={id}>
             <div className="d-flex justify-content-between">
               <h5><a href={"https://acmicpc.net/category/detail/"+id}>{title}</a></h5>
