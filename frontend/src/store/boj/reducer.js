@@ -20,6 +20,8 @@ const boj_state = (boj_state = initialBojState, action) => {
             return {...boj_state, kajebiii_ac_problems: action.kajebiii_ac_problems}
         case actions.SET_CONTESTS_WITH_PROBLEM:
             return {...boj_state, contests_with_problem: action.contests_with_problem}
+        case actions.SET_PROBLEMS_LENGTH:
+            return {...boj_state, problems_sort_by_length: action.problems_sort_by_length}
         case actions.SET_USER_PROBLEMS_STATE:
             return {...boj_state, user_problems_state: action.user_problems_state}
         default:

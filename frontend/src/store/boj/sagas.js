@@ -44,6 +44,20 @@ export function* synchronize_base_boj_information() {
         }else{
             yield put(users_actions.send_alert('BOJ Contest 정보 동기화에 실패했습니다.'))
         }
+        const response_problems = yield call (fetch, baseURL + `/all-problems-sort-by-description-length/`, {
+            method: "GET",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        })
+        if(response_problems.ok) {
+            const result = yield call(() => response_problems.json())
+            yield put(actions.set_problems_sort_by_length(result))
+            yield put(users_actions.send_alert('BOJ Problem 정보를 동기화했습니다.'))
+        }else{
+            yield put(users_actions.send_alert('BOJ Problem 정보 동기화에 실패했습니다.'))
+        }
         yield call(delay, 1000 * 60 * 60 * 2)
     }
 }
