@@ -262,7 +262,6 @@ class CppToImagePage extends React.Component {
   }
   render(){
     var { children, ...props } = this.props
-    console.log(this.state)
     return (
       <PageTemplate {...props}>
       <h1>CppToImagePage</h1>

@@ -32,7 +32,7 @@ class BOJContestPage extends React.Component {
     this.setState({[id]: value});
   }
   render(){
-    var {contest_with_problem_state, user_state, children, ...props} = this.props
+    var {contests_with_problem_state, user_state, children, ...props} = this.props
     return (
       <PageTemplate {...props}>
       <h1>BOJ Contest Chest</h1>
@@ -48,7 +48,7 @@ class BOJContestPage extends React.Component {
         checked={this.state.show_can_not_all_solve} onChange={this.handleInputChange}>
       </input>
       {
-        contest_with_problem_state.map( (contest) => {
+        contests_with_problem_state.map( (contest) => {
           const { id, title, parent_title, parent_id, problems } = contest
           return <Wrapper key={id}>
             <div className="d-flex justify-content-between">
