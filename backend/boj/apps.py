@@ -1,10 +1,12 @@
 from django.apps import AppConfig
+from django.conf import settings
 from utility import safeData
 import re
 import time
 import threading
 import queue
 import traceback
+from bs4 import BeautifulSoup
 
 
 def getCategoryURL(category_num):
@@ -76,7 +78,7 @@ def get_subcategory(num):
 
 def parse_problem(num):
     urlData = safeData(isPost=False, url='https://www.acmicpc.net/problem/%s' % num)
-    ret = {'can_submit': True, 'title': '', 'parent': [], 'id': num}
+    ret = {'can_submit': True, 'title': '', 'parent': [], 'id': num, 'description_length': -1}
     if urlData.status_code == 404:
         ret['can_submit'] = False
         return ret
@@ -90,6 +92,16 @@ def parse_problem(num):
     if htmlData.find('label-warning') >= 0:
         ret['can_submit'] = False
     ret['title'] = title[0]
+
+    description = re.findall('(<section id = "description" >[\s\S]*?</section>)', htmlData, re.DOTALL)
+    if len(description) == 0:
+        print(str(num) + "problem has not description.")
+    else:
+        description = BeautifulSoup(description[0], features="html.parser")
+        description_text = ''.join(description.findAll(text=True))
+        description_length = len(re.sub('\s+', '', description_text))
+        ret['description_length'] = description_length
+
     sources = re.findall('<section id = "source">([\s\S]*?)</section>', htmlData, re.DOTALL)
     for source in sources:
         ret['parent'] = re.findall('"/category/detail/([\s\S]*?)"', source)
@@ -104,7 +116,7 @@ def parse_all_category():
         category_queue.put({'isContest': False, 'title': '출처', 'parent': None, 'id': '0'})
         while not category_queue.empty():
             current_category = category_queue.get()
-            time.sleep(3 if is_first else 30)
+            time.sleep(20 if is_first else 50)
 
             merge_parent_title = ""
             if current_category['parent']:
@@ -139,24 +151,16 @@ def parse_all_category():
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
                     category_queue.put(subcategory)
-        if is_first:
-            th = threading.Thread(target=parse_all_problem, daemon=True)
-            th.start()
-            is_first = False
+        is_first = False
 
 
 def modify_problem(problem_id):
     from .models import Contest, Problem
     current_problem = parse_problem(problem_id)
-    problem, created = Problem.objects.get_or_create(
-        id=current_problem['id'],
-        defaults={
-            'title': current_problem['title'],
-            'can_submit': current_problem['can_submit']
-        }
-    )
+    problem = Problem.objects.get(pk=current_problem['id'])
     problem.title = current_problem['title']
     problem.can_submit = current_problem['can_submit']
+    problem.description_length = current_problem['description_length']
     problem.save()
     try:
         contests = []
@@ -170,18 +174,23 @@ def modify_problem(problem_id):
         print('<<<')
 
 
-def parse_all_problem():
+def parse_not_perfect_problem():
     from .models import Problem
+    prime = 7  # must gcd(prime, last_problem_d - 1000 + 1) = 1
+    next_problem = 0  # + 1000
     last_problem_id = 19999
     is_first = True
     while True:
         print("start parse_all_problem..")
         for problem_id in range(1000, last_problem_id+1, 1):
             if Problem.objects.filter(pk=problem_id).count() == 0:
-                Problem(id=problem_id, title="will be update", can_submit=False).save()
-            if not Problem.objects.get(pk=problem_id).can_submit:
+                Problem(id=problem_id, title="will be update", description_length="-1", can_submit=False).save()
+            problem = Problem.objects.get(pk=problem_id)
+            if not problem.can_submit or problem.description_length == -1\
+                    or problem_id == next_problem + 1000:
                 modify_problem(problem_id)
-                time.sleep(3 if is_first else 60)
+                time.sleep(3 if is_first and not getattr(settings, "DEBUG", True) else 60)
+                next_problem = (next_problem + prime) % (last_problem_id - 1000 + 1)
         is_first = False
 
 
@@ -190,5 +199,7 @@ class BojConfig(AppConfig):
 
     def ready(self):
         th = threading.Thread(target=parse_all_category, daemon=True)
+        th.start()
+        th = threading.Thread(target=parse_not_perfect_problem, daemon=True)
         th.start()
         pass

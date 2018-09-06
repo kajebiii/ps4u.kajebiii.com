@@ -31,6 +31,7 @@ class Problem(models.Model):
     id = models.IntegerField(primary_key=True)
     title = models.TextField()
     can_submit = models.BooleanField()
+    description_length = models.IntegerField()
     parent_contest = models.ManyToManyField(Contest)
 
     class Meta:

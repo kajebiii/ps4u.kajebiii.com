@@ -59,3 +59,14 @@ def get_all_contest_with_problem(request):
 
         all_contest_with_problem.append(contest_with_problem)
     return Response(all_contest_with_problem)
+
+
+@api_view(['GET'])
+def get_problems_sort_by_description_length(request):
+    problems_sort_by_description_length = Problem.objects.filter(
+        ~(Q(can_submit=False) | Q(description_length=-1))
+    ).order_by('description_length')
+    return Response({
+        'problems': problems_sort_by_description_length.values_list('id', flat=True),
+        'description_lengths': problems_sort_by_description_length.values_list('description_length', flat=True)
+    })
