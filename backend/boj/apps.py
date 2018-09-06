@@ -6,6 +6,7 @@ import time
 import threading
 import queue
 import traceback
+from bs4 import BeautifulSoup
 
 
 def getCategoryURL(category_num):
@@ -92,12 +93,13 @@ def parse_problem(num):
         ret['can_submit'] = False
     ret['title'] = title[0]
 
-    description = re.findall('<section id = "description" >([\s\S]*?)</section>', htmlData, re.DOTALL)
+    description = re.findall('(<section id = "description" >[\s\S]*?</section>)', htmlData, re.DOTALL)
     if len(description) == 0:
         print(str(num) + "problem has not description.")
     else:
-        description = description[0]
-        description_length = len(re.sub('&nbsp;', '', re.sub('\s+', '', description)))
+        description = BeautifulSoup(description[0], features="html.parser")
+        description_text = ''.join(description.findAll(text=True))
+        description_length = len(re.sub('\s+', '', description_text))
         ret['description_length'] = description_length
 
     sources = re.findall('<section id = "source">([\s\S]*?)</section>', htmlData, re.DOTALL)
