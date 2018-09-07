@@ -120,10 +120,10 @@ def parse_all_category():
 
             merge_parent_title = ""
             if current_category['parent']:
-                merge_parent_title = Category.objects.get(pk=current_category['parent']).merge_parent_title
+                merge_parent_title = Category.objects.get(id=current_category['parent']).merge_parent_title
                 if current_category['parent'] != "0":
                     merge_parent_title += " \\ "
-                merge_parent_title += Category.objects.get(pk=current_category['parent']).title
+                merge_parent_title += Category.objects.get(id=current_category['parent']).title
 
             if not current_category['isContest']:
                 Category(
@@ -131,7 +131,7 @@ def parse_all_category():
                     title=current_category['title'],
                     merge_parent_title=merge_parent_title,
                     parent_category=
-                    Category.objects.get(pk=current_category['parent'])
+                    Category.objects.get(id=current_category['parent'])
                     if current_category['parent'] else None
                 ).save()
             else:
@@ -139,14 +139,14 @@ def parse_all_category():
                     id=current_category['id'],
                     title=current_category['title'],
                     merge_parent_title=merge_parent_title,
-                    parent_category=Category.objects.get(pk=current_category['parent'])
+                    parent_category=Category.objects.get(id=current_category['parent'])
                 ).save()
                 problems = get_problems(current_category['id'])
                 for problem_id in problems:
                     problem_id = int(problem_id)
-                    if Problem.objects.filter(pk=problem_id).count() > 0:
-                        Problem.objects.get(pk=problem_id).parent_contest\
-                            .add(Contest.objects.get(pk=current_category['id']))
+                    if Problem.objects.filter(id=problem_id).count() > 0:
+                        Problem.objects.get(id=problem_id).parent_contest\
+                            .add(Contest.objects.get(id=current_category['id']))
 
             if not current_category['isContest']:
                 for subcategory in get_subcategory(current_category['id']):
@@ -157,7 +157,7 @@ def parse_all_category():
 def modify_problem(problem_id):
     from .models import Contest, Problem
     current_problem = parse_problem(problem_id)
-    problem = Problem.objects.get(pk=current_problem['id'])
+    problem = Problem.objects.get(id=current_problem['id'])
     problem.title = current_problem['title']
     problem.can_submit = current_problem['can_submit']
     problem.description_length = current_problem['description_length']
@@ -165,8 +165,8 @@ def modify_problem(problem_id):
     try:
         contests = []
         for contest in current_problem['parent']:
-            if Contest.objects.filter(pk=contest).count() > 0:
-                contests.append(Contest.objects.get(pk=contest))
+            if Contest.objects.filter(id=contest).count() > 0:
+                contests.append(Contest.objects.get(id=contest))
         problem.parent_contest.add(*contests)
     except Exception as e:
         print('>>> %s - ' % "problem.add Error", e)
@@ -183,9 +183,9 @@ def parse_not_perfect_problem():
     while True:
         print("start parse_all_problem..")
         for problem_id in range(1000, last_problem_id+1, 1):
-            if Problem.objects.filter(pk=problem_id).count() == 0:
+            if Problem.objects.filter(id=problem_id).count() == 0:
                 Problem(id=problem_id, title="will be update", description_length="-1", can_submit=False).save()
-            problem = Problem.objects.get(pk=problem_id)
+            problem = Problem.objects.get(id=problem_id)
             if not problem.can_submit or problem.description_length == -1\
                     or problem_id == next_problem + 1000:
                 modify_problem(problem_id)
