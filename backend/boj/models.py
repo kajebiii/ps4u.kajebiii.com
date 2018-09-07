@@ -33,7 +33,7 @@ class Problem(problems.models.Problem):
     title = models.TextField()
     can_submit = models.BooleanField()
     description_length = models.IntegerField()
-    parent_contest = models.ManyToManyField(Contest)
+    parent_contest = models.ManyToManyField(Contest, blank=True)
 
     class Meta:
         ordering = ('id',)

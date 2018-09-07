@@ -11,7 +11,7 @@ class Problem(models.Model):
     implement_rating = models.IntegerField(default=-1)
     problem_summary = models.TextField(default="")
     solution_summary = models.TextField(default="")
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
         abstract = True
