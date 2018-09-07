@@ -1,8 +1,12 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework import generics
+from django.shortcuts import get_object_or_404
 from utility import safeData
+from .serializers import *
 from .models import Contest, Problem
 from django.db.models import Q
+import mypermissions
 import re
 
 
@@ -70,3 +74,13 @@ def get_problems_sort_by_description_length(request):
         'problems': problems_sort_by_description_length.values_list('id', flat=True),
         'description_lengths': problems_sort_by_description_length.values_list('description_length', flat=True)
     })
+
+
+class ProblemView(generics.RetrieveUpdateAPIView):
+    queryset = Problem.objects.all()
+    serializer_class = ProblemSerializer
+    permission_classes = (mypermissions.IsAdminUserOrReadOnly,)
+
+    def get_object(self):
+        problem_id = self.kwargs["problem_id"]
+        return get_object_or_404(Problem, id=problem_id)
