@@ -3,6 +3,7 @@ from django.db import models
 
 class Tag(models.Model):
     name = models.CharField(max_length=99, blank=False)
+    abbreviation = models.CharField(max_length=19, blank=False)
 
 
 class Problem(models.Model):
