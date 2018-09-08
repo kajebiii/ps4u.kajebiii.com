@@ -5,6 +5,9 @@ class Tag(models.Model):
     name = models.CharField(max_length=99, blank=False)
     abbreviation = models.CharField(max_length=19, blank=False, unique=True)
 
+    def __str__(self):
+        return '(%s) %s' % (self.abbreviation, self.name)
+
 
 class Problem(models.Model):
     thinking_rating = models.IntegerField(default=-1)
