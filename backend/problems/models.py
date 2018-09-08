@@ -12,8 +12,8 @@ class Tag(models.Model):
 class Problem(models.Model):
     thinking_rating = models.IntegerField(default=-1)
     implement_rating = models.IntegerField(default=-1)
-    problem_summary = models.TextField(default="")
-    solution_summary = models.TextField(default="")
+    problem_summary = models.TextField(default="", blank=True)
+    solution_summary = models.TextField(default="", blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
 
     class Meta:
