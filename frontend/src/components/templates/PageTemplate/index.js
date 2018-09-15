@@ -62,7 +62,7 @@ const PageTemplate = ( {handle_state, action_handle_logout, children, ...props} 
         </div>
         <div className="col-12 col-sm-4 text-center">
         <ul className="list-unstyled text-small">
-        <h5><a className="text-muted" href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a></h5>
+        <h5><a target="_blank" className="text-muted" href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a></h5>
         </ul>
         </div>
       </div>

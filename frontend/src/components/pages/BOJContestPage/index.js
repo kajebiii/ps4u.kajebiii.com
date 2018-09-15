@@ -65,14 +65,14 @@ class BOJContestPage extends React.Component {
           if(!this.state.show_can_not_all_solve && problems.length == 0) return
           return <div key={id}>
             <div className="d-flex justify-content-between">
-              <h5><a href={"https://acmicpc.net/category/detail/"+id}>{title}</a></h5>
+              <h5><a target="_blank" href={"https://acmicpc.net/category/detail/"+id}>{title}</a></h5>
               <p className="font-weight-light"><a href={"https://acmicpc.net/category/"+parent_id}>{parent_title}</a></p>
             </div>
             <div className="d-flex justify-content-between">
             {
               problems.map( (problem) => {
                 return (
-                  <a key={problem} href={"https://acmicpc.net/problem/"+problem}
+                  <a target="_blank" key={problem} href={"https://acmicpc.net/problem/"+problem}
                      className={problem in user_state ? (user_state[problem] === "AC" ? "AC" : "WA") : "NONE"}>
                     {problem}
                   </a>

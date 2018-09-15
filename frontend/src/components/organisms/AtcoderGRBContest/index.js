@@ -35,9 +35,9 @@ const getContestURL = (contest_id) => {return 'https://beta.atcoder.jp/contests/
 const getProblemURL = (contest_id, problem_id) => {return 'https://beta.atcoder.jp/contests/'+contest_id+'/tasks/'+problem_id+'/'}
 const getHypertext = (href, content, blank) => {
 	if(blank) 
-		return <a href={href}>{content}</a>
+		return <a target="blank"  href={href}>{content}</a>
 	else
-		return <a href={href} target="_blank">{content}</a>
+		return <a target="blank"  href={href} target="_blank">{content}</a>
 }
 
 const AtcoderGRBContest = ( {contests_state, inverse, children, ...props}) => {
