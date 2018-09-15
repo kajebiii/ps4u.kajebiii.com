@@ -30,7 +30,7 @@ class Contest(models.Model):
 
 class Problem(problems.models.Problem):
     id = models.IntegerField(primary_key=True)
-    title = models.TextField()
+    title = models.TextField(blank=True)
     can_submit = models.BooleanField()
     description_length = models.IntegerField()
     parent_contest = models.ManyToManyField(Contest, blank=True)
