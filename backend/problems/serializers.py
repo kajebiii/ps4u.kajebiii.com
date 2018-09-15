@@ -1,17 +1,24 @@
 from rest_framework import serializers
 from .models import *
+import boj.models
 
 
 class TagListSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Tag
         fields = ('id', 'name', 'abbreviation')
 
 
 class TagSerializer(serializers.ModelSerializer):
+    boj = serializers.SerializerMethodField(read_only=True)
+
     class Meta:
         model = Tag
-        fields = ('name', 'abbreviation')
+        fields = ('name', 'abbreviation', 'boj')
+
+    def get_boj(self, obj):
+        return boj.models.Problem.objects.filter(tags=obj.id).values_list('id', flat=True)
 
 
 class BaseProblemSerializer(serializers.ModelSerializer):
