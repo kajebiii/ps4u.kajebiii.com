@@ -4,10 +4,14 @@ import boj.models
 
 
 class TagListSerializer(serializers.ModelSerializer):
+    boj = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Tag
-        fields = ('id', 'name', 'abbreviation')
+        fields = ('id', 'name', 'abbreviation', 'boj')
+
+    def get_boj(self, obj):
+        return len(boj.models.Problem.objects.filter(tags=obj.id))
 
 
 class TagSerializer(serializers.ModelSerializer):
