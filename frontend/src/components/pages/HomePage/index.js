@@ -11,7 +11,7 @@ const HomePage = ( {user_state, children, ...props}) => {
       <h2>Announcement</h2>
       <ul>
       <li>
-        <p>추가하고 싶은 기능이 있으시면 <a href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a>에 Issue를 등록해주세요.</p>
+        <p>추가하고 싶은 기능이 있으시면 <a target="_blank" href="https://github.com/kajebiii/ps4u.kajebiii.com">GitHub</a>에 Issue를 등록해주세요.</p>
       </li>
       </ul>
       <h2>Login</h2>
@@ -44,6 +44,14 @@ const HomePage = ( {user_state, children, ...props}) => {
       <li>
         <Link to="/boj/length">BOJ Length List</Link><br/>
         <p>BOJ 문제들을 설명이 짧은 순서로 볼 수 있습니다.</p>
+      </li>
+      </ul>
+      <h2>Problems</h2>
+      <ul>
+      <li>
+        <Link to="/tag">Problem Tag</Link>
+        <br/>
+        <p>분류별로 문제를 볼 수 있습니다.</p>
       </li>
       </ul>
       <h2>Utility</h2>

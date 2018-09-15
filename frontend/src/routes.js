@@ -12,6 +12,8 @@ import { RealtimeMarkdownPage } from 'components'
 import { CppToImagePage } from 'components'
 import { BOJContestPage } from 'containers'
 import { BOJLengthPage } from 'containers'
+import { TagListPage } from 'containers'
+import { TagPage } from 'containers'
 
 export const routes = (store) => {
   const authRequired = (nextState, replace) => {
@@ -41,6 +43,9 @@ export const routes = (store) => {
       <Route path="code-to-image" component = {CppToImagePage} />
       <Route path="boj/contest" component = {BOJContestPage} />
       <Route path="boj/length" component = {BOJLengthPage} />
+      <Route path="tag" component = {TagListPage} />
+      <Route path="tag/:tag_id" component = {TagPage} />
+      
       <Route onEnter={authNotRequired}>
         <Route path="signup" component = {SignUpPage} />
       </Route>
