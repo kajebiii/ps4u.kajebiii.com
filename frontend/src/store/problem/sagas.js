@@ -22,7 +22,6 @@ export function* synchronize_tag_list() {
         if(response.ok){
             const result = yield call(() => response.json())
             yield put(actions.set_tag_list(result))
-            yield put(users_actions.send_alert('문제 분류 목록을 동기화했습니다.'))
         }else{
             yield put(users_actions.send_alert('문제 분류 목록 동기화에 실패했습니다.'))
         }
@@ -42,7 +41,6 @@ export function* get_tag_information(action) {
     if(response.ok){
         const result = yield call(() => response.json())
         yield put(actions.set_tag_information(result))
-        yield put(users_actions.send_alert('문제 분류를 가져왔습니다.'))
     }else{
         yield put(users_actions.send_alert('문제 분류를 가져오는데 실패했습니다.'))
     }

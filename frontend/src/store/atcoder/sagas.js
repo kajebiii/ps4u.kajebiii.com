@@ -19,10 +19,9 @@ export function* synchronize_atcoder_base_information() {
         if(response.ok){
             const result = yield call(() => response.json())
             yield put(actions.set_base_atcoder_information(result))
-            yield put(users_actions.send_alert('Atcoder 문제 정보를 동기화했습니다.'))
         }else{
             // TODO
-            yield put(users_actions.send_alert('Atcoder 문제 정보를 동기화에 실패했습니다.'))
+            yield put(users_actions.send_alert('Atcoder 문제 정보 동기화에 실패했습니다.'))
         }
         yield call(delay, 1000 * 60 * 60)
     }
@@ -40,9 +39,7 @@ export function* get_atcoder_user_information(action) {
     if(response.ok){
         const result = yield call(() => response.json())
         yield put(actions.set_user_atcoder_information(result))
-        yield put(users_actions.send_alert('Atcoder 사용자 정보를 가져왔습니다.'))
     }else{
-        //TODO
         yield put(users_actions.send_alert('Atcoder 사용자 정보를 가져오는데 실패했습니다.'))
     }
 }
