@@ -33,6 +33,7 @@ class TagPage extends React.Component {
     return (
       <PageTemplate {...props}>
       <h1>Tag Page</h1>
+      <h3><Link to="/tag">목록</Link></h3>
       <h2>{tag_information.name}</h2>
       <Wrapper>
 			<table className="table table-sm table-bordered table-condensed">
@@ -40,17 +41,24 @@ class TagPage extends React.Component {
         <tr>
           <td>출처</td>
           <td>문제</td>
+          <td>생각</td>
+          <td>구현</td>
         </tr>
       </thead>
       <tbody className="boj_problems">
       {
         tag_information.boj.map(info => {
-          return <tr key={info}>
+          const problem = info[0]
+          const thinking_rating = info[1]
+          const implement_rating = info[2]
+          return <tr key={problem}>
             <td>BOJ</td>
-            <td><a target="_blank" href={"https://acmicpc.net/problem/"+info}
-                className={info in user_state ? (user_state[info] === "AC" ? "AC" : "WA") : "NONE"}>
-              {info}
+            <td><a target="_blank" href={"https://acmicpc.net/problem/"+problem}
+                className={problem in user_state ? (user_state[problem] === "AC" ? "AC" : "WA") : "NONE"}>
+              {problem}
             </a></td>
+            <td>{thinking_rating}</td>
+            <td>{implement_rating}</td>
           </tr>
         })
       }

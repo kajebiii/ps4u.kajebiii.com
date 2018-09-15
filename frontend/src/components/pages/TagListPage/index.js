@@ -20,7 +20,7 @@ class TagListPage extends React.Component {
         <tr>
           <td>태그</td>
           <td>분류</td>
-          <td>문제</td>
+          <td>BOJ</td>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +29,7 @@ class TagListPage extends React.Component {
           return <tr key={tag.id}>
             <td>{tag.abbreviation}</td>
             <td><Link to={props.location.pathname + '/' + tag.id}>{tag.name}</Link></td>
-            <td>TODO</td>
+            <td>{tag.boj}</td>
           </tr>
         })
       }
