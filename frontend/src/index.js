@@ -10,14 +10,27 @@ import configureStore from 'store/configure'
 
 import routes from 'routes'
 
+import { initialUserState, initialHandleState } from 'store/users/reducer'
+/*
+import { initialAtcoderState } from 'store/atcoder/reducer'
+import { initialBojState } from 'store/boj/reducer'
+import { initialTagState } from 'store/problem/reducer'
+*/
+
 const baseHistory = useRouterHistory(createHistory)({ basename: process.env.PUBLIC_PATH })
-var initialState = {users:{user_state:{
-  id: 0,
-  nickname: "",
-  token: "",
-}}}
-if(localStorage.getItem("user_info")){
-  initialState = {users:{user_state:JSON.parse(localStorage.getItem("user_info"))}}
+var initialState = {
+  users:{user_state: initialUserState, handle_state: initialHandleState},
+  /*
+  atcoder:{atcoder_state: initialAtcoderState},
+  boj:{boj_state: initialBojState},
+  problem:{tag_state: initialTagState},
+  */
+}
+if(localStorage.getItem("user_info")) {
+  initialState.users.user_state = {...initialState.users.user_state, ...JSON.parse(localStorage.getItem("user_info"))}
+}
+if(localStorage.getItem("handle_info")) {
+  initialState.users.handle_state = {...initialState.users.handle_state, ...JSON.parse(localStorage.getItem("handle_info"))}
 }
 const store = configureStore(initialState, baseHistory)
 const history = syncHistoryWithStore(baseHistory, store)

@@ -113,6 +113,8 @@ export function* handle_login(action){
     yield put(actions.send_alert('로그인하였습니다.'))
     yield put(boj_actions.boj_login(boj))
     yield put(atcoder_actions.atcoder_login(atcoder))
+
+    localStorage.setItem("handle_info", JSON.stringify({boj, atcoder}))
 }
 
 export function* handle_logout(action){
@@ -121,6 +123,8 @@ export function* handle_logout(action){
     yield put(actions.send_alert('로그아웃하였습니다.'))
     yield put(boj_actions.boj_logout())
     yield put(atcoder_actions.atcoder_logout())
+
+    localStorage.setItem("handle_info", JSON.stringify({boj: "", atcoder: ""}))
 }
 
 export function* get_kajebiii_boj_source_by_problem(action) {
@@ -141,7 +145,15 @@ export function* get_kajebiii_boj_source_by_problem(action) {
         yield put(actions.send_alert(`BOJ ${boj_problem}번 코드를 가져오는데 실패했습니다.`))
     }
 }
+
+export function* synchronize_handle_information() {
+    const handle_state = yield select((state) => state.users.handle_state)
+    const {boj, atcoder} = handle_state
+    yield put(actions.set_handle(boj, atcoder))
+}
 export default function* () {
+    yield fork(synchronize_handle_information)
+
     yield takeEvery(actions.USER_LOGIN, watchLogin)
     yield takeEvery(actions.VALIDATE_TOKEN, watchValidateToken)
     yield takeEvery(actions.SET_USERINFO, watchUSERINFO)

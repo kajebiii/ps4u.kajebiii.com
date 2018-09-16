@@ -37,7 +37,7 @@ const getHypertext = (href, content, blank) => {
 	if(blank) 
 		return <a href={href}>{content}</a>
 	else
-		return <a href={href} target="_blank">{content}</a>
+		return <a target="_blank" href={href}>{content}</a>
 }
 
 const AtcoderGRBContest = ( {contests_state, inverse, children, ...props}) => {

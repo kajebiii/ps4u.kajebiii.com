@@ -32,11 +32,11 @@ const alert_state = (alert_state = initialAlertState, action) => {
     }
 }
 
-const initialHanldeState = {
+const initialHandleState = {
     boj: "",
     atcoder: "",
 }
-const handle_state = (handle_state = initialHanldeState, action) => {
+const handle_state = (handle_state = initialHandleState, action) => {
     switch(action.type) {
         case actions.SET_HANDLE:
             return {...handle_state, boj: action.boj, atcoder: action.atcoder}

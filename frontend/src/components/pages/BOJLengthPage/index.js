@@ -51,7 +51,7 @@ class BOJLengthPage extends React.Component {
           const description_length = problems_sort_by_length.description_lengths[index]
           if(!this.state.show_solve && problem in user_state && user_state[problem] === "AC") return
           return <span key={index}>
-            <a className={
+            <a target="_blank" className={
               problem in user_state ? (user_state[problem] === "AC" ? "AC" : "WA") : "NONE"
             } href={'https://acmicpc.net/problem/'+problem}>{problem}</a>
             <span>({description_length} B) </span>
