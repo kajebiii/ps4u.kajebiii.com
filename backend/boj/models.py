@@ -1,4 +1,5 @@
 from django.db import models
+import problems.models
 
 
 class Category(models.Model):
@@ -27,12 +28,12 @@ class Contest(models.Model):
         return 'Contest %s: %s' % (self.id, self.title)
 
 
-class Problem(models.Model):
+class Problem(problems.models.Problem):
     id = models.IntegerField(primary_key=True)
-    title = models.TextField()
+    title = models.TextField(blank=True)
     can_submit = models.BooleanField()
     description_length = models.IntegerField()
-    parent_contest = models.ManyToManyField(Contest)
+    parent_contest = models.ManyToManyField(Contest, blank=True)
 
     class Meta:
         ordering = ('id',)

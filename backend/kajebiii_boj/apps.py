@@ -19,7 +19,7 @@ def safeData(isPost=False, url="https://www.acmicpc.net", data={}):
             break
         except:
             print("Internet connection is Bad (in safeData)")
-            time.sleep(20)
+            time.sleep(60)
     return returnVal
 
 

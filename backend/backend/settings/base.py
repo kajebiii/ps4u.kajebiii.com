@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'atcoder',
     'boj',
     'kajebiii_boj',
+    'problems'
 ]
 
 MIDDLEWARE = [

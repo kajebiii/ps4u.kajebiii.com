@@ -5,7 +5,7 @@ class Submission(models.Model):
     submission = models.IntegerField()
     problem = models.IntegerField()
     result = models.CharField(max_length=9)
-    source = models.CharField(max_length=99999)
+    source = models.TextField()
     language = models.CharField(max_length=99)
 
     class Meta:
