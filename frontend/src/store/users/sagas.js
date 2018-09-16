@@ -150,6 +150,8 @@ export function* synchronize_handle_information() {
     const handle_state = yield select((state) => state.users.handle_state)
     const {boj, atcoder} = handle_state
     yield put(actions.set_handle(boj, atcoder))
+    yield put(boj_actions.boj_login(boj))
+    yield put(atcoder_actions.atcoder_login(atcoder))
 }
 export default function* () {
     yield fork(synchronize_handle_information)
